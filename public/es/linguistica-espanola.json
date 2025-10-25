@@ -1,0 +1,30 @@
+{
+  "language": "es",
+  "path_en": "/spanish-linguistics.html",
+  "path_es": "/es/linguistica-espanola.html",
+  "alternateLanguage": {
+    "lang": "en",
+    "url": "https://spanishacademic.com/spanish-linguistics.html",
+    "title": "[EN version]"
+  },
+  "title": "Programas de Doctorado y Maestría en Lingüística Española",
+  "description": "Directorio completo de programas de posgrado en lingüística española. Encuentre programas de doctorado y maestría en lingüística hispánica.",
+  "h1": "Programas de Posgrado en Lingüística Española",
+  "canonical": "https://spanishacademic.com/es/linguistica-espanola.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/spanish-linguistics.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/linguistica-espanola.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/spanish-linguistics.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.630Z"
+}

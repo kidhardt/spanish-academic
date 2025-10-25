@@ -1,0 +1,30 @@
+{
+  "language": "es",
+  "path_en": "/translation-and-interpreting.html",
+  "path_es": "/es/traduccion-e-interpretacion.html",
+  "alternateLanguage": {
+    "lang": "en",
+    "url": "https://spanishacademic.com/translation-and-interpreting.html",
+    "title": "[EN version]"
+  },
+  "title": "Programas de Posgrado en Traducción e Interpretación",
+  "description": "Directorio de programas de posgrado en traducción e interpretación. Encuentre programas de maestría y doctorado en traducción español-inglés.",
+  "h1": "Programas de Traducción e Interpretación",
+  "canonical": "https://spanishacademic.com/es/traduccion-e-interpretacion.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/translation-and-interpreting.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/traduccion-e-interpretacion.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/translation-and-interpreting.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.614Z"
+}

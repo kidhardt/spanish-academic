@@ -1,0 +1,30 @@
+{
+  "language": "en",
+  "path_en": "/translation-and-interpreting.html",
+  "path_es": "/es/traduccion-e-interpretacion.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanishacademic.com/es/traduccion-e-interpretacion.html",
+    "title": "[ES version]"
+  },
+  "title": "Translation & Interpreting Graduate Programs - Directory",
+  "description": "Directory of graduate programs in translation and interpreting. Find MA and PhD programs in Spanish-English translation, conference interpreting, and literary translation.",
+  "h1": "Translation and Interpreting Programs",
+  "canonical": "https://spanishacademic.com/translation-and-interpreting.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/translation-and-interpreting.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/traduccion-e-interpretacion.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/translation-and-interpreting.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.617Z"
+}

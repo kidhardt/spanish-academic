@@ -1,0 +1,30 @@
+{
+  "language": "en",
+  "path_en": "/test-base-template.html",
+  "path_es": "/es/test-base-template.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanishacademic.com/es/test-base-template.html",
+    "title": "[ES version]"
+  },
+  "title": "Spanish Linguistics PhD Programs - Spanish Academic",
+  "description": "Compare Spanish linguistics PhD programs: funding packages, research focus, admission requirements. Find the right doctoral program for your research.",
+  "h1": "Spanish Linguistics PhD Programs",
+  "canonical": "https://spanishacademic.com/test-base-template.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/test-base-template.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/test-base-template.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/test-base-template.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.620Z"
+}
