@@ -1,0 +1,34 @@
+{
+  "language": "en",
+  "path_en": "/test/sample-page.html",
+  "path_es": "/es/test/pagina-de-muestra.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanish-academic.com/es/test/pagina-de-muestra.html",
+    "title": "[ES version]"
+  },
+  "title": "Graduate Programs in Spanish Linguistics - Comprehensive Guide",
+  "description": "Explore top PhD and MA programs in Spanish linguistics. Learn about funding, research areas, and application requirements for graduate study in Hispanic linguistics.",
+  "h1": "Graduate Programs in Spanish Linguistics",
+  "canonical": "https://spanish-academic.com/test/sample-page.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanish-academic.com/test/sample-page.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanish-academic.com/es/test/pagina-de-muestra.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanish-academic.com/test/sample-page.html"
+    }
+  ],
+  "seoIntent": {
+    "keyword": "graduate programs Spanish linguistics",
+    "audience": "Prospective PhD students researching Spanish linguistics programs",
+    "lastReviewed": "2025-10-24"
+  },
+  "generatedAt": "2025-10-25T03:21:17.363Z"
+}

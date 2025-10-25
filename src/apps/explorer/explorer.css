@@ -1,0 +1,12 @@
+/* Explorer-specific styles */
+.explorer {
+  /* Mobile-first styles */
+  padding: 1rem;
+}
+
+/* Progressive enhancement for larger screens */
+@media (min-width: 768px) {
+  .explorer {
+    padding: 2rem;
+  }
+}

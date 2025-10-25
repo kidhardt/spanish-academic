@@ -1,0 +1,12 @@
+/* Contact form-specific styles */
+.contact-form {
+  /* Mobile-first styles */
+  padding: 1rem;
+}
+
+/* Progressive enhancement for larger screens */
+@media (min-width: 768px) {
+  .contact-form {
+    padding: 2rem;
+  }
+}

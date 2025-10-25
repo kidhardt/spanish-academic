@@ -1,0 +1,2 @@
+import{j as e,R as o}from"./form-vendor-CggjuYX3.js";import{R as t}from"./client-CygO0BdX.js";import"./react-vendor-DEQ385Nk.js";const r=()=>e.jsxs("div",{className:"chat",children:[e.jsx("h2",{children:"Ask a Question"}),e.jsx("p",{children:"AI-powered chat interface coming soon..."})]}),n=document.getElementById("chat-root");if(!n)throw new Error("Chat root element not found. Ensure #chat-root exists in the HTML.");t.createRoot(n).render(e.jsx(o.StrictMode,{children:e.jsx(r,{})}));
+//# sourceMappingURL=chat-Cx0_WXX1.js.map

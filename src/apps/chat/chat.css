@@ -1,0 +1,12 @@
+/* Chat-specific styles */
+.chat {
+  /* Mobile-first styles */
+  padding: 1rem;
+}
+
+/* Progressive enhancement for larger screens */
+@media (min-width: 768px) {
+  .chat {
+    padding: 2rem;
+  }
+}

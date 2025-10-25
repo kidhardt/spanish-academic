@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --version:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(curl:*)",
+      "Bash(bash)",
+      "Bash(go version:*)",
+      "Bash(go install:*)",
+      "Bash(bd version:*)",
+      "Bash(bd init:*)",
+      "Bash(bd ready:*)",
+      "Bash(bd list:*)",
+      "Bash(bd create:*)",
+      "Bash(bd dep add:*)",
+      "Bash(bd update:*)",
+      "Bash(node -e:*)",
+      "Bash(mkdir:*)",
+      "Bash(bd close:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm install)",
+      "Bash(npm run generate-json:*)",
+      "Bash(npm run continue:*)",
+      "Bash(npm run build-categories:*)",
+      "Bash(npm run generate-sitemap:*)",
+      "Bash(npm run validate-localization:*)",
+      "Bash(npm run accessibility-scan:*)",
+      "Bash(cat:*)",
+      "Bash(chmod:*)",
+      "Bash(npm run lighthouse:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

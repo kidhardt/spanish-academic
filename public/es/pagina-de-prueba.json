@@ -1,0 +1,34 @@
+{
+  "language": "es",
+  "path_en": "/test-page.html",
+  "path_es": "/es/pagina-de-prueba.html",
+  "alternateLanguage": {
+    "lang": "en",
+    "url": "https://spanish-academic.com/test-page.html",
+    "title": "[EN version]"
+  },
+  "title": "Página de Prueba para Programas de Posgrado en Lingüística",
+  "description": "Una página de prueba completa que demuestra la estructura de metadatos adecuada para Spanish Academic, incluyendo optimización SEO, soporte bilingüe y características de accesibilidad.",
+  "h1": "Página de Prueba para Programas de Posgrado en Lingüística",
+  "canonical": "https://spanish-academic.com/es/pagina-de-prueba.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanish-academic.com/test-page.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanish-academic.com/es/pagina-de-prueba.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanish-academic.com/test-page.html"
+    }
+  ],
+  "seoIntent": {
+    "keyword": "programas de posgrado lingüística española",
+    "audience": "estudiantes de posgrado investigando programas de lingüística española",
+    "lastReviewed": "2025-10-24"
+  },
+  "generatedAt": "2025-10-25T03:21:17.377Z"
+}

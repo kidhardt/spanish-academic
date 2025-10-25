@@ -1,0 +1,64 @@
+{
+  "name": "spanish-academic",
+  "version": "1.0.0",
+  "description": "Authoritative, bilingual platform for graduate programs in Spanish Linguistics, Literature, and Translation",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "generate-json": "node scripts/generate_page_json.js",
+    "build-categories": "node scripts/build_categories.js",
+    "generate-sitemap": "node scripts/generate_sitemap.js",
+    "validate-localization": "node scripts/validate_localization.js",
+    "accessibility-scan": "node scripts/accessibility-scan.js",
+    "data-governance-scan": "node scripts/data-governance-scan.js",
+    "lighthouse": "bash scripts/lighthouse_ci.sh",
+    "validate-all": "npm run generate-json && npm run build-categories && npm run generate-sitemap && npm run validate-localization && npm run accessibility-scan && npm run data-governance-scan",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
+    "type-check": "tsc --noEmit",
+    "continue": "node scripts/execute_continuation.js"
+  },
+  "dependencies": {
+    "@tanstack/react-form": "^1.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "cheerio": "^1.0.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "glob": "^11.0.0",
+    "lighthouse": "^12.3.1",
+    "prettier": "^3.4.2",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "terser": "^5.44.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kidhardt/spanish-academic.git"
+  },
+  "keywords": [
+    "spanish-linguistics",
+    "graduate-programs",
+    "academic",
+    "bilingual",
+    "education"
+  ],
+  "author": "",
+  "license": "MIT"
+}

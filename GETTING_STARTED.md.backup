@@ -1,0 +1,520 @@
+# Getting Started with Spanish Academic 2026
+
+This guide walks you through the implementation roadmap, organized by priority and dependencies.
+
+## Current Status
+
+✅ **92 beads created and tracked** in the beads system
+✅ **10 Priority 1 beads ready** to start immediately
+✅ **Project structure defined** with mobile-first, localization-first, and SEO-first principles
+✅ **Architecture documented** in [README.md](README.md) and [CLAUDE.md](CLAUDE.md)
+✅ **Phase 1 complete:** [MOBILE_FIRST.md](docs/MOBILE_FIRST.md) and [LOCALIZATION_FIRST.md](docs/LOCALIZATION_FIRST.md) created
+
+---
+
+## Phase 1: Foundation Documents (Week 1, Days 1-2) ✅ COMPLETE
+
+**Goal:** Document the architectural principles that govern all implementation decisions.
+
+### Bead 1: Document mobile-first design principles ✅
+**ID:** spanish-academic-44 (CLOSED)
+**Why first:** Every HTML template, CSS file, and React component depends on these rules.
+
+**Completed:** [MOBILE_FIRST.md](docs/MOBILE_FIRST.md) created with:
+- Breakpoint strategy: 320px (base), 768px+ (tablet), 1024px+ (desktop)
+- Touch target minimum: 44x44px
+- CSS approach: single-column base, progressive enhancement via `min-width` only
+- Performance = credibility principle
+- Validation checklist and common pitfalls
+
+---
+
+### Bead 2: Document localization-first principles ✅
+**ID:** spanish-academic-45 (CLOSED)
+**Why second:** Templates and build scripts need to know the bilingual architecture.
+
+**Completed:** [LOCALIZATION_FIRST.md](docs/LOCALIZATION_FIRST.md) created with:
+- URL mirroring: `/` ↔ `/es/`
+- Slug translation approach and mapping system
+- `path_en`/`path_es` metadata system
+- Hreflang implementation (bidirectional, self-referential, x-default)
+- Language switcher requirements
+- Bilingual data model patterns
+- JSON twin system
+- React component localization
+
+---
+
+## Phase 2: Physical Structure & Build Scripts (Week 1, Days 3-6)
+
+**Goal:** Create the directory structure and build automation scripts that define the metadata contract and validation rules for all HTML templates.
+
+**CRITICAL INSIGHT:** Build scripts BEFORE templates. Why?
+1. Scripts define the metadata structure templates must follow
+2. You can validate each template as you create it (no rework)
+3. Industry practice: SSG build tools come before content
+4. See [docs/PHASE_ORDER_RATIONALE.md](docs/PHASE_ORDER_RATIONALE.md) for detailed reasoning
+
+---
+
+### Bead 3: Implement URL mirroring structure
+**ID:** spanish-academic-46
+**Why third:** Physical directories must exist before creating files.
+
+**Tasks:**
+- Create `/public/` directory structure
+- Create `/public/es/` mirror structure
+- Create subdirectories:
+  - `/public/programs/` ↔ `/public/es/programas/`
+  - `/public/insights/` ↔ `/public/es/insights/`
+  - `/public/help/` ↔ `/public/es/ayuda/`
+  - `/public/explorer/` ↔ `/public/es/explorador/`
+  - `/public/contact/` ↔ `/public/es/contacto/`
+- Create placeholder `index.html` in both roots
+- Create `.gitkeep` files in empty directories
+
+**Acceptance criteria:**
+- Directory structure mirrors `/` ↔ `/es/`
+- All major content directories exist
+- Placeholder index pages in place
+- Ready to receive templates and static assets
+
+**Estimated time:** 10 minutes
+
+---
+
+### Bead 4: Create slug translation mapping system
+**ID:** spanish-academic-47
+**Why fourth:** All build scripts need this for bilingual URL generation.
+
+**Tasks:**
+- Create `/src/utils/slugTranslations.ts`
+- Define `slugTranslations` object with common term mappings:
+  - Directory level: `help` → `ayuda`, `programs` → `programas`, etc.
+  - Degree types: `phd` → `doctorado`, `ma` → `maestria`
+  - Subject areas: `linguistics` → `linguistica`, `literature` → `literatura`
+  - Common terms: `funding` → `financiacion`, `visa` → `visa`, etc.
+- Implement `translateSlug(slug: string, targetLang: 'en' | 'es'): string` function
+- Add TypeScript types for language codes
+
+**Acceptance criteria:**
+- TypeScript file compiles without errors
+- Mapping includes 20+ common terms
+- `translateSlug()` function works bidirectionally
+- Well-commented and documented
+
+**Estimated time:** 15 minutes
+
+---
+
+### Bead 5: Build generate_page_json.js script
+**ID:** spanish-academic-1
+**Why fifth:** Most fundamental script - defines the metadata contract all templates must follow.
+
+**Tasks:**
+- Create `/scripts/generate_page_json.js`
+- Use cheerio to parse HTML metadata from all `.html` files in `/public/`
+- Extract SEO_INTENT comment block data (keyword, audience, last_reviewed)
+- Validate title length (50-60 chars)
+- Validate meta description length (140-160 chars)
+- Check for H1 presence
+- Generate `.json` twin with:
+  - `language` (en or es)
+  - `alternateLanguage` (link to counterpart)
+  - `path_en` / `path_es`
+  - `seoIntent` object
+  - Page content metadata
+- **MUST generate BOTH** `/path.json` AND `/es/path.json`
+- Script already configured in `package.json`
+
+**Acceptance criteria:**
+- Script generates .json twins for all HTML pages
+- Both English and Spanish versions created
+- SEO_INTENT data extracted correctly
+- Validation errors logged to console
+- npm script runs successfully: `npm run generate-json`
+
+**Estimated time:** 45 minutes
+
+---
+
+### Bead 6: Build validate_localization.js script
+**ID:** spanish-academic-4
+**Why sixth:** Validates bilingual parity - critical for preventing localization decay.
+
+**Tasks:**
+- Create `/scripts/validate_localization.js`
+- Walk `/public/` and `/public/es/` directory trees
+- Verify every page has `path_en`/`path_es` metadata
+- Check hreflang bidirectionality (en → es, es → en)
+- Audit structured data files for `*_es` fields
+- Report missing Spanish counterparts
+- Flag pages without language switcher
+- Script already configured in `package.json`
+
+**Acceptance criteria:**
+- Script walks both directory trees
+- Validates path_en/path_es metadata
+- Checks hreflang links
+- Audits bilingual structured data
+- Clear error reporting with file paths
+- npm script runs successfully: `npm run validate-localization`
+
+**Estimated time:** 30 minutes
+
+---
+
+### Bead 7: Build accessibility-scan.js script
+**ID:** spanish-academic-5
+**Why seventh:** Ensures WCAG AA compliance + SEO accessibility.
+
+**Tasks:**
+- Create `/scripts/accessibility-scan.js`
+- Use cheerio to parse HTML structure
+- Validate heading hierarchy (H1 → H2 → H3, no skipping)
+- Check alt text for all meaningful images
+- Flag vague link anchors ("click here", "read more", bare URLs)
+- Verify semantic HTML (`<main>`, `<article>`, `<section>`)
+- Check lang attributes on `<html>`
+- Validate contrast ratios (WCAG AA minimum 4.5:1 for text)
+- Check focus indicators on interactive elements
+- Script already configured in `package.json`
+
+**Acceptance criteria:**
+- Heading hierarchy validated
+- Alt text checked (images without alt flagged)
+- Link anchors validated (vague text flagged)
+- Semantic HTML verified
+- WCAG AA checks pass
+- npm script runs successfully: `npm run accessibility-scan`
+
+**Estimated time:** 45 minutes
+
+---
+
+## Phase 3: HTML Base Templates (Week 1, Day 7)
+
+**Goal:** Create validated, reusable base templates that all pages inherit from.
+
+**NOW you can create templates because:**
+- Directory structure exists (Phase 2, Bead 3)
+- Slug translation system ready (Phase 2, Bead 4)
+- Validation scripts ready to check your work (Phase 2, Beads 5-7)
+
+---
+
+### Bead 8: Create HTML base templates
+**ID:** spanish-academic-8
+**Why eighth:** Every page type inherits from this template.
+
+**Tasks:**
+- Create `/templates/base.html` (English)
+- Create `/templates/base-es.html` (Spanish)
+- Implement SEO_INTENT comment block with placeholders
+- Add `<title>` (50-60 chars with keyword placeholder)
+- Add `<meta name="description">` (140-160 chars placeholder)
+- Add canonical URL + hreflang links (using path_en/path_es)
+- Add single `<h1>` with keyword placeholder
+- Add `<html lang="en|es">`
+- Add mobile viewport meta tag
+- Add visible language switcher (Español/English) in header
+- Include `path_en`/`path_es` metadata
+- Use semantic HTML5 elements (`<header>`, `<main>`, `<footer>`, `<nav>`)
+- Ensure WCAG AA compliance (contrast, focus indicators)
+- After creation, run validation scripts to verify
+
+**Acceptance criteria:**
+- Base template includes all required meta tags
+- Language switcher visible in header (44x44px tap targets)
+- Mobile viewport configured
+- Passes `npm run accessibility-scan`
+- Passes `npm run validate-localization`
+- Both English and Spanish versions created
+- Ready to clone for specific page types
+
+**Estimated time:** 60 minutes
+
+---
+
+### Bead 9: Enforce path_en/path_es metadata in templates
+**ID:** spanish-academic-48
+**Why ninth:** Verify templates have proper bilingual metadata.
+
+**Tasks:**
+- Review base templates for `path_en`/`path_es` metadata
+- Ensure metadata format matches what `generate_page_json.js` expects
+- Run `npm run validate-localization` to verify
+- Fix any validation errors
+- Document metadata requirements in template comments
+
+**Acceptance criteria:**
+- Both base templates have path_en/path_es metadata
+- Validation script passes
+- Template comments explain metadata usage
+
+**Estimated time:** 15 minutes
+
+---
+
+### Bead 10: Implement mandatory lang attribute and hreflang links
+**ID:** spanish-academic-49
+**Why tenth:** Verify all localization requirements are met.
+
+**Tasks:**
+- Verify `<html lang="en|es">` in both templates
+- Verify hreflang links are bidirectional and self-referential
+- Include x-default hreflang pointing to English version
+- Run `npm run validate-localization` to verify
+- Run `npm run accessibility-scan` to verify lang attribute
+
+**Acceptance criteria:**
+- Lang attribute present and correct
+- Hreflang links bidirectional
+- x-default hreflang included
+- All validation scripts pass
+
+**Estimated time:** 15 minutes
+
+---
+
+## Phase 4: Additional Build Scripts (Week 2, Days 1-2)
+
+**Goal:** Complete remaining build automation scripts.
+
+---
+
+### Bead 11: Build generate_sitemap.js script
+**ID:** spanish-academic-3
+**Why eleventh:** Required for search engine indexing.
+
+**Tasks:**
+- Create `/scripts/generate_sitemap.js`
+- Scan `/public/` for all published HTML pages
+- Include both `/...` and `/es/...` URLs
+- Group by category (from frontmatter/metadata)
+- Generate `/public/insights/categories/[category-slug].html` with:
+  - SEO_INTENT block (category name as keyword)
+  - Optimized title/meta
+  - Single H1
+  - 150-word category intro
+  - List of articles with abstracts
+  - Descriptive link anchors
+  - CollectionPage schema
+- Repeat for Spanish: `/public/es/insights/categorias/[category-slug].html`
+- Generate JSON twins for category pages
+- Add to `package.json`: `"build-categories": "node scripts/build_categories.js"`
+
+**Acceptance criteria:**
+- Category pages auto-generated for both languages
+- Articles grouped correctly by category
+- SEO structure complete (title, meta, H1, intro)
+- JSON twins created
+- npm script runs successfully
+
+---
+
+### Bead 8: Build generate_sitemap.js
+**ID:** spanish-academic-3
+**Why eighth:** Required for search engine indexing.
+
+**Tasks:**
+- Create `/scripts/generate_sitemap.js`
+- Scan `/public/` for all published HTML pages
+- Include both `/...` and `/es/...` URLs
+- Extract `LAST_REVIEWED` from SEO_INTENT block for `<lastmod>`
+- Set priority based on page type:
+  - Programs: 0.8
+  - Insights: 0.7
+  - Help/Q&A: 0.6
+  - Category pages: 0.5
+- Generate `/public/sitemap.xml`
+- Validate against sitemap schema
+- Add to `package.json`: `"generate-sitemap": "node scripts/generate_sitemap.js"`
+
+**Acceptance criteria:**
+- sitemap.xml includes all published pages
+- Both languages included
+- lastmod dates correct
+- Priority values assigned
+- Validates against sitemap.org schema
+- npm script runs successfully
+
+---
+
+### Bead 9: Build validate_localization.js
+**ID:** spanish-academic-4
+**Why ninth:** Prevents localization decay over time.
+
+**Tasks:**
+- Create `/scripts/validate_localization.js`
+- Walk `/public/` and `/public/es/`
+- Verify every page has `path_en`/`path_es` metadata
+- Check hreflang bidirectionality (en → es, es → en)
+- Audit structured data for `*_es` fields
+- Report missing Spanish counterparts
+- Flag pages without language switcher
+- Add to `package.json`: `"validate-localization": "node scripts/validate_localization.js"`
+
+**Acceptance criteria:**
+- Script walks both directory trees
+- Validates path_en/path_es metadata
+- Checks hreflang links
+- Audits bilingual structured data
+- Clear error reporting
+- npm script runs successfully
+
+---
+
+### Bead 10: Build accessibility-scan.js
+**ID:** spanish-academic-5
+**Why tenth:** Ensures WCAG AA compliance + SEO accessibility.
+
+**Tasks:**
+- Create `/scripts/accessibility-scan.js`
+- Validate heading hierarchy (H1 → H2 → H3, no skipping)
+- Check alt text for all meaningful images
+- Flag vague link anchors ("click here", "read more")
+- Verify semantic HTML (`<main>`, `<article>`, `<section>`)
+- Check lang attributes on `<html>`
+- Validate contrast ratios (WCAG AA)
+- Check focus indicators on interactive elements
+- Add to `package.json`: `"accessibility-scan": "node scripts/accessibility-scan.js"`
+
+**Acceptance criteria:**
+- Heading hierarchy validated
+- Alt text checked
+- Link anchors validated
+- Semantic HTML verified
+- WCAG AA checks pass
+- npm script runs successfully
+
+---
+
+## Phase 4: Page Templates (Week 3)
+
+After Phase 3, you'll be ready to tackle the Priority 2 beads:
+
+- **spanish-academic-9**: Build Program List pages
+- **spanish-academic-10**: Create Program Detail page template
+- **spanish-academic-11**: Build Insights article template
+- **spanish-academic-12**: Build Help/Q&A page template
+
+These templates inherit from the base template (spanish-academic-8) and use the build scripts created in Phase 3.
+
+---
+
+## Phase 5: React Components & Interactive Islands (Week 4-5)
+
+After templates are done:
+
+- **spanish-academic-14**: Create language dictionaries (en.ts, es.ts)
+- **spanish-academic-15**: Build Explorer React app
+- **spanish-academic-20**: Build Help Chat component
+- **spanish-academic-21**: Build Contact Form
+- **spanish-academic-16-19**: Implement Explorer tabs (Map, Compare, Match/Chat, lazy loading)
+
+---
+
+## Phase 6: Claude Skills (Week 6)
+
+Automate validation and governance:
+
+- **spanish-academic-23**: mobile-first-audit Claude Skill
+- **spanish-academic-24**: localization-check Claude Skill
+- **spanish-academic-25**: page-json-sync Claude Skill
+- **spanish-academic-26**: build-category-pages Claude Skill
+- **spanish-academic-27**: accessibility-scan Claude Skill
+- **spanish-academic-28**: performance-budget Claude Skill
+- **spanish-academic-29**: data-governance-scan Claude Skill
+- **spanish-academic-90**: SEO compliance Claude Skill
+
+---
+
+## Phase 7: Content Creation (Week 7-8)
+
+With all infrastructure in place:
+
+- **spanish-academic-34**: Seed initial program data
+- **spanish-academic-37**: Write initial Insights articles
+- **spanish-academic-38**: Write initial Help/Q&A pages
+
+---
+
+## Phase 8: Validation & Deployment (Week 9-10)
+
+Final checks before launch:
+
+- **spanish-academic-39**: Run full validation suite
+- **spanish-academic-40**: Verify Lighthouse scores >90 on mobile
+- **spanish-academic-41**: Test bilingual navigation
+- **spanish-academic-42**: Deploy to SiteGround production
+- **spanish-academic-43**: Verify production deployment
+
+---
+
+## Daily Workflow
+
+### Starting a new bead
+
+```bash
+# Check what's ready to work on
+bd ready --json
+
+# Start working on a bead
+bd update spanish-academic-44 --status in_progress
+```
+
+### While working
+
+- Follow the architecture principles in [CLAUDE.md](CLAUDE.md)
+- Use the base templates created in Phase 2
+- Run relevant scripts from Phase 3 to validate your work
+
+### Completing a bead
+
+```bash
+# Mark as completed
+bd close spanish-academic-44 --reason "Documentation complete, principles defined"
+
+# Run validation
+npm run validate-all  # (after scripts are built)
+```
+
+---
+
+## Key Commands Reference
+
+```bash
+# Beads management
+bd ready              # Show ready beads
+bd list               # Show all beads
+bd update <id>        # Update bead status
+bd close <id>         # Mark bead complete
+
+# Build & validation (after Phase 3)
+npm run generate-json           # Create JSON twins
+npm run build-categories        # Generate category pages
+npm run generate-sitemap        # Create sitemap
+npm run validate-localization   # Check bilingual parity
+npm run accessibility-scan      # WCAG AA validation
+npm run lighthouse              # Performance audit
+npm run validate-all            # Run all validation scripts
+
+# Development
+npm run dev           # Start Vite dev server
+npm run build         # Build React islands for production
+```
+
+---
+
+## Need Help?
+
+- **Architecture questions:** See [README.md](README.md)
+- **AI agent rules:** See [CLAUDE.md](CLAUDE.md)
+- **Beads workflow:** See [AGENTS.md](AGENTS.md)
+- **Mobile-first principles:** See `/docs/MOBILE_FIRST.md` (create in Phase 1)
+- **Localization principles:** See `/docs/LOCALIZATION_FIRST.md` (create in Phase 1)
+
+---
+
+**You're ready to start! Begin with spanish-academic-44 (mobile-first documentation) and follow the phases in order.**
