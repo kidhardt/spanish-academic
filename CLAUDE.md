@@ -93,10 +93,12 @@ Content dealing with **immigration/visa**, **AI ethics/disclosure**, **academic 
 
 ### RULE 6: PERFORMANCE BUDGET
 
-- Initial JavaScript bundle < 250KB
+- Initial HTML payload < 50KB uncompressed (per page)
+- Initial JavaScript bundle < 250KB (per React island)
 - Lazy-load heavy components (maps, charts) in Explorer
 - No render-blocking resources
-- Run `npm run lighthouse` to verify
+- Run `npm run html-size-check` to verify HTML size
+- Run `npm run lighthouse` to verify overall performance
 
 ### RULE 7: SEMANTIC HTML, ACADEMIC TONE
 
@@ -136,8 +138,9 @@ All scripts live in `/scripts/`:
 3. **`generate_sitemap.js`** - Create `sitemap.xml` from all published pages
 4. **`validate_localization.js`** - Enforce `/` ↔ `/es/` parity, hreflang
 5. **`accessibility-scan.js`** - WCAG AA checks (heading order, alt text, contrast)
-6. **`data-governance-scan.js`** - Verify `lastReviewed` + disclaimers on high-sensitivity content
-7. **`lighthouse_ci.sh`** - Core Web Vitals audit, mobile performance
+6. **`html-size-check.js`** - Enforce lightweight HTML payload (<50KB uncompressed per page)
+7. **`data-governance-scan.js`** - Verify `lastReviewed` + disclaimers on high-sensitivity content
+8. **`lighthouse_ci.sh`** - Core Web Vitals audit, mobile performance
 
 ### Pre-Commit Workflow
 

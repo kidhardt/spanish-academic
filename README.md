@@ -82,6 +82,7 @@ Run before deployment:
 - `npm run generate-sitemap` — Create sitemap.xml
 - `npm run validate-localization` — Check / ↔ /es/ parity
 - `npm run accessibility-scan` — WCAG AA validation
+- `npm run html-size-check` — Enforce lightweight HTML payload (<50KB per page)
 - `npm run data-governance-scan` — Enforce disclaimers & lastReviewed
 - `npm run lighthouse` — Core Web Vitals audit
 
