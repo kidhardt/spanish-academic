@@ -1,0 +1,30 @@
+{
+  "language": "en",
+  "path_en": "/spanish-linguistics.html",
+  "path_es": "/es/linguistica-espanola.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanishacademic.com/es/linguistica-espanola.html",
+    "title": "[ES version]"
+  },
+  "title": "Spanish Linguistics PhD & MA Programs - Complete List",
+  "description": "Complete directory of Spanish linguistics graduate programs. Find PhD and MA programs in Hispanic linguistics, sociolinguistics, and applied linguistics.",
+  "h1": "Spanish Linguistics Graduate Programs",
+  "canonical": "https://spanishacademic.com/spanish-linguistics.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/spanish-linguistics.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/linguistica-espanola.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/spanish-linguistics.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.634Z"
+}

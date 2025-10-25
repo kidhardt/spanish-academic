@@ -1,0 +1,30 @@
+{
+  "language": "en",
+  "path_en": "/literature-and-culture.html",
+  "path_es": "/es/literatura-y-cultura.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanishacademic.com/es/literatura-y-cultura.html",
+    "title": "[ES version]"
+  },
+  "title": "Spanish Literature & Culture Graduate Programs - Directory",
+  "description": "Directory of Spanish literature and culture graduate programs. Find PhD and MA programs in Hispanic literature, Latin American studies, and cultural studies.",
+  "h1": "Spanish Literature and Culture Programs",
+  "canonical": "https://spanishacademic.com/literature-and-culture.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/literature-and-culture.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/literatura-y-cultura.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/literature-and-culture.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.629Z"
+}

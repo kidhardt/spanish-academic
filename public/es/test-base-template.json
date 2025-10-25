@@ -1,0 +1,30 @@
+{
+  "language": "es",
+  "path_en": "/test-base-template.html",
+  "path_es": "/es/test-base-template.html",
+  "alternateLanguage": {
+    "lang": "en",
+    "url": "https://spanishacademic.com/test-base-template.html",
+    "title": "[EN version]"
+  },
+  "title": "Programas de Doctorado Lingüística Española - Guía 2025",
+  "description": "Compare programas de doctorado en lingüística española: financiamiento, investigación, admisión. Encuentre el programa doctoral adecuado.",
+  "h1": "Programas de Doctorado en Lingüística Española",
+  "canonical": "https://spanishacademic.com/es/test-base-template.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/test-base-template.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/test-base-template.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/test-base-template.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.619Z"
+}

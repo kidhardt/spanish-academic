@@ -1,0 +1,30 @@
+{
+  "language": "es",
+  "path_en": "/literature-and-culture.html",
+  "path_es": "/es/literatura-y-cultura.html",
+  "alternateLanguage": {
+    "lang": "en",
+    "url": "https://spanishacademic.com/literature-and-culture.html",
+    "title": "[EN version]"
+  },
+  "title": "Programas de Posgrado en Literatura y Cultura Española",
+  "description": "Directorio de programas de posgrado en literatura y cultura española. Encuentre programas de doctorado y maestría en literatura hispánica.",
+  "h1": "Programas de Literatura y Cultura Española",
+  "canonical": "https://spanishacademic.com/es/literatura-y-cultura.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/literature-and-culture.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/literatura-y-cultura.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/literature-and-culture.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-25T23:03:25.624Z"
+}
