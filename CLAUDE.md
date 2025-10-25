@@ -273,7 +273,7 @@ This project uses an automated continuation system to resume work across chat se
 - Queries beads system (`bd list`, `bd ready`)
 - Reads GETTING_STARTED.md to determine current phase
 - Checks git status for recent changes
-- Generates timestamped file: `.claude/skills/directors/continuations/YYYY-MM-DD_HH-MM-SS.md`
+- Generates timestamped file: `.claude/skills/generating-continuations/references/continuations/YYYY-MM-DD_HH-MM-SS.md`
 - Includes: completed beads, next bead, current phase, git status, key commands
 
 ### Starting a New Session
@@ -281,14 +281,14 @@ This project uses an automated continuation system to resume work across chat se
 **Say to Claude:** "continue from where we left off"
 
 **Claude will:**
-- Scan `.claude/skills/directors/continuations/`
+- Scan `.claude/skills/generating-continuations/references/continuations/`
 - Find the latest timestamped file
 - Load it and present a summary
 - Ask if you're ready to proceed with the next bead
 
 ### Continuation Files
 
-**Location:** `.claude/skills/directors/continuations/`
+**Location:** `.claude/skills/generating-continuations/references/continuations/`
 
 **Format:** `YYYY-MM-DD_HH-MM-SS.md` (e.g., `2025-10-24_18-56-53.md`)
 
@@ -307,7 +307,7 @@ This project uses an automated continuation system to resume work across chat se
 
 ### Implementation
 
-**Skill:** `.claude/skills/continuation-director.md`
+**Skill:** `.claude/skills/generating-continuations/SKILL.md`
 - Contains instructions for Claude to execute
 - Expandable - can add more queries and validations
 

@@ -1,13 +1,24 @@
 # Continuation System Implementation Documentation
 
-**Date Implemented:** 2025-10-24
+**Date Implemented:** 2025-10-24 (Session 1)
+**Date Migrated:** 2025-10-25 (Session 2 - Anthropic Standards)
 **Purpose:** Backup documentation for reverting changes if needed
+
+---
+
+## Current Status (Session 2)
+
+**Active Location:** `.claude/skills/generating-continuations/`
+**Skill File:** `SKILL.md` (with YAML frontmatter)
+**Continuations:** `references/continuations/*.md`
+
+This document describes both the original implementation (Session 1) and the migration to Anthropic standards (Session 2).
 
 ---
 
 ## Overview
 
-This document describes the new continuation system that allows session resumption via both:
+This document describes the continuation system that allows session resumption via both:
 1. Plain language: "generate continuation" in Claude chat
 2. Command line: `npm run continue`
 
@@ -15,28 +26,55 @@ This document describes the new continuation system that allows session resumpti
 
 ### 1. Directory Structure Created
 
+**Original (Session 1):**
 ```
 .claude/
 ├── skills/
-│   ├── continuation-director.md        # NEW: Top-level skill
+│   ├── continuation-director.md        # Top-level skill (non-compliant)
 │   └── directors/
-│       └── continuations/              # NEW: Archive directory
+│       └── continuations/              # Archive directory
 │           └── CONTINUATION_PROMPT.md  # MOVED: Original file
+```
+
+**Current (After Session 2 - Anthropic Standards Migration):**
+```
+.claude/
+└── skills/
+    └── generating-continuations/       # NEW: Compliant skill directory
+        ├── SKILL.md                    # NEW: Proper SKILL.md with YAML frontmatter
+        └── references/
+            └── continuations/          # NEW: Continuation files location
+                ├── CONTINUATION_PROMPT.md  # MOVED: Original file
+                └── [timestamp].md      # Generated continuation files
 ```
 
 ### 2. Files Created
 
+**Session 1:**
 | File | Purpose | Type |
 |------|---------|------|
-| `.claude/skills/continuation-director.md` | Skill that Claude invokes | Markdown |
+| `.claude/skills/continuation-director.md` | Skill that Claude invokes (non-compliant) | Markdown |
 | `scripts/execute_continuation.js` | Node.js script for npm command | JavaScript |
 | `.claude/skills/directors/continuations/[timestamp].md` | Generated continuation files | Generated |
 
+**Session 2 (Migration to Anthropic Standards):**
+| File | Purpose | Type |
+|------|---------|------|
+| `.claude/skills/generating-continuations/SKILL.md` | Compliant skill with YAML frontmatter | Markdown |
+| `.claude/skills/generating-continuations/references/continuations/[timestamp].md` | Generated continuation files | Generated |
+
 ### 3. Files Moved
 
+**Session 1:**
 | Original Location | New Location | Reason |
 |-------------------|--------------|--------|
 | `CONTINUATION_PROMPT.md` | `.claude/skills/directors/continuations/CONTINUATION_PROMPT.md` | Archive original |
+
+**Session 2 (Anthropic Standards Migration):**
+| Original Location | New Location | Reason |
+|-------------------|--------------|--------|
+| `.claude/skills/continuation-director.md` | `.claude/skills/generating-continuations/SKILL.md` | Comply with Anthropic standards |
+| `.claude/skills/directors/continuations/*` | `.claude/skills/generating-continuations/references/continuations/*` | Follow progressive disclosure pattern |
 
 ### 4. Files Modified
 
@@ -54,11 +92,10 @@ If you need to revert these changes:
 
 ```bash
 # Restore CONTINUATION_PROMPT.md to root
-cp .claude/skills/directors/continuations/CONTINUATION_PROMPT.md ./CONTINUATION_PROMPT.md
+cp .claude/skills/generating-continuations/references/continuations/CONTINUATION_PROMPT.md ./CONTINUATION_PROMPT.md
 
-# Remove new directories (optional - won't hurt to keep)
-rm -rf .claude/skills/continuation-director.md
-rm -rf .claude/skills/directors/
+# Remove skill directories (optional - won't hurt to keep)
+rm -rf .claude/skills/generating-continuations/
 ```
 
 ### Step 2: Remove Added Scripts

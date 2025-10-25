@@ -419,7 +419,7 @@ bd dep add <new-id> <parent-id>       # Link dependencies
 
 ### What Happened
 **Session started:** User said "continue from where we left off"
-**Continuation file used:** `.claude/skills/directors/continuations/2025-10-24_19-00-29.md`
+**Continuation file used:** `.claude/skills/generating-continuations/references/continuations/2025-10-24_19-00-29.md` (now migrated to new location)
 **Progress at session start:** 5/92 beads completed
 **Progress at interruption:** 9/92 beads completed (4 beads completed in this session)
 
@@ -535,7 +535,7 @@ User requested full project analysis and intelligence file creation instead of p
 - `.htaccess` - Apache configuration (planned for deployment)
 
 ### Continuation System
-- `.claude/skills/directors/continuations/` - Session continuation files
+- `.claude/skills/generating-continuations/references/continuations/` - Session continuation files (migrated in Session 2)
 - `2025-10-24_19-00-29.md` - Last continuation file (5 beads completed)
 
 ### Beads System
