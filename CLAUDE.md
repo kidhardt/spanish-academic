@@ -141,6 +141,7 @@ All scripts live in `/scripts/`:
 6. **`html-size-check.js`** - Enforce lightweight HTML payload (<50KB uncompressed per page)
 7. **`data-governance-scan.js`** - Verify `lastReviewed` + disclaimers on high-sensitivity content
 8. **`lighthouse_ci.sh`** - Core Web Vitals audit, mobile performance
+9. **`pre-deploy-validation.sh`** - Complete pre-deployment validation workflow
 
 ### Pre-Commit Workflow
 
@@ -151,6 +152,27 @@ npm run validate-all  # Runs all validation scripts
 ```
 
 If any script fails, **DO NOT COMMIT**. Fix issues first.
+
+### Pre-Deployment Workflow
+
+Before deploying to production:
+
+```bash
+npm run pre-deploy  # Complete validation with Lighthouse CI
+```
+
+This runs the complete pre-deployment validation workflow:
+1. All static validation scripts (`validate-all`)
+2. Build the project (`npm run build`)
+3. Start preview server
+4. Run Lighthouse CI (enforces mobile score >90)
+5. Clean up preview server
+
+**BLOCKS deployment if ANY check fails.** This ensures:
+- All static validations pass
+- Build succeeds without errors
+- Mobile performance score >90 (Lighthouse)
+- Core Web Vitals meet standards
 
 ## Claude Skills Rules
 
@@ -216,12 +238,16 @@ Skills live in `/.claude/skills/` and enforce project rules:
 
 ### Pre-Deployment Checklist
 
-1. ✅ Run `npm run validate-all`
-2. ✅ Run `npm run build` (compile React islands)
-3. ✅ Verify Lighthouse mobile >90
-4. ✅ Check beads for open blocking issues: `bd ready --json`
-5. ✅ Verify `.htaccess` is present in `/public/`
-6. ✅ Verify `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, `humans.txt` exist
+1. ✅ Run `npm run pre-deploy` (enforces all validations + Lighthouse >90)
+2. ✅ Check beads for open blocking issues: `bd ready --json`
+3. ✅ Verify `.htaccess` is present in `/public/`
+4. ✅ Verify `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, `humans.txt` exist
+
+**Note:** `npm run pre-deploy` automatically runs:
+- All static validations (`validate-all`)
+- Project build (`npm run build`)
+- Lighthouse CI with mobile score >90 enforcement
+- Exits with error code if ANY check fails
 
 ### Production Hosting
 

@@ -85,6 +85,8 @@ Run before deployment:
 - `npm run html-size-check` — Enforce lightweight HTML payload (<50KB per page)
 - `npm run data-governance-scan` — Enforce disclaimers & lastReviewed
 - `npm run lighthouse` — Core Web Vitals audit
+- `npm run validate-all` — Run all static validation scripts
+- `npm run pre-deploy` — **Complete pre-deployment validation** (validate-all + build + Lighthouse CI >90)
 
 ### Bilingual JSON Twin Generation
 
@@ -128,9 +130,24 @@ Program and Faculty objects with:
 
 ## Deployment
 
+### Pre-Deployment Validation
+
+Before deploying to production, run:
+
+```bash
+npm run pre-deploy
+```
+
+This enforces:
+1. All static validations pass (JSON twins, localization, accessibility, etc.)
+2. Project builds successfully
+3. **Lighthouse mobile score >90** (blocks deployment if failed)
+4. Core Web Vitals meet standards
+
+### Production Deployment
+
 - **Development**: Local with Vite dev server for React islands
 - **Production**: Deploy `/public/` to SiteGround `public_html/`
-- **Build**: Run all validation scripts before deployment
 - **Future-ready**: Can migrate to Cloudflare Pages/Netlify without URL changes
 
 ## License
