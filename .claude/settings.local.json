@@ -41,7 +41,8 @@
       "Bash(head:*)",
       "Bash(done)",
       "Bash(for skill in file-using-pdf file-using-pptx file-using-xlsx)",
-      "Bash(do echo \"=== $skill ===\")"
+      "Bash(do echo \"=== $skill ===\")",
+      "Bash(npm run html-size-check:*)"
     ],
     "deny": [],
     "ask": []
