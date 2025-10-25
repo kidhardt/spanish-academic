@@ -478,6 +478,210 @@ Every HTML page must have a `.json` twin for machine-readable consumption:
 - **`alternateLanguage`**: Links to counterpart page with title in target language
 - **Generated automatically:** By `scripts/generate_page_json.js` (never hand-maintained)
 
+## Localization Utilities (TypeScript)
+
+### Overview
+
+The localization infrastructure is implemented in `src/utils/localization.ts`, providing type-safe utilities for:
+- hreflang link generation
+- lang attribute enforcement
+- path_en/path_es metadata creation
+- URL path translation
+- Localization validation
+
+### Core Functions
+
+#### `generateHreflangLinks(pathMetadata, baseUrl)`
+
+Generates proper `<link rel="alternate" hreflang="...">` tags for SEO:
+
+```typescript
+import { generateHreflangLinks } from '@/utils/localization';
+
+const pathMetadata = {
+  path_en: '/insights/funding-strategies.html',
+  path_es: '/es/insights/estrategias-de-financiacion.html'
+};
+
+const links = generateHreflangLinks(pathMetadata);
+// Returns:
+// [
+//   '<link rel="alternate" hreflang="en" href="https://spanish-academic.com/insights/funding-strategies.html">',
+//   '<link rel="alternate" hreflang="es" href="https://spanish-academic.com/es/insights/estrategias-de-financiacion.html">',
+//   '<link rel="alternate" hreflang="x-default" href="https://spanish-academic.com/insights/funding-strategies.html">'
+// ]
+```
+
+#### `getLangAttribute(path)`
+
+Determines the correct `lang` attribute based on path structure:
+
+```typescript
+import { getLangAttribute } from '@/utils/localization';
+
+getLangAttribute('/insights/funding.html');  // Returns: 'en'
+getLangAttribute('/es/insights/financiacion.html');  // Returns: 'es'
+```
+
+#### `translatePath(path, targetLang)`
+
+Translates a full file path from one language to another:
+
+```typescript
+import { translatePath } from '@/utils/localization';
+
+translatePath('/insights/funding-strategies.html', 'es');
+// Returns: '/es/insights/estrategias-de-financiacion.html'
+
+translatePath('/es/insights/estrategias-de-financiacion.html', 'en');
+// Returns: '/insights/funding-strategies.html'
+```
+
+#### `createPathMetadata(path)`
+
+Automatically generates PathMetadata object from a single path:
+
+```typescript
+import { createPathMetadata } from '@/utils/localization';
+
+createPathMetadata('/insights/funding-strategies.html');
+// Returns:
+// {
+//   path_en: '/insights/funding-strategies.html',
+//   path_es: '/es/insights/estrategias-de-financiacion.html'
+// }
+```
+
+#### `validatePathStructure(path, expectedLang)`
+
+Validates that a path has correct structure for its language:
+
+```typescript
+import { validatePathStructure } from '@/utils/localization';
+
+validatePathStructure('/insights/funding.html', 'en');  // true
+validatePathStructure('/insights/funding.html', 'es');  // false (missing /es/ prefix)
+validatePathStructure('/es/insights/financiacion.html', 'es');  // true
+```
+
+#### `getLocalizationStatus(pathMetadata)`
+
+Validates a PathMetadata object and returns detailed errors:
+
+```typescript
+import { getLocalizationStatus } from '@/utils/localization';
+
+const status = getLocalizationStatus({
+  path_en: '/insights/funding.html',
+  path_es: '/es/insights/financiacion.html'
+});
+// Returns:
+// { valid: true, errors: [] }
+
+const badStatus = getLocalizationStatus({
+  path_en: '/es/insights/funding.html',  // Wrong! English shouldn't have /es/ prefix
+  path_es: '/insights/financiacion.html'  // Wrong! Spanish should have /es/ prefix
+});
+// Returns:
+// {
+//   valid: false,
+//   errors: [
+//     'English path should not start with /es/: /es/insights/funding.html',
+//     'Spanish path should start with /es/: /insights/financiacion.html'
+//   ]
+// }
+```
+
+#### `createLocalizedMetadata(pathMetadata, currentLang, titles, descriptions?)`
+
+Creates complete LocalizedMetadata objects for JSON twins:
+
+```typescript
+import { createLocalizedMetadata } from '@/utils/localization';
+
+const metadata = createLocalizedMetadata(
+  {
+    path_en: '/insights/funding.html',
+    path_es: '/es/insights/financiacion.html'
+  },
+  'en',
+  {
+    title_en: 'Funding Strategies for Graduate Students',
+    title_es: 'Estrategias de Financiación para Estudiantes de Posgrado'
+  },
+  {
+    description_en: 'Learn effective funding strategies...',
+    description_es: 'Aprenda estrategias efectivas de financiación...'
+  }
+);
+// Returns full LocalizedMetadata object with alternateLanguage info
+```
+
+### TypeScript Types
+
+```typescript
+export interface PathMetadata {
+  path_en: string;  // English path
+  path_es: string;  // Spanish path
+}
+
+export interface LocalizedMetadata {
+  lang: LanguageCode;
+  title_en: string;
+  title_es: string;
+  description_en?: string;
+  description_es?: string;
+  alternateLanguage: {
+    lang: LanguageCode;
+    path: string;
+  };
+}
+
+export type LanguageCode = 'en' | 'es';
+```
+
+### Usage in Build Scripts
+
+Build scripts should import and use these utilities:
+
+```javascript
+// In scripts/generate_page_json.js
+import {
+  createPathMetadata,
+  getLangAttribute,
+  createLocalizedMetadata
+} from '../src/utils/localization.js';
+
+// Extract path from file
+const path = '/insights/funding.html';
+const lang = getLangAttribute(path);
+const pathMetadata = createPathMetadata(path);
+
+// Use in JSON twin generation
+const jsonData = {
+  language: lang,
+  ...pathMetadata,
+  alternateLanguage: {
+    lang: lang === 'en' ? 'es' : 'en',
+    path: lang === 'en' ? pathMetadata.path_es : pathMetadata.path_en
+  }
+};
+```
+
+### Testing
+
+Run localization tests with:
+
+```bash
+node scripts/test_localization.js
+```
+
+This validates:
+- Lang attribute detection
+- Path structure validation
+- Hreflang link generation
+- PathMetadata creation
+
 ## Build Script Requirements
 
 ### Localization Validation Script
