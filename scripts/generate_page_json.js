@@ -6,6 +6,13 @@
  * Parses HTML files in /public/ and generates machine-readable .json twins
  * Validates SEO metadata and enforces Spanish Academic governance rules
  *
+ * BILINGUAL JSON TWIN GENERATION:
+ * - For each HTML file, generates its own .json twin
+ * - ALSO generates .json twin for alternate language version
+ * - If alternate HTML exists: parses it and generates full JSON
+ * - If alternate HTML missing: creates placeholder JSON with metadata
+ * - Ensures both /path.json and /es/path.json always exist
+ *
  * LOCALIZATION ENFORCEMENT (RULE 4):
  * - Every HTML page MUST have both path_en and path_es metadata
  * - path_en must start with "/"
@@ -18,7 +25,7 @@
  * Spanish Academic 2026
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, mkdirSync } from 'fs';
 import { join, dirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
@@ -323,6 +330,69 @@ function writeJsonFile(filePath, jsonData) {
 }
 
 /**
+ * Generate JSON twin for alternate language
+ * If alternate HTML exists, parse it and generate JSON
+ * If alternate HTML doesn't exist, create a minimal placeholder JSON
+ */
+function generateAlternateLanguageJson(primaryFilePath, primaryJsonData) {
+  const { language, path_en, path_es } = primaryJsonData;
+
+  // Determine alternate language path
+  const alternatePath = language === 'en' ? path_es : path_en;
+  if (!alternatePath) {
+    // No alternate path metadata, skip
+    return;
+  }
+
+  // Convert path to file system path
+  const alternateFilePath = join(PUBLIC_DIR, alternatePath.replace(/^\//, ''));
+
+  // Check if alternate HTML exists
+  const alternateHtmlPath = alternateFilePath;
+  const alternateJsonPath = alternateFilePath.replace('.html', '.json');
+
+  try {
+    // Try to read and parse the alternate HTML file
+    const alternateHtml = readFileSync(alternateHtmlPath, 'utf-8');
+    const alternateJsonData = parseHtmlFile(alternateHtmlPath);
+    writeJsonFile(alternateHtmlPath, alternateJsonData);
+  } catch (error) {
+    // Alternate HTML doesn't exist - create placeholder JSON
+    const alternateLang = language === 'en' ? 'es' : 'en';
+    const placeholderJson = {
+      language: alternateLang,
+      path_en,
+      path_es,
+      alternateLanguage: {
+        lang: language,
+        url: `https://spanish-academic.com${language === 'en' ? path_en : path_es}`,
+        title: primaryJsonData.title,
+      },
+      title: `[${alternateLang.toUpperCase()} translation in progress]`,
+      description: 'Translation in progress. Please see the alternate language version.',
+      h1: `[${alternateLang.toUpperCase()} translation in progress]`,
+      canonical: `https://spanish-academic.com${alternatePath}`,
+      hreflangLinks: [],
+      seoIntent: null,
+      generatedAt: new Date().toISOString(),
+      placeholder: true,
+    };
+
+    const jsonContent = JSON.stringify(placeholderJson, null, 2);
+
+    // Ensure directory exists before writing
+    const jsonDir = dirname(alternateJsonPath);
+    mkdirSync(jsonDir, { recursive: true });
+
+    writeFileSync(alternateJsonPath, jsonContent, 'utf-8');
+
+    const relPath = relative(PUBLIC_DIR, alternateJsonPath);
+    console.log(`📝 Generated placeholder: ${relPath} (HTML not found)`);
+    successCount++;
+  }
+}
+
+/**
  * Process all HTML files in directory
  */
 async function processDirectory() {
@@ -342,11 +412,36 @@ async function processDirectory() {
 
   console.log(`Found ${htmlFiles.length} HTML file(s)\n`);
 
+  // Track processed files to avoid duplication
+  const processedJsonFiles = new Set();
+
   // Process each file
   for (const filePath of htmlFiles) {
     try {
+      const jsonPath = filePath.replace('.html', '.json');
+
+      // Skip if we've already processed this JSON file
+      if (processedJsonFiles.has(jsonPath)) {
+        continue;
+      }
+
+      // Parse and generate JSON for this HTML file
       const jsonData = parseHtmlFile(filePath);
       writeJsonFile(filePath, jsonData);
+      processedJsonFiles.add(jsonPath);
+
+      // Generate JSON for alternate language (if not already processed)
+      const { language, path_en, path_es } = jsonData;
+      const alternatePath = language === 'en' ? path_es : path_en;
+
+      if (alternatePath) {
+        const alternateJsonPath = join(PUBLIC_DIR, alternatePath.replace(/^\//, '').replace('.html', '.json'));
+
+        if (!processedJsonFiles.has(alternateJsonPath)) {
+          generateAlternateLanguageJson(filePath, jsonData);
+          processedJsonFiles.add(alternateJsonPath);
+        }
+      }
     } catch (error) {
       const relPath = relative(PUBLIC_DIR, filePath);
       console.error(`❌ ERROR [${relPath}]: ${error.message}`);

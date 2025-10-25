@@ -77,13 +77,27 @@ spanish-academic/
 
 Run before deployment:
 
-- `npm run generate-json` — Create .json twins from HTML
+- `npm run generate-json` — Create .json twins from HTML (generates both /...json and /es/...json for each page)
 - `npm run build-categories` — Generate category index pages
 - `npm run generate-sitemap` — Create sitemap.xml
 - `npm run validate-localization` — Check / ↔ /es/ parity
 - `npm run accessibility-scan` — WCAG AA validation
 - `npm run data-governance-scan` — Enforce disclaimers & lastReviewed
 - `npm run lighthouse` — Core Web Vitals audit
+
+### Bilingual JSON Twin Generation
+
+The `generate-json` script automatically creates JSON twins for **both languages**:
+
+- **For existing HTML**: Parses the HTML and generates full JSON metadata
+- **For missing alternate language HTML**: Creates placeholder JSON with bilingual metadata
+- **Result**: Both `/path.json` and `/es/path.json` always exist, enabling AI/chat to navigate between languages
+
+Example: When processing `/insights/funding.html`:
+1. Generates `/insights/funding.json` (full metadata)
+2. Checks if `/es/insights/financiacion.html` exists
+3. If yes: generates `/es/insights/financiacion.json` (full metadata)
+4. If no: generates `/es/insights/financiacion.json` (placeholder with `"placeholder": true`)
 
 ## Claude Skills
 
