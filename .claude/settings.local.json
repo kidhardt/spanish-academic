@@ -33,7 +33,10 @@
       "Bash(npm install:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(node scripts/test_localization.js:*)"
+      "Bash(node scripts/test_localization.js:*)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(npm run validate-skills:*)"
     ],
     "deny": [],
     "ask": []

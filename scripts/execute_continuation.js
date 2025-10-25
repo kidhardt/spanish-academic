@@ -19,7 +19,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
-const CONTINUATIONS_DIR = join(PROJECT_ROOT, '.claude/skills/directors/continuations');
+const CONTINUATIONS_DIR = join(PROJECT_ROOT, '.claude/skills/generating-continuations/references/continuations');
 
 // Helper to run shell commands safely
 function run(cmd, options = {}) {

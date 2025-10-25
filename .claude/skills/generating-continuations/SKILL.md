@@ -1,4 +1,9 @@
-# continuation-director
+---
+name: generating-continuations
+description: Generate timestamped continuation files for resuming work across chat sessions, tracking beads progress and git status
+---
+
+# Generating Continuations - Spanish Academic Network
 
 **Purpose:** Generate a timestamped continuation file for resuming work in a new chat session.
 
@@ -15,7 +20,7 @@
 
 When this skill is invoked, execute the following steps:
 
-### 1. Query Project State
+### Step 1: Query Project State
 
 Run these commands and capture output:
 
@@ -31,7 +36,7 @@ Parse the results:
 - Identify next bead (first item from `bd ready`)
 - List last 5 completed beads
 
-### 2. Determine Current Phase
+### Step 2: Determine Current Phase
 
 Read `GETTING_STARTED.md` and find the phase marked with `← CURRENT` or the phase containing the next ready bead.
 
@@ -41,11 +46,11 @@ Extract:
 - Next bead in that phase
 - Estimated time for next bead
 
-### 3. Generate Timestamped File
+### Step 3: Generate Timestamped File
 
 **Filename format:** `YYYY-MM-DD_HH-MM-SS.md` (e.g., `2025-10-24_18-30-45.md`)
 
-**Location:** `.claude/skills/directors/continuations/`
+**Location:** `.claude/skills/generating-continuations/references/continuations/`
 
 **Content template:**
 
@@ -85,7 +90,7 @@ Extract:
 **Priority:** [Priority from beads system]
 **Estimated Time:** [From GETTING_STARTED.md if available]
 
-**See:** [GETTING_STARTED.md](../../../../GETTING_STARTED.md) for full roadmap
+**See:** [GETTING_STARTED.md](../../../../../../GETTING_STARTED.md) for full roadmap
 
 ---
 
@@ -107,13 +112,13 @@ Extract:
 
 **Architecture:** Static-first with React islands, bilingual (/ ↔ /es/)
 
-**Governance:** See [CLAUDE.md](../../../../CLAUDE.md) for inviolable rules
+**Governance:** See [CLAUDE.md](../../../../../../CLAUDE.md) for inviolable rules
 
 **Documentation:**
-- [MOBILE_FIRST.md](../../../../docs/MOBILE_FIRST.md) - Responsive design principles
-- [LOCALIZATION_FIRST.md](../../../../docs/LOCALIZATION_FIRST.md) - Bilingual architecture
-- [PHASE_ORDER_RATIONALE.md](../../../../docs/PHASE_ORDER_RATIONALE.md) - Why scripts before templates
-- [CONTINUATION_SYSTEM_IMPLEMENTATION.md](../../../../docs/CONTINUATION_SYSTEM_IMPLEMENTATION.md) - Continuation system docs
+- [MOBILE_FIRST.md](../../../../../../docs/MOBILE_FIRST.md) - Responsive design principles
+- [LOCALIZATION_FIRST.md](../../../../../../docs/LOCALIZATION_FIRST.md) - Bilingual architecture
+- [PHASE_ORDER_RATIONALE.md](../../../../../../docs/PHASE_ORDER_RATIONALE.md) - Why scripts before templates
+- [CONTINUATION_SYSTEM_IMPLEMENTATION.md](../../../../../../docs/CONTINUATION_SYSTEM_IMPLEMENTATION.md) - Continuation system docs
 
 ---
 
@@ -127,9 +132,10 @@ bd update <id> --status in_progress   # Start working on a bead
 bd close <id> --reason "..."          # Complete a bead
 
 # Build & validation
-npm run generate-json                 # Create JSON twins (after bead 1) ✅
-npm run validate-localization         # Check bilingual parity (after bead 4)
-npm run accessibility-scan            # WCAG AA validation (after bead 5)
+npm run generate-json                 # Create JSON twins
+npm run validate-localization         # Check bilingual parity
+npm run validate-skills               # Validate skill compliance
+npm run accessibility-scan            # WCAG AA validation
 npm run type-check                    # TypeScript compilation
 
 # Development
@@ -164,12 +170,12 @@ npm run continue                      # Generate continuation file (end session)
 **Ready to continue! Next bead: spanish-academic-[ID] - [Title]**
 ````
 
-### 4. Output Confirmation
+### Step 4: Output Confirmation
 
 After generating the file, output:
 
 ```
-✅ Continuation saved: .claude/skills/directors/continuations/[filename]
+✅ Continuation saved: .claude/skills/generating-continuations/references/continuations/[filename]
 
 📋 Summary:
    - Completed: [N] beads
@@ -187,9 +193,9 @@ After generating the file, output:
 
 When user says "continue from where we left off" or similar phrases:
 
-### 1. Find Latest Continuation
+### Step 1: Find Latest Continuation
 
-Scan `.claude/skills/directors/continuations/` directory for files matching pattern `YYYY-MM-DD_HH-MM-SS.md`
+Scan `.claude/skills/generating-continuations/references/continuations/` directory for files matching pattern `YYYY-MM-DD_HH-MM-SS.md`
 
 **Algorithm:**
 - List all .md files in continuations/ directory
@@ -198,7 +204,7 @@ Scan `.claude/skills/directors/continuations/` directory for files matching patt
 - Sort by timestamp (descending)
 - Select the first (most recent) file
 
-### 2. Load and Present Summary
+### Step 2: Load and Present Summary
 
 Read the latest continuation file and present a concise summary:
 
@@ -215,7 +221,7 @@ Read the latest continuation file and present a concise summary:
 Ready to start bead [ID]?
 ```
 
-### 3. Wait for Confirmation
+### Step 3: Wait for Confirmation
 
 Ask user if they want to:
 - ✅ Proceed with next bead (start working immediately)
@@ -229,33 +235,32 @@ Ask user if they want to:
 
 ## Expansion Points
 
-This skill can be enhanced to include additional information:
+This skill can be enhanced to include additional information.
 
-### Current Expansion Points:
+**Current Expansion Points:**
 - ✅ Beads system state (completed, in-progress, ready)
 - ✅ Current phase from GETTING_STARTED.md
 - ✅ Git status (uncommitted changes)
 - ✅ Next bead details
 - ✅ Key commands reference
 
-### Future Expansion Ideas:
-- [ ] Code quality metrics (lint errors, type errors via `npm run type-check`)
-- [ ] Test coverage reports (when tests are added)
-- [ ] Bundle size tracking (current vs. 250KB budget)
-- [ ] Lighthouse score history (mobile scores over time)
-- [ ] Dependency updates needed (`npm outdated`)
-- [ ] Security audit results (`npm audit`)
-- [ ] Documentation coverage (which docs are up to date)
-- [ ] Performance metrics (build times, script execution times)
-- [ ] Validation script pass/fail summary
-- [ ] Recent beads velocity (beads completed per session)
+**Future Expansion Ideas:**
+- Code quality metrics (lint errors, type errors)
+- Test coverage reports
+- Bundle size tracking
+- Lighthouse score history
+- Dependency updates needed
+- Security audit results
+- Documentation coverage
+- Performance metrics
+- Validation script pass/fail summary
+- Recent beads velocity (beads completed per session)
 
-### How to Expand:
-
-1. **Add new query commands** in Step 1 (e.g., `npm outdated --json`)
-2. **Add new sections** to the continuation template in Step 3
-3. **Update the output confirmation** in Step 4 to include new metrics
-4. **Document expansion** in CONTINUATION_SYSTEM_IMPLEMENTATION.md
+**How to Expand:**
+1. Add new query commands in Step 1
+2. Add new sections to the continuation template in Step 3
+3. Update the output confirmation in Step 4
+4. Document expansion in CONTINUATION_SYSTEM_IMPLEMENTATION.md
 
 **This skill is designed to grow with the project's needs.**
 
@@ -279,15 +284,22 @@ This ensures the continuation is still generated even if some queries fail.
 
 ---
 
-## Notes for Developers
+## Related Skills
+
+- **validating-localization** - Check bilingual parity before ending session
+- **validating-skills** - Validate skill compliance before ending session
+
+---
+
+## Notes
 
 - This skill is invoked both by Claude directly (plain language) and programmatically (npm script)
 - The logic is intentionally detailed so it can be implemented in Node.js (`execute_continuation.js`)
 - Continuation files are never deleted automatically - manual cleanup required if disk space becomes an issue
-- Relative paths in continuation files assume they're being read from the continuations/ directory
-- The skill uses 4 levels of `../` to reach project root from `.claude/skills/directors/continuations/`
+- Relative paths in continuation files assume they're being read from the references/continuations/ directory
+- The skill uses 7 levels of `../` to reach project root from `.claude/skills/generating-continuations/references/continuations/`
 
 ---
 
-**Last Updated:** 2025-10-24
-**Version:** 1.0.0
+**Last Updated:** 2025-10-25
+**Version:** 2.0.0 (Migrated to Anthropic standards)

@@ -1,4 +1,9 @@
-# JSON-LD Schema Skill - Spanish Academic 2026
+---
+name: generating-json-ld
+description: Generate JSON-LD structured data for HTML pages when creating or updating templates, aligned with W3C standards and Schema.org types
+---
+
+# Generating JSON-LD - Spanish Academic Network
 
 **Purpose:** Generate and validate JSON-LD structured data for search engine optimization and rich results.
 
@@ -705,6 +710,13 @@ JSON-LD now powers AI search (Google SGE, Bing Copilot, voice assistants).
 
 ---
 
+## Related Skills
+
+- **generating-continuations** - End session after validating JSON-LD
+- **validating-localization** - Ensure bilingual JSON-LD structure matches
+
+---
+
 ## Future Enhancements
 
 - **BreadcrumbList** for all pages (improves navigation understanding)
@@ -714,6 +726,6 @@ JSON-LD now powers AI search (Google SGE, Bing Copilot, voice assistants).
 
 ---
 
-**Last Updated:** 2025-10-24
-**Version:** 1.0.0
+**Last Updated:** 2025-10-25
+**Version:** 2.0.0 (Migrated to Anthropic standards)
 **Aligned with:** W3C JSON-LD BP 2025, Schema.org, Google Rich Results Guidelines
