@@ -36,7 +36,12 @@
       "Bash(node scripts/test_localization.js:*)",
       "Bash(find:*)",
       "Bash(tree:*)",
-      "Bash(npm run validate-skills:*)"
+      "Bash(npm run validate-skills:*)",
+      "Bash(for file in .claude/skills/*/SKILL.md)",
+      "Bash(head:*)",
+      "Bash(done)",
+      "Bash(for skill in file-using-pdf file-using-pptx file-using-xlsx)",
+      "Bash(do echo \"=== $skill ===\")"
     ],
     "deny": [],
     "ask": []
