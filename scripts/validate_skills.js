@@ -75,7 +75,14 @@ function extractYAML(content) {
 
 /**
  * Check if a skill name uses gerund form
- * Common gerunds: generating, validating, building, creating, processing, enforcing
+ *
+ * CRITICAL RULE: ALL skills MUST use gerund naming (action verbs ending in -ing)
+ *
+ * Common gerunds: generating, validating, building, creating, processing, enforcing, working, using, analyzing
+ *
+ * Examples:
+ * ✅ working-with-pdf, using-git-worktrees, analyzing-spreadsheets
+ * ❌ pdf, git, xlsx, api
  */
 function isGerund(skillName) {
   const gerundPrefixes = [
@@ -91,6 +98,12 @@ function isGerund(skillName) {
     'auditing',
     'parsing',
     'compiling',
+    'working',
+    'using',
+    'analyzing',
+    'managing',
+    'requesting',
+    'writing',
   ];
 
   const firstWord = skillName.split('-')[0];
@@ -143,8 +156,9 @@ function validateSkill(skillDir, skillName) {
 
   // Check 5: Validate gerund naming (warning only)
   if (!isGerund(skillName)) {
-    warnings.push(`${skillName}: Should use gerund form (e.g., generating-*, validating-*, building-*)`);
-    warnings.push(`${skillName}: Consider renaming to action-oriented form`);
+    warnings.push(`${skillName}: ⚠️ MUST use gerund form - this is NOT optional!`);
+    warnings.push(`${skillName}: Examples: working-with-${skillName}, using-${skillName}, processing-${skillName}`);
+    warnings.push(`${skillName}: See .claude/skills/skill-creation-guide.md - "Non-Negotiable Rule #1"`);
   }
 
   // Check 6: Validate optional subdirectories

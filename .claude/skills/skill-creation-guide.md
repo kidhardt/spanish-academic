@@ -10,7 +10,26 @@ description: Governance and standards for creating Claude skills in Spanish Acad
 **Authority:** This document is part of project governance. All Claude agents and developers MUST follow these standards when creating new skills.
 
 **Last Updated:** 2025-10-25
-**Version:** 1.0.0
+**Version:** 1.1.0
+
+---
+
+## 🚨 CRITICAL: Read This First
+
+### Non-Negotiable Rule #1: Gerund Naming
+
+**ALL skill names MUST use gerund form (action verbs ending in -ing).**
+
+❌ **WRONG:** `pdf`, `xlsx`, `api`, `git`, `docker`
+✅ **CORRECT:** `working-with-pdf`, `analyzing-spreadsheets`, `calling-api`, `using-git-worktrees`, `managing-containers`
+
+**Why this matters:**
+- Skills describe **actions**, not **tools**
+- Gerunds make the skill's purpose immediately clear
+- Validation warnings indicate non-compliance
+- Consistency across all project skills
+
+**If you create a skill with a non-gerund name, you are doing it wrong. Stop and rename it.**
 
 ---
 
@@ -58,8 +77,10 @@ description: One-sentence description of what this skill does and when to use it
 **name:**
 - REQUIRED
 - Format: `lowercase-letters-hyphens`
-- Use gerunds (processing, generating, validating)
-- Match directory name
+- **MUST use gerunds** (processing, generating, validating) - NO EXCEPTIONS
+- **MUST match directory name exactly**
+- ❌ NEVER use tool/file names alone: `pdf`, `xlsx`, `api`
+- ✅ ALWAYS use action verbs: `working-with-pdf`, `processing-xlsx`, `calling-api`
 - Examples: `generating-json-ld`, `validating-accessibility`, `building-templates`
 
 **description:**
@@ -77,29 +98,53 @@ description: One-sentence description of what this skill does and when to use it
 
 ## Skill Naming Conventions
 
-### Use Gerunds (Action-Oriented)
+### ⚠️ CRITICAL RULE: Use Gerunds (Action-Oriented)
+
+**ALL skills MUST use gerund naming (action verbs ending in -ing).**
+
+This is NOT optional. The validation script will issue warnings for non-gerund names.
 
 ✅ **CORRECT:**
-- `generating-json-ld`
-- `validating-localization`
-- `creating-continuations`
-- `building-templates`
-- `enforcing-mobile-first`
+- `generating-json-ld` (not `json-ld` or `json-ld-skill`)
+- `validating-localization` (not `localization`)
+- `creating-continuations` (not `continuation-director`)
+- `building-templates` (not `template-builder`)
+- `enforcing-mobile-first` (not `mobile-first`)
+- `working-with-pdf` (not `pdf` or `pdf-skill`)
+- `processing-spreadsheets` (not `xlsx`)
 
-❌ **WRONG:**
+❌ **WRONG (will trigger validation warnings):**
 - `json-ld-skill` (not a gerund)
 - `localization` (not action-oriented)
 - `continuation-director` (not a gerund)
 - `template-builder` (noun, not gerund)
 - `mobile-first` (not action-oriented)
+- `pdf` (not action-oriented)
+- `xlsx` (not action-oriented)
+
+### Exception Policy
+
+**There are NO exceptions to the gerund rule.**
+
+If you think you need an exception:
+1. **Stop** - reconsider your naming
+2. **Ask:** "What action does this skill perform?"
+3. **Name it with a gerund** based on the action
+
+**Examples:**
+- ❌ `pdf` → ✅ `working-with-pdf` or `processing-pdf`
+- ❌ `xlsx` → ✅ `working-with-xlsx` or `analyzing-spreadsheets`
+- ❌ `api` → ✅ `calling-api` or `testing-api`
+- ❌ `git` → ✅ `using-git-worktrees` or `managing-branches`
 
 ### Naming Guidelines
 
-1. **Start with action verb** in gerund form (-ing)
+1. **Start with action verb** in gerund form (-ing) - **MANDATORY**
 2. **Be specific** about what the skill does
 3. **Use hyphens** to separate words
 4. **Keep concise** (2-4 words max)
 5. **Avoid generic terms** like "skill", "helper", "utility"
+6. **Never use tool/file names alone** (pdf, xlsx, pptx) - always describe the action
 
 ---
 
