@@ -1,0 +1,2 @@
+import{r,g as e}from"./react-vendor-B_uAldPx.js";var o,t,n={exports:{}},a={};var s=(t||(t=1,n.exports=function(){if(o)return a;o=1;var r=Symbol.for("react.transitional.element"),e=Symbol.for("react.fragment");function t(e,o,t){var n=null;if(void 0!==t&&(n=""+t),void 0!==o.key&&(n=""+o.key),"key"in o)for(var a in t={},o)"key"!==a&&(t[a]=o[a]);else t=o;return o=t.ref,{$$typeof:r,type:e,key:n,ref:void 0!==o?o:null,props:t}}return a.Fragment=e,a.jsx=t,a.jsxs=t,a}()),n.exports);const f=e(r());export{f as R,s as j};
+//# sourceMappingURL=form-vendor-CMpw-mPL.js.map
