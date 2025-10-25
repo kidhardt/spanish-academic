@@ -17,21 +17,34 @@ This document provides a comprehensive overview of the technology stack, depende
   - Path aliases: `@/*`, `@/components/*`, `@/data/*`, `@/i18n/*`
 
 ### Frontend Framework & Libraries
-- **React** (18.3.1) - UI library for interactive islands (Explorer, Chat, Contact)
-- **React DOM** (18.3.1) - React renderer for web
+- **Astro** (5.15.1) - Modern static site generator with island architecture
+  - Documentation: https://docs.astro.build/en/getting-started/
+  - Component-based page generation with `.astro` files
+  - Built-in optimizations (asset bundling, image optimization)
+  - Zero JavaScript by default (progressive enhancement)
+  - Supports React components as islands with client directives
+- **React** (19.2.0) - UI library for interactive islands (Explorer, Chat, Contact)
+- **React DOM** (19.2.0) - React renderer for web
+- **@astrojs/react** (4.4.0) - Astro integration for embedding React components
 - **@tanstack/react-form** (1.0.0) - Type-safe form handling for Contact component
 
 ### Build Tools
-- **Vite** (6.0.7) - Ultra-fast development server and production bundler
+- **Vite** (6.0.7) - Ultra-fast development server and production bundler (for React islands)
   - HMR (Hot Module Replacement) for development
   - Tree shaking and code splitting
   - Manual chunk splitting for vendor code
   - Bundle size enforcement (250KB limit)
+  - Coexists with Astro (handles React island bundling)
 - **@vitejs/plugin-react** (4.3.4) - Official React plugin for Vite
 - **Terser** (5.44.0) - JavaScript minifier with console.log removal in production
 - **Rollup Plugin Visualizer** (5.12.0) - Bundle size visualization
 
 ### Static Site Generation & Automation
+- **Astro Build System** - Primary static site generator
+  - Generates optimized HTML from `.astro` components
+  - Handles content collections for structured data
+  - Built-in i18n support for bilingual routing
+  - Dev server on port 4321 (`npx astro dev`)
 - **Cheerio** (1.0.0) - Server-side HTML parser for build scripts
   - Extract metadata from HTML pages
   - Generate JSON twins
@@ -658,14 +671,23 @@ These skills are currently available and fully functional:
    - Recalculate formulas
    - Location: `.claude/skills/using-filetype-xlsx/`
 
-9. **`using-git-worktrees`** - Isolated Development
-   - Creates isolated git worktrees for feature work
-   - Smart directory selection
-   - Safety verification before creating worktree
-   - Used before executing implementation plans
-   - Location: `.claude/skills/using-git-worktrees/`
+9. **`using-astro`** - Astro Framework
+   - Static site generation with island architecture
+   - Astro component creation and routing
+   - React integration with client directives
+   - Content collections and bilingual routing
+   - Troubleshooting Astro dev/build issues
+   - Reference: https://docs.astro.build/en/getting-started/
+   - Location: `.claude/skills/using-astro/`
 
-10. **`writing-skills`** - Skill Creation
+10. **`using-git-worktrees`** - Isolated Development
+    - Creates isolated git worktrees for feature work
+    - Smart directory selection
+    - Safety verification before creating worktree
+    - Used before executing implementation plans
+    - Location: `.claude/skills/using-git-worktrees/`
+
+11. **`writing-skills`** - Skill Creation
     - TDD approach to creating new skills
     - Tests with subagents before writing
     - Iterates until bulletproof against rationalization

@@ -42,7 +42,14 @@
       "Bash(done)",
       "Bash(for skill in file-using-pdf file-using-pptx file-using-xlsx)",
       "Bash(do echo \"=== $skill ===\")",
-      "Bash(npm run html-size-check:*)"
+      "Bash(npm run html-size-check:*)",
+      "Bash(git fetch:*)",
+      "Bash(git worktree:*)",
+      "Read(//m/VS SpAca/spanish-academic-astro-integrate/**)",
+      "Bash(npx astro add:*)",
+      "Bash(timeout 15 npx astro dev:*)",
+      "Bash(timeout 10 npm run dev:*)",
+      "Bash(npx astro dev)"
     ],
     "deny": [],
     "ask": []
