@@ -55,7 +55,8 @@
       "Bash(node --loader ts-node/esm scripts/crawlee/fetchProgramLists.ts:*)",
       "Bash(npx tsx:*)",
       "Bash(npm run validate-all:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(git merge:*)"
     ],
     "deny": [],
     "ask": []
