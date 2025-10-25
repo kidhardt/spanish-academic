@@ -485,14 +485,14 @@ After templates are done:
 
 Automate validation and governance:
 
-- **spanish-academic-23**: mobile-first-audit Claude Skill
-- **spanish-academic-24**: localization-check Claude Skill
-- **spanish-academic-25**: page-json-sync Claude Skill
-- **spanish-academic-26**: build-category-pages Claude Skill
-- **spanish-academic-27**: accessibility-scan Claude Skill
-- **spanish-academic-28**: performance-budget Claude Skill
-- **spanish-academic-29**: data-governance-scan Claude Skill
-- **spanish-academic-90**: SEO compliance Claude Skill
+- **spanish-academic-23**: checking-mobile-first Claude Skill
+- **spanish-academic-24**: checking-localization Claude Skill
+- **spanish-academic-25**: syncing-page-json Claude Skill
+- **spanish-academic-26**: building-category-pages Claude Skill
+- **spanish-academic-27**: checking-accessibility Claude Skill
+- **spanish-academic-28**: checking-performance-budget Claude Skill
+- **spanish-academic-29**: checking-data-governance Claude Skill
+- **spanish-academic-90**: checking-seo-compliance Claude Skill
 
 ---
 

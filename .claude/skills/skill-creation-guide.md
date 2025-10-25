@@ -106,21 +106,28 @@ This is NOT optional. The validation script will issue warnings for non-gerund n
 
 ✅ **CORRECT:**
 - `generating-json-ld` (not `json-ld` or `json-ld-skill`)
-- `validating-localization` (not `localization`)
+- `checking-localization` (not `localization` or `localization-check`)
 - `creating-continuations` (not `continuation-director`)
 - `building-templates` (not `template-builder`)
-- `enforcing-mobile-first` (not `mobile-first`)
+- `checking-mobile-first` (not `mobile-first` or `mobile-first-audit`)
 - `working-with-pdf` (not `pdf` or `pdf-skill`)
 - `processing-spreadsheets` (not `xlsx`)
+- `checking-accessibility` (not `accessibility-scan`)
+- `checking-seo-compliance` (not `seo-compliance`)
+- `syncing-page-json` (not `page-json-sync`)
 
 ❌ **WRONG (will trigger validation warnings):**
 - `json-ld-skill` (not a gerund)
 - `localization` (not action-oriented)
+- `localization-check` (gerund not at start)
 - `continuation-director` (not a gerund)
 - `template-builder` (noun, not gerund)
 - `mobile-first` (not action-oriented)
+- `mobile-first-audit` (gerund not at start)
 - `pdf` (not action-oriented)
 - `xlsx` (not action-oriented)
+- `accessibility-scan` (gerund not at start)
+- `page-json-sync` (gerund not at start)
 
 ### Exception Policy
 
@@ -145,6 +152,30 @@ If you think you need an exception:
 4. **Keep concise** (2-4 words max)
 5. **Avoid generic terms** like "skill", "helper", "utility"
 6. **Never use tool/file names alone** (pdf, xlsx, pptx) - always describe the action
+7. **Use `checking-*` for validation/audit skills** - When a skill validates, verifies, audits, or checks compliance, use `checking-*` prefix (e.g., `checking-accessibility`, `checking-seo-compliance`, `checking-localization`)
+
+### When to Use `checking-*` Prefix
+
+**Use `checking-*` when the skill:**
+- Validates compliance (WCAG, SEO, mobile-first)
+- Verifies data integrity (localization parity, governance)
+- Audits performance (bundle size, Lighthouse scores)
+- Checks structure (heading hierarchy, semantic HTML)
+- Enforces limits (performance budgets, size constraints)
+
+**Examples:**
+- ✅ `checking-accessibility` - Validates WCAG AA compliance
+- ✅ `checking-localization` - Verifies bilingual parity
+- ✅ `checking-seo-compliance` - Validates SEO metadata structure
+- ✅ `checking-mobile-first` - Audits responsive layout
+- ✅ `checking-performance-budget` - Enforces bundle size limits
+- ✅ `checking-data-governance` - Verifies disclaimers and freshness dates
+
+**Don't use `checking-*` for:**
+- Generation tasks → Use `generating-*` (e.g., `generating-json-ld`)
+- Build tasks → Use `building-*` (e.g., `building-category-pages`)
+- Sync tasks → Use `syncing-*` (e.g., `syncing-page-json`)
+- File processing → Use `using-*`, `working-with-*`, `processing-*`
 
 ---
 
@@ -586,23 +617,37 @@ if (errors.length > 0) {
 
 ### Skill Types in Spanish Academic Network
 
-**1. Generation Skills**
+**1. Generation Skills** (`generating-*`)
 - `generating-json-ld` - Create Schema.org markup
 - `generating-continuations` - Create session continuations
 - `generating-templates` - Build HTML templates
 
-**2. Validation Skills**
-- `validating-accessibility` - WCAG AA checks
-- `validating-localization` - Bilingual parity
-- `validating-seo` - SEO metadata checks
+**2. Validation Skills** (`checking-*`)
+- `checking-accessibility` - WCAG AA checks
+- `checking-localization` - Bilingual parity
+- `checking-seo-compliance` - SEO metadata checks
+- `checking-mobile-first` - Responsive layout validation
+- `checking-performance-budget` - Bundle size & Lighthouse enforcement
+- `checking-data-governance` - High-sensitivity content verification
 
-**3. Build Skills**
-- `building-categories` - Auto-generate category pages
+**3. Build Skills** (`building-*`)
+- `building-category-pages` - Auto-generate category pages
 - `building-sitemap` - Create sitemap.xml
 
-**4. Enforcement Skills**
-- `enforcing-mobile-first` - CSS compliance
-- `enforcing-touch-targets` - 44px minimum checks
+**4. Synchronization Skills** (`syncing-*`)
+- `syncing-page-json` - Auto-generate JSON twins after HTML edits
+
+**5. File Processing Skills** (`using-*`, `working-with-*`, `processing-*`)
+- `using-filetype-pdf` - PDF manipulation
+- `using-filetype-pptx` - Presentation creation and editing
+- `using-filetype-xlsx` - Spreadsheet creation and analysis
+- `using-git-worktrees` - Isolated git worktrees for feature work
+
+**6. Meta Skills** (`making-*`, `requesting-*`, `tracing-*`, `writing-*`)
+- `making-skill-decisions` - Skill discovery and workflow enforcement
+- `requesting-code-review` - Dispatch code-reviewer subagent
+- `tracing-root-causes` - Systematic bug tracing
+- `writing-skills` - TDD approach to skill creation
 
 ---
 

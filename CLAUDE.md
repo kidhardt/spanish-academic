@@ -153,15 +153,16 @@ If any script fails, **DO NOT COMMIT**. Fix issues first.
 
 Skills live in `/.claude/skills/` and enforce project rules:
 
-- **`mobile-first-audit`** - Check responsive layout, tap targets
-- **`localization-check`** - Validate bilingual parity
-- **`page-json-sync`** - Run `generate_page_json.js`
-- **`build-category-pages`** - Run `build_categories.js`
-- **`accessibility-scan`** - Run `accessibility-scan.js`
-- **`performance-budget`** - Bundle size + Lighthouse checks
-- **`data-governance-scan`** - Verify disclaimers on visa/AI content
+- **`checking-mobile-first`** - Check responsive layout, tap targets
+- **`checking-localization`** - Validate bilingual parity
+- **`syncing-page-json`** - Run `generate_page_json.js`
+- **`building-category-pages`** - Run `build_categories.js`
+- **`checking-accessibility`** - Run `accessibility-scan.js`
+- **`checking-performance-budget`** - Bundle size + Lighthouse checks
+- **`checking-data-governance`** - Verify disclaimers on visa/AI content
+- **`checking-seo-compliance`** - Validate SEO metadata structure
 
-**Use Skills proactively.** If you edit HTML, immediately run `/page-json-sync`.
+**Use Skills proactively.** If you edit HTML, immediately run `/syncing-page-json`.
 
 ## Content Type Rules
 

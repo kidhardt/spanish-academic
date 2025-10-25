@@ -103,13 +103,14 @@ Example: When processing `/insights/funding.html`:
 
 Available in VS Code as slash-commands:
 
-- `/mobile-first-audit` — Check responsive layout & tap targets
-- `/localization-check` — Validate bilingual parity
-- `/page-json-sync` — Generate JSON twins
-- `/build-category-pages` — Regenerate category indexes
-- `/accessibility-scan` — WCAG AA checks
-- `/performance-budget` — Bundle size & Lighthouse
-- `/data-governance-scan` — Verify high-sensitivity content
+- `/checking-mobile-first` — Check responsive layout & tap targets
+- `/checking-localization` — Validate bilingual parity
+- `/syncing-page-json` — Generate JSON twins
+- `/building-category-pages` — Regenerate category indexes
+- `/checking-accessibility` — WCAG AA checks
+- `/checking-performance-budget` — Bundle size & Lighthouse
+- `/checking-data-governance` — Verify high-sensitivity content
+- `/checking-seo-compliance` — Validate SEO metadata structure
 
 ## Data Model
 
