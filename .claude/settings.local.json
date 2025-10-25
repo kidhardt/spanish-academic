@@ -31,7 +31,8 @@
       "Bash(npm run lighthouse:*)",
       "Bash(npm run build:*)",
       "Bash(npm install:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
