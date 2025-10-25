@@ -13,11 +13,11 @@ Spanish Academic has **6 primary page types**, each requiring specific Schema.or
 | Page Type | Schema.org Type | Rich Result Eligibility | Priority |
 |-----------|-----------------|------------------------|----------|
 | **Program List** | `CollectionPage` + `FAQPage` | FAQs, Breadcrumbs | High |
-| **Program Detail** | `EducationalOrganization` + `Course` + `FAQPage` | Course, FAQs | Critical |
+| **Program Detail** | `Course` + `FAQPage` | Course, FAQs | Critical |
 | **Insights Article** | `Article` + `FAQPage` | Article, FAQs | High |
 | **Help/Q&A** | `FAQPage` | FAQs | Critical |
 | **Category Index** | `CollectionPage` | Breadcrumbs | Medium |
-| **Homepage** | `WebSite` + `Organization` | Sitelinks search box | High |
+| **Homepage** | `WebSite` + `Organization` (or `NewsMediaOrganization`) | Sitelinks search box | High |
 
 ---
 
@@ -190,7 +190,9 @@ document.head.innerHTML += '<script type="application/ld+json">...'
 
 **Example:** `/programs/uc-davis-phd-spanish-ling.html`
 
-**Schema Types:** `Course` + `EducationalOrganization` + `FAQPage`
+**Schema Types:** `Course` + `FAQPage`
+
+**Note:** `Course` schema describes the program offered by the university. Spanish Academic is a directory site, not the course provider, so we reference the actual university in the `provider` field.
 
 ```html
 <script type="application/ld+json">
@@ -505,6 +507,16 @@ document.head.innerHTML += '<script type="application/ld+json">...'
 **Why `SearchAction`?**
 - Enables Google Sitelinks search box
 - Improves brand visibility in search results
+
+**Important Note on Organization Type:**
+
+Spanish Academic is an **information platform and journal**, NOT an educational institution. Therefore:
+
+✅ **Use:** `Organization` (generic, always safe)
+✅ **Alternative:** `NewsMediaOrganization` (if emphasizing journal/publication role)
+❌ **Never use:** `EducationalOrganization` (only for institutions that teach courses)
+
+**For program pages**, use `Course` schema but always set the `provider` to the actual university (e.g., UC Davis), not Spanish Academic.
 
 ---
 
