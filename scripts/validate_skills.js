@@ -104,6 +104,8 @@ function isGerund(skillName) {
     'managing',
     'requesting',
     'writing',
+    'making',
+    'tracing',
   ];
 
   const firstWord = skillName.split('-')[0];
