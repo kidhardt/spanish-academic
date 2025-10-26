@@ -1,0 +1,2 @@
+import{j as o,R as t}from"./form-vendor-CMpw-mPL.js";import{R as r}from"./client-BfOaRJ1e.js";import"./react-vendor-B_uAldPx.js";const e=()=>o.jsxs("div",{className:"contact-form",children:[o.jsx("h2",{children:"Contact Us"}),o.jsx("p",{children:"Contact form coming soon..."})]}),n=document.getElementById("contact-root");if(!n)throw new Error("Contact root element not found. Ensure #contact-root exists in the HTML.");r.createRoot(n).render(o.jsx(t.StrictMode,{children:o.jsx(e,{})}));
+//# sourceMappingURL=contact-Bdd6IXkD.js.map

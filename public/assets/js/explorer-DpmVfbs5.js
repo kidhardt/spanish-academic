@@ -1,0 +1,2 @@
+import{j as r,R as e}from"./form-vendor-CMpw-mPL.js";import{R as o}from"./client-BfOaRJ1e.js";import"./react-vendor-B_uAldPx.js";const t=()=>r.jsxs("div",{className:"explorer",children:[r.jsx("h2",{children:"Program Explorer"}),r.jsx("p",{children:"Interactive program browser coming soon..."})]}),n=document.getElementById("explorer-root");if(!n)throw new Error("Explorer root element not found. Ensure #explorer-root exists in the HTML.");o.createRoot(n).render(r.jsx(e.StrictMode,{children:r.jsx(t,{})}));
+//# sourceMappingURL=explorer-DpmVfbs5.js.map
