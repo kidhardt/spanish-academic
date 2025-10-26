@@ -10,6 +10,10 @@ This document defines the mobile-first design principles that govern all HTML te
 
 For prospective graduate students making high-stakes decisions about education, funding, and immigration, page speed and accessibility on mobile devices directly impact trust. A slow-loading page signals unprofessionalism. A fast, clean mobile experience signals authority.
 
+### Rationale / Principles
+
+Start with constraints and design the minimum viable mobile experience; add enhancements for wider viewports. Prefer progressive enhancement (additive styles), prioritize readability and touch interaction, and test in realistic device+network conditions.
+
 ## Why Mobile-First?
 
 1. **User behavior:** Graduate students research programs on phones between classes, during commutes, and on campus Wi-Fi
@@ -18,6 +22,13 @@ For prospective graduate students making high-stakes decisions about education, 
 4. **Performance budgets:** Mobile limitations prevent bloat that hurts all users
 
 ## Breakpoint Strategy
+Below is a concise table you can copy into tickets or README files.
+
+| Viewport | Typical devices | Layout notes | Media query |
+|---|---:|---|---|
+| Base (min) 320px | Small phones (iPhone SE, older Android) | Single-column, stacked, priority-first | — (base)
+| 768px+ | Tablets, small laptops | Two-column option, expanded nav | @media (min-width: 768px)
+| 1024px+ | Desktop / large laptop | Multi-column, sidebars, capped max-width | @media (min-width: 1024px)
 
 ### Base: 320px (Mobile-First Foundation)
 
@@ -25,6 +36,7 @@ For prospective graduate students making high-stakes decisions about education, 
 - **Layout:** Single-column, stacked vertically
 - **Typography:** 16px base font size (prevents zoom on iOS)
 - **Touch targets:** Minimum 44x44px (Apple HIG, WCAG 2.1 AAA)
+ - **Touch targets:** Minimum 44x44px (Apple HIG). See RULE 2 for measurement notes.
 - **No media query required:** This is the default
 
 ### Tablet: 768px+ (`min-width` only)
@@ -97,9 +109,19 @@ For prospective graduate students making high-stakes decisions about education, 
 - Desktop enhancements are additive, not subtractive
 - Performance budgets are respected (no loading large desktop CSS on mobile)
 
+**Rationale & caveats**
+
+`min-width` promotes additive, progressive enhancement and is the recommended default for this project. In legacy-support scenarios (older browsers or systems where desktop-first CSS was historically used), teams may encounter `max-width` media queries. If exceptions are needed, document them in the PR and include a short justification (legacy support, third-party integration, or performance regression risks). Consistency is more important than ideology: prefer `min-width` unless a documented exception exists.
+
+References: UXPin and BrowserStack both note that additive breakpoints are easier to reason about and maintain; use `max-width` only as an explicit, documented exception.
+
 ### RULE 2: Touch Targets Minimum 44x44px
 
 All interactive elements (links, buttons, form inputs) must have a minimum tap target of **44x44 pixels**.
+
+Note on WCAG: Apple HIG recommends 44pt as a practical minimum. WCAG 2.1 includes a Target Size success criterion (2.5.5) which maps to AAA; our baseline project target is **WCAG 2.1 AA** unless a particular high-sensitivity page requires AAA-level controls. Cite the exact success criteria when planning audits.
+
+Measurement units: "px" refers to CSS logical pixels unless otherwise stated. On high-DPR (retina) devices the browser maps CSS pixels to device pixels — teams should design using CSS pixels (layout and spacing) and test on real devices. For comfortable thumb reach some teams use ~48×48 CSS pixels as a slightly more generous minimum (~7–8 mm approximate physical size). Use 44px as the hard minimum and 48px where space allows.
 
 **Correct implementation:**
 ```css
@@ -127,8 +149,28 @@ All interactive elements (links, buttons, form inputs) must have a minimum tap t
 
 **Why?**
 - Apple Human Interface Guidelines: 44pt minimum
-- WCAG 2.1 Level AAA: 44x44px minimum
+- WCAG 2.1 Target Size (2.5.5) maps to AAA; our baseline is WCAG 2.1 AA and teams should document when AAA is required
 - User frustration: Small tap targets cause mis-taps and abandonment
+
+#### Contrast & Focus (companion guidance)
+
+- Contrast: Aim for at least 4.5:1 for normal text, 3:1 for large text. Design systems should publish token pairs that meet these ratios.
+- Focus: Provide visible focus styles for keyboard users. Prefer `:focus-visible` to avoid showing outlines on mouse interactions. Example:
+
+```css
+:focus-visible {
+  outline: 3px solid #ffbf47; /* ensure contrast against background */
+  outline-offset: 2px;
+}
+```
+
+- Reduced motion: Respect `prefers-reduced-motion` and offer non-animated alternatives where necessary.
+
+Additional mobile accessibility notes:
+
+- Screen readers: test with VoiceOver (iOS) and TalkBack (Android) for key pages and flows.
+- Focus order & semantics: ensure interactive elements use appropriate semantics (button vs anchor) and logical DOM order so keyboard and assistive tech users get predictable navigation.
+- Zoom & scaling: never disable user zoom; ensure font sizing and layout tolerate text enlargement.
 
 ### RULE 3: Single-Column Base Layout
 
@@ -228,6 +270,29 @@ Every HTML page must include:
 - Proportional scaling maintains visual hierarchy
 - Larger screens can support larger type for readability
 
+Typography details & line-height
+
+- Base: 16px (1rem) is recommended to avoid automatic zoom behavior in mobile browsers. Teams may set `html { font-size: 100%; }` and `body { font-size: 1rem; }` for better user-scaling.
+- Line-height: use 1.4–1.6 for body text on mobile. Avoid values below 1.4 for readability. For compact UI labels, ensure legibility at small sizes (no less than 0.875rem / 14px effective size).
+- Use relative units (`rem`, `em`) for font sizing so user preferences (browser zoom) are respected.
+
+**Fluid typography (recommended alternative)**
+
+Instead of abrupt jumps at breakpoints, prefer a fluid `clamp()` approach for smoother scaling across viewports:
+
+```css
+:root {
+  --fs-base: 1rem; /* 16px */
+}
+
+h1 {
+  /* min 1.75rem, preferred scales with viewport, max 2.5rem */
+  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+}
+```
+
+This reduces layout shifts between breakpoints and often improves perceived performance on mobile.
+
 ### RULE 6: Images Must Be Responsive
 
 **Correct implementation:**
@@ -249,6 +314,21 @@ img {
 </picture>
 ```
 
+Always include `srcset` and `sizes` when providing multiple resolutions. Example:
+
+```html
+<img
+  src="hero-320.jpg"
+  srcset="hero-320.jpg 320w, hero-768.jpg 768w, hero-1200.jpg 1200w"
+  sizes="(max-width: 768px) 100vw, 1200px"
+  alt="Campus at sunset"
+  loading="lazy"
+  decoding="async"
+>
+```
+
+Serve next-gen formats (AVIF/WebP) via `<picture>` fallbacks and let the browser pick the best format. Use `loading="lazy"` for offscreen images and IntersectionObserver fallbacks where needed.
+
 **Why?**
 - Fixed-width images cause horizontal scrolling
 - Art direction serves appropriately sized images
@@ -260,6 +340,10 @@ img {
 - Hamburger menu or vertical stacked links
 - Language switcher visible in header
 - Search icon (expands to input on tap)
+
+Thumb-reach & one-handed use
+
+Design with thumb reach in mind: place frequently used actions within comfortable reach (typically lower two-thirds of the screen on tall devices). For long-scroll pages prefer sticky bottom actions for critical CTAs rather than top-of-screen controls. Hamburger menus are acceptable but avoid hiding critical features or burying content behind multi-level navigation.
 
 **Tablet (768px+):**
 - Horizontal navigation bar
@@ -315,6 +399,8 @@ img {
 - **Cumulative Layout Shift (CLS):** < 0.1
 - **Lighthouse Mobile Score:** > 90
 
+Measurement guidance: these targets are mobile-specific and should be measured under realistic mobile conditions (throttled 3G/4G network, mid-tier mobile CPU emulation or real device). Use Lighthouse CI with mobile emulation and supplement with Real Device testing and RUM (Real User Monitoring) to capture production experience.
+
 ### Optimization Strategies
 
 1. **Critical CSS inline:** Inline above-the-fold styles in `<head>`
@@ -352,6 +438,12 @@ Test on throttled connections:
 - **3G Fast:** Simulates typical mobile network
 - **3G Slow:** Simulates congested network
 - **Offline:** Service worker fallback (future enhancement)
+
+Real-world testing guidance
+
+- Include throttled-network runs in CI (Lighthouse CI with emulated 3G and mid-tier CPU). 
+- Run E2E accessibility checks with axe in Playwright/Cypress on throttled conditions where feasible.
+- Collect RUM (e.g., Lighthouse RUM or a lightweight analytics RUM solution) to monitor LCP/CLS/FID for mobile users in production and set alerting for regressions.
 
 ### Browser Testing
 
@@ -555,19 +647,42 @@ h1 {
 
 ## Validation Checklist
 
-Before committing any CSS or HTML:
+Before committing any CSS or HTML, confirm the following categories:
 
-- [ ] No `max-width` media queries used
-- [ ] All interactive elements have 44x44px minimum touch targets
-- [ ] Mobile viewport meta tag present
-- [ ] Base layout is single-column
-- [ ] Typography uses `rem`/`em` (not fixed `px`)
-- [ ] Images have `max-width: 100%`
-- [ ] Tested on real iOS and Android devices
-- [ ] Lighthouse Mobile score > 90
+### Layout / Structure
+- [ ] Base layout is single-column at mobile widths
+- [ ] No `max-width` media queries used (or documented exception)
 - [ ] No horizontal scrolling at any breakpoint
-- [ ] Language switcher visible on mobile
-- [ ] Form inputs don't trigger zoom (16px minimum font size)
+
+### Accessibility
+- [ ] All interactive elements have >= 44x44px touch targets (48x48 recommended where space allows)
+- [ ] Contrast ratios: normal text >= 4.5:1; large text >= 3:1
+- [ ] Focus styles present and visible (`:focus-visible`) with sufficient contrast
+- [ ] Reduced-motion support (`prefers-reduced-motion`) implemented for non-essential animations
+- [ ] Screen-reader smoke-tested (VoiceOver/TalkBack) for critical flows
+- [ ] Keyboard operable (logical focus order and semantics)
+
+### Performance
+- [ ] Mobile viewport meta tag present
+- [ ] Typography uses relative units (`rem`/`em`) and body >= 16px where needed to avoid zoom
+- [ ] Images responsive (`srcset`/`sizes` or `<picture>`) and next-gen formats when possible
+- [ ] Initial page load and Core Web Vitals meet project budget targets under mobile throttling
+
+### Testing / CI
+- [ ] Tested on real iOS and Android devices (or device lab) for critical pages
+- [ ] Lighthouse Mobile score > 90 (Lighthouse CI in PRs)
+- [ ] Automated accessibility checks present (axe in E2E) and linting rules for CSS anti-patterns
+- [ ] RUM instrumentation in production to track LCP/CLS/FID for mobile users (optional but recommended)
+
+### Enforcement & CI checks (recommended)
+
+- Add a Lighthouse CI job in PRs to enforce mobile score thresholds (suggested: Mobile score >= 90). Configure a failing threshold for regressions.
+- Run automated accessibility checks (axe) in Playwright/Cypress during CI; fail the build on new critical violations.
+- Linting: add stylelint rules or a pre-commit check to flag `@media (max-width` usage and other anti-patterns; consider a lightweight grep if a custom rule is not available.
+- Add unit/visual smoke tests for critical pages (Playwright visual snapshots on key breakpoints) to catch layout regressions and horizontal scrolls.
+
+Add an item to the checklist to ensure these automated checks are present in the repository.
+
 
 ## Future Enhancements
 
@@ -580,4 +695,6 @@ Before committing any CSS or HTML:
 
 **Last Reviewed:** 2025-10-24
 **Version:** 1.0.0
-**Related:** [CLAUDE.md](../CLAUDE.md) (RULE 5: Mobile-First, WCAG AA Minimum)
+**Maintainer:** @frontend-team
+**Baseline accessibility:** WCAG 2.1 AA (document notes specific AAA criteria such as Target Size 2.5.5 when applicable)
+**Related:** [CLAUDE.md](../CLAUDE.md) (RULE 5: Mobile-First)

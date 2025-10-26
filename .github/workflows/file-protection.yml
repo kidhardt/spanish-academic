@@ -1,0 +1,139 @@
+name: File Protection Enforcement
+
+# Server-side enforcement of protection rules
+# Mirrors pre-commit hook logic to catch --no-verify bypasses
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - 'release/**'
+  push:
+    branches:
+      - main
+      - master
+      - 'release/**'
+
+jobs:
+  protection-check:
+    name: Enforce File Protection Rules
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for accurate diff
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate project-map.json schema
+        run: npm run validate-project-map
+
+      - name: Run file protection check
+        run: |
+          # Get list of changed files in this PR/push
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          fi
+
+          # Export changed files to temp file
+          git diff --name-status "$BASE_SHA" "$HEAD_SHA" > /tmp/changed-files.txt
+
+          # Run protection check (modified to read from file instead of git staged)
+          node scripts/ci-protection-check.cjs /tmp/changed-files.txt
+
+      - name: Check protection system integrity
+        run: |
+          # Verify critical protection files haven't been tampered with
+          node scripts/verify-protection-integrity.cjs
+
+      - name: Display override log (if exists)
+        if: failure()
+        run: |
+          if [ -f .git/protection-overrides.log ]; then
+            echo "⚠️  WARNING: Override log detected"
+            echo "Recent overrides:"
+            tail -20 .git/protection-overrides.log
+          fi
+
+  validation-suite:
+    name: Run Full Validation Suite
+    runs-on: ubuntu-latest
+    needs: protection-check
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all validators
+        run: npm run validate-all
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Build test
+        run: npm run build
+
+  codeowners-check:
+    name: Verify CODEOWNERS Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check CODEOWNERS exists
+        run: |
+          if [ ! -f .github/CODEOWNERS ]; then
+            echo "❌ ERROR: .github/CODEOWNERS file not found"
+            exit 1
+          fi
+          echo "✓ CODEOWNERS file exists"
+
+      - name: Verify critical paths are protected
+        run: |
+          REQUIRED_PATHS=(
+            "/.claude/"
+            "/CLAUDE.md"
+            "/project-map.json"
+            "/scripts/pre-commit-check.js"
+            "/.github/CODEOWNERS"
+          )
+
+          MISSING_PATHS=()
+
+          for path in "${REQUIRED_PATHS[@]}"; do
+            if ! grep -q "^${path}" .github/CODEOWNERS; then
+              MISSING_PATHS+=("$path")
+            fi
+          done
+
+          if [ ${#MISSING_PATHS[@]} -gt 0 ]; then
+            echo "❌ ERROR: Critical paths missing from CODEOWNERS:"
+            printf '%s\n' "${MISSING_PATHS[@]}"
+            exit 1
+          fi
+
+          echo "✓ All critical paths are protected by CODEOWNERS"

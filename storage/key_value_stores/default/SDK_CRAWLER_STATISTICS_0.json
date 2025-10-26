@@ -1,27 +1,40 @@
 {
-  "requestsFinished": 5,
+  "requestsFinished": 11,
   "requestsFailed": 0,
-  "requestsRetries": 0,
+  "requestsRetries": 1,
   "requestsFailedPerMinute": 0,
-  "requestsFinishedPerMinute": 137,
-  "requestMinDurationMillis": 1089,
-  "requestMaxDurationMillis": 1118,
+  "requestsFinishedPerMinute": 403,
+  "requestMinDurationMillis": 76,
+  "requestMaxDurationMillis": 695,
   "requestTotalFailedDurationMillis": 0,
-  "requestTotalFinishedDurationMillis": 5526,
-  "crawlerStartedAt": "2025-10-25T22:53:31.068Z",
-  "crawlerFinishedAt": "2025-10-25T22:53:33.205Z",
-  "statsPersistedAt": "2025-10-25T22:53:33.205Z",
-  "crawlerRuntimeMillis": 2193,
-  "crawlerLastStartTimestamp": 1761432811012,
+  "requestTotalFinishedDurationMillis": 6033,
+  "crawlerStartedAt": "2025-10-26T01:11:07.761Z",
+  "crawlerFinishedAt": "2025-10-26T01:11:09.331Z",
+  "statsPersistedAt": "2025-10-26T01:11:09.331Z",
+  "crawlerRuntimeMillis": 1638,
+  "crawlerLastStartTimestamp": 1761441067693,
   "requestRetryHistogram": [
-    5
+    10,
+    1
   ],
   "statsId": 0,
   "requestAvgFailedDurationMillis": null,
-  "requestAvgFinishedDurationMillis": 1105,
-  "requestTotalDurationMillis": 5526,
-  "requestsTotal": 5,
-  "requestsWithStatusCode": {},
+  "requestAvgFinishedDurationMillis": 548,
+  "requestTotalDurationMillis": 6033,
+  "requestsTotal": 11,
+  "requestsWithStatusCode": {
+    "403": 1
+  },
   "errors": {},
-  "retryErrors": {}
+  "retryErrors": {
+    "m:\\VS SpAca\\spanish-academic\\node_modules\\@crawlee\\src\\internals\\basic-crawler.ts:1348:19": {
+      "missing error code": {
+        "Error": {
+          "Request blocked - received 403 status code.": {
+            "count": 1
+          }
+        }
+      }
+    }
+  }
 }

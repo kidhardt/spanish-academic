@@ -1,6 +1,6 @@
 ---
 name: using-astro
-description: Use when working with Astro framework for static site generation, integrating React islands, configuring routing, or troubleshooting Astro build/dev issues. Consult Astro docs at https://docs.astro.build/en/getting-started/ for detailed guidance.
+description: Use when working with Astro framework for static site generation, integrating React islands, configuring routing, or troubleshooting Astro build/dev issues. Consult Astro docs at https://github.com/withastro/astro and https://docs.astro.build/en/getting-started/ for detailed guidance.
 ---
 
 # Using Astro - Spanish Academic 2026
@@ -9,7 +9,11 @@ description: Use when working with Astro framework for static site generation, i
 
 Astro is a modern static site generator with an island architecture that generates optimized HTML with zero JavaScript by default. This skill covers essential Astro operations for the Spanish Academic platform, which uses Astro for static page generation alongside Vite for React island bundling.
 
-**Official Documentation:** https://docs.astro.build/en/getting-started/
+**Official Documentation:**
+
+Two urls:
+description: Use when working with Astro framework for static site generation, integrating React islands, configuring routing, or troubleshooting Astro build/dev issues. Consult Astro docs at https://github.com/withastro/astro https://docs.astro.build/en/getting-started/ for detailed guidance.
+Github Repo: https://docs.astro.build/en/getting-started/
 
 ## When to Use This Skill
 

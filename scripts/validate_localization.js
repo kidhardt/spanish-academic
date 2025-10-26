@@ -40,6 +40,12 @@ function parseHtmlFile(filePath) {
     const pathEn = $('meta[name="path_en"]').attr('content')?.trim() || null;
     const pathEs = $('meta[name="path_es"]').attr('content')?.trim() || null;
 
+    // Localization parity metadata
+    const parityStr = $('meta[name="localization_parity"]').attr('content')?.trim();
+    const parity = parityStr === 'false' ? false : true; // Default to true
+    const parityReason = $('meta[name="parity_reason"]').attr('content')?.trim() || null;
+    const pageLanguage = $('meta[name="page_language"]').attr('content')?.trim() || null;
+
     // Extract hreflang links
     const hreflangLinks = [];
     $('link[rel="alternate"][hreflang]').each((_, el) => {
@@ -58,6 +64,9 @@ function parseHtmlFile(filePath) {
       language,
       pathEn,
       pathEs,
+      parity,
+      parityReason,
+      pageLanguage,
       hreflangLinks,
       hasLanguageSwitcher,
     };
@@ -81,6 +90,41 @@ function validateHtmlFile(filePath) {
 
   const errors = [];
   const warnings = [];
+
+  // Check if page is NON-PARITY (single language only)
+  if (metadata.parity === false) {
+    // NON-PARITY validation
+    console.log(`\nℹ️  ${relPath} - NON-PARITY (${metadata.parityReason || 'reason not specified'})`);
+
+    if (!metadata.parityReason) {
+      warnings.push('NON-PARITY page missing parity_reason metadata');
+    }
+
+    if (!metadata.pageLanguage) {
+      warnings.push('NON-PARITY page missing page_language metadata');
+    }
+
+    if (!metadata.language) {
+      errors.push('Missing lang attribute on <html> tag');
+    }
+
+    // Skip bilingual checks for NON-PARITY pages
+    if (warnings.length > 0) {
+      console.warn(`⚠️  ${relPath}`);
+      warnings.forEach(warn => console.warn(`   • ${warn}`));
+      warningCount += warnings.length;
+    }
+
+    return {
+      filePath,
+      relPath,
+      metadata,
+      errors,
+      warnings,
+    };
+  }
+
+  // PARITY validation (default behavior - bilingual required)
 
   // Check for lang attribute
   if (!metadata.language) {
@@ -161,9 +205,17 @@ function validateHtmlFile(filePath) {
 
 /**
  * Check for orphaned files (English page without Spanish counterpart or vice versa)
+ * Skips NON-PARITY pages (single language allowed)
  */
-function checkForOrphans(enFiles, esFiles) {
+function checkForOrphans(enFiles, esFiles, allResults) {
   const orphans = [];
+
+  // Get set of NON-PARITY paths to skip
+  const nonParityPaths = new Set(
+    allResults
+      .filter(r => r.metadata.parity === false)
+      .map(r => r.relPath)
+  );
 
   // Build sets of relative paths (without language prefix)
   const enPaths = new Set(
@@ -180,6 +232,12 @@ function checkForOrphans(enFiles, esFiles) {
     if (enPath.startsWith('es/') || enPath.startsWith('es\\')) {
       return; // Skip Spanish files in the English set
     }
+
+    // Skip NON-PARITY pages
+    if (nonParityPaths.has(enPath)) {
+      return;
+    }
+
     if (!esPaths.has(enPath)) {
       orphans.push({
         type: 'missing_spanish',
@@ -190,6 +248,12 @@ function checkForOrphans(enFiles, esFiles) {
 
   // Check for Spanish pages without English counterpart
   esPaths.forEach(esPath => {
+    // Skip NON-PARITY pages
+    const esRelPath = join('es', esPath);
+    if (nonParityPaths.has(esRelPath) || nonParityPaths.has('es/' + esPath) || nonParityPaths.has('es\\' + esPath)) {
+      return;
+    }
+
     if (!enPaths.has(esPath)) {
       orphans.push({
         type: 'missing_english',
@@ -259,7 +323,7 @@ async function main() {
   console.log('\n' + '='.repeat(60));
   console.log('🔍 Checking for Orphaned Files\n');
 
-  const orphans = checkForOrphans(enFiles, esFiles);
+  const orphans = checkForOrphans(enFiles, esFiles, results);
 
   if (orphans.length > 0) {
     orphans.forEach(orphan => {

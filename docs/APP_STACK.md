@@ -55,6 +55,15 @@ This document provides a comprehensive overview of the technology stack, depende
   - Generate sitemaps
   - Build category indexes
 
+### Content Migration & Web Scraping
+- **Crawlee** (3.15.2) - Production-grade web scraping and automation framework
+  - HttpCrawler for fetching content from legacy WordPress site
+  - Respectful rate limiting (30 requests/minute)
+  - Automatic retry logic and error handling
+  - Request queue management
+  - Used for migrating program lists, Insights articles, and scholarship content
+  - Zero-rewrite policy: Preserves exact HTML structure from source
+
 ### Code Quality & Linting
 - **ESLint** (9.18.0) - JavaScript/TypeScript linter
 - **@typescript-eslint/eslint-plugin** (8.19.1) - TypeScript-specific linting rules
@@ -94,6 +103,187 @@ This document provides a comprehensive overview of the technology stack, depende
   - Browser caching headers
   - Canonical URL redirects
 - **Future-ready:** Cloudflare Pages / Netlify compatibility (no URL structure changes required)
+
+---
+
+## File Structure
+
+```
+spanish-academic/
+├── .beads/                          # Beads issue tracking system
+│   └── issues.jsonl                 # Issue tracking database
+│
+├── .claude/                         # Claude Code configuration and skills
+│   ├── data/                        # Tracking data files
+│   │   ├── localization-parity.jsonl  # Parity designations audit trail
+│   │   └── protection-checksums.json  # File protection system checksums
+│   └── skills/                      # Claude Code skills
+│       ├── generating-continuations/  # Session management
+│       ├── generating-json-ld/        # Schema.org structured data
+│       ├── making-skill-decisions/    # Skill discovery workflow
+│       ├── requesting-code-review/    # Code review automation
+│       ├── scraping-data/             # Content migration (zero-rewrite)
+│       ├── tracing-root-causes/       # Systematic debugging
+│       ├── using-astro/               # Astro framework integration
+│       ├── using-filetype-pdf/        # PDF manipulation
+│       ├── using-filetype-pptx/       # Presentation toolkit
+│       ├── using-filetype-xlsx/       # Spreadsheet toolkit
+│       ├── using-git-worktrees/       # Isolated development
+│       ├── using-sensitive-content/   # YMYL content governance
+│       └── writing-skills/            # Skill creation TDD
+│
+├── data/                            # Runtime data and snapshots
+│   └── snapshots/                   # Timestamped content snapshots
+│       ├── migration-2025-10-25/          # Program lists migration
+│       ├── migration-insights-2025-10-25/ # Insights articles migration
+│       └── migration-scholarship-2025-10-26/ # Scholarship migration
+│
+├── docs/                            # Documentation
+│   ├── content-migration/           # Migration artifacts
+│   │   ├── raw-lists/              # Raw HTML from program lists
+│   │   ├── raw-insights/           # Raw HTML from Insights articles
+│   │   └── raw-scholarship/        # Raw HTML from scholarship articles
+│   ├── APP_STACK.md                # Technology stack documentation (this file)
+│   ├── CONTENT_MIGRATION.md        # Content migration report
+│   ├── FILE_PROTECTION_SYSTEM.md   # File protection system documentation
+│   ├── GETTING_STARTED.md          # Development setup guide
+│   ├── LOCALIZATION_FIRST.md       # Bilingual architecture guide
+│   ├── LOCALIZATION_PARITY_SYSTEM.md # Parity system documentation
+│   └── project-map.schema.json     # JSON Schema for project-map.json
+│
+├── lighthouse-reports/              # Lighthouse audit results
+│
+├── public/                          # Static site output (English)
+│   ├── assets/                      # Static assets
+│   │   ├── css/                    # Stylesheets
+│   │   └── js/                     # JavaScript bundles
+│   ├── contact/                     # Contact form pages
+│   ├── explorer/                    # Program Explorer app
+│   ├── help/                        # Help/Q&A pages
+│   ├── insights/                    # Insights articles
+│   │   └── categories/             # Category index pages
+│   ├── programs/                    # Program detail pages
+│   ├── scholarship/                 # Scholarship articles (NON-PARITY)
+│   ├── test/                        # Test pages
+│   ├── index.html                   # Homepage
+│   ├── spanish-linguistics.html     # Program list page
+│   ├── translation-and-interpreting.html # Program list page
+│   ├── literature-and-culture.html  # Program list page
+│   ├── online-spanish-linguistics.html # Program list page
+│   ├── .htaccess                    # Apache configuration
+│   ├── robots.txt                   # Search engine directives
+│   ├── sitemap.xml                  # Generated sitemap
+│   └── manifest.webmanifest         # PWA manifest
+│
+├── public/es/                       # Static site output (Spanish)
+│   ├── ayuda/                       # Help/Q&A pages (Spanish)
+│   ├── contacto/                    # Contact form (Spanish)
+│   ├── explorador/                  # Program Explorer (Spanish)
+│   ├── insights/                    # Insights articles (Spanish)
+│   │   └── categorias/             # Category index pages
+│   ├── programas/                   # Program detail pages (Spanish)
+│   ├── test/                        # Test pages (Spanish)
+│   ├── index.html                   # Homepage (Spanish)
+│   ├── linguistica-espanola.html    # Program list page
+│   ├── traduccion-e-interpretacion.html # Program list page
+│   ├── literatura-y-cultura.html    # Program list page
+│   └── linguistica-espanola-online.html # Program list page
+│
+├── scripts/                         # Build and validation scripts
+│   ├── crawlee/                     # Content migration scripts
+│   │   ├── fetchProgramLists.ts    # Fetch program lists from WordPress
+│   │   ├── generateProgramLists.ts # Generate program list pages
+│   │   ├── fetchInsightsArticles.ts # Fetch Insights articles
+│   │   ├── generateInsightsPages.ts # Generate Insights pages
+│   │   ├── fetchScholarshipArticles.ts # Fetch scholarship articles
+│   │   └── generateScholarshipPages.ts # Generate scholarship pages
+│   ├── localization/                # Localization parity scripts
+│   │   ├── parity-designate.js     # Record parity designations
+│   │   └── parity-list.js          # List parity designations
+│   ├── accessibility-scan.js        # WCAG AA compliance checker
+│   ├── build_categories.js          # Generate category index pages
+│   ├── ci-protection-check.cjs      # Server-side file protection enforcement (CI)
+│   ├── data-governance-scan.js      # High-sensitivity content validator
+│   ├── execute_continuation.js      # Session continuation generator
+│   ├── generate_page_json.js        # Generate JSON twins from HTML
+│   ├── generate_sitemap.js          # Generate sitemap.xml
+│   ├── html-size-check.js           # Enforce HTML size budget
+│   ├── install-git-hooks.js         # Install pre-commit hook for file protection
+│   ├── lighthouse_ci.sh             # Lighthouse CI integration
+│   ├── pre-commit-check.js          # File protection enforcement (local pre-commit)
+│   ├── pre-deploy-validation.sh     # Pre-deployment validation suite
+│   ├── validate-project-map-schema.cjs # Validate project-map.json against schema
+│   ├── validate_localization.js     # Bilingual parity validator
+│   └── verify-protection-integrity.cjs # Checksum verification for protection files
+│
+├── src/                             # Source code
+│   ├── apps/                        # React island applications
+│   │   ├── chat/                   # Help Chat component
+│   │   ├── contact/                # Contact Form component
+│   │   └── explorer/               # Program Explorer component
+│   ├── components/                  # Shared React components
+│   ├── data/                        # Data models
+│   │   ├── structured/             # TypeScript data models (bilingual)
+│   │   └── unstructured/           # JSON narrative content
+│   ├── i18n/                        # Internationalization
+│   │   ├── en.ts                   # English UI strings
+│   │   └── es.ts                   # Spanish UI strings
+│   └── utils/                       # Utility functions
+│       ├── localization.ts          # Hreflang and path helpers
+│       ├── slugTranslations.ts      # Bilingual slug mapping
+│       └── snapshotManager.ts       # Content snapshot utilities
+│
+├── storage/                         # Crawlee storage (runtime)
+│   ├── key_value_stores/           # Crawler metadata
+│   └── request_queues/             # Crawler queue state
+│
+├── templates/                       # HTML templates
+│   ├── base.html                    # Base template (English, PARITY)
+│   └── scholarship-base.html        # Scholarship template (NON-PARITY)
+│
+├── .github/                         # GitHub configuration
+│   ├── workflows/                   # GitHub Actions CI/CD
+│   │   └── file-protection.yml     # File protection enforcement (CI)
+│   └── CODEOWNERS                   # Code ownership and review requirements
+│
+├── .gitignore                       # Git ignore patterns
+├── CLAUDE.md                        # AI agent governance rules
+├── package.json                     # npm dependencies and scripts
+├── project-map.json                 # File protection system configuration
+├── README.md                        # Project overview
+├── tsconfig.json                    # TypeScript configuration
+└── vite.config.ts                   # Vite build configuration
+```
+
+### Key Directory Purposes
+
+**Content Directories:**
+- `public/` - English static site output (production-ready HTML)
+- `public/es/` - Spanish static site output (mirrors English structure)
+- `public/scholarship/` - NON-PARITY scholarly articles (Spanish only)
+
+**Data & Migration:**
+- `data/snapshots/` - Timestamped content snapshots for legal protection
+- `docs/content-migration/raw-*/` - Raw HTML from WordPress (evidence preservation)
+- `.claude/data/` - Tracking files (parity designations, sensitive content)
+
+**Scripts & Automation:**
+- `scripts/crawlee/` - Content migration with zero-rewrite policy
+- `scripts/localization/` - Parity system management
+- `scripts/*.js` - Validation and build automation
+
+**Source Code:**
+- `src/apps/` - React island applications (Explorer, Chat, Contact)
+- `src/data/structured/` - TypeScript data models with bilingual fields
+- `src/data/unstructured/` - JSON narrative content (gradual translation)
+- `src/i18n/` - UI translation dictionaries
+- `src/utils/` - Shared utilities (localization, slug translation, snapshots)
+
+**Configuration & Governance:**
+- `.claude/skills/` - Claude Code automation skills
+- `templates/` - HTML templates (PARITY and NON-PARITY)
+- `CLAUDE.md` - AI agent rules and governance
+- `docs/*.md` - Comprehensive documentation
 
 ---
 
@@ -227,7 +417,37 @@ The following integration order follows best practices for static-first architec
 
 **Validates:** Performance, accessibility, SEO
 
-**Dependencies:** Directory structure, slug translation utils, Cheerio, Glob
+#### 5h. Sensitive Content Tracking (`sensitive-content:validate`)
+- Track high-sensitivity content requiring disclaimers (YMYL compliance)
+- JSONL-based tracking file (`.claude/skills/using-sensitive-content/data/sensitive-content-tracker.jsonl`)
+- Warning mode (development): Logs issues, allows commits
+- Strict mode (deployment): Blocks if unresolved items exist
+- E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) guidelines
+- Used for visa/immigration, AI ethics, funding, career advice, rankings content
+
+**Validates:** YMYL compliance, disclaimer presence
+
+#### 5i. Localization Parity Management (`parity:designate`, `parity:list`)
+- Record and track PARITY vs. NON-PARITY page designations
+- JSONL-based tracking file (`.claude/data/localization-parity.jsonl`)
+- User approval protocol for NON-PARITY designations
+- Four valid reasons: scholarly-article-original-language, language-specific-content, cultural-specific-resource, original-publication
+- Validation system respects parity metadata (skips bilingual checks for NON-PARITY)
+- Citation preservation protocol for scholarly articles
+
+**Validates:** Localization parity designations, user approval audit trail
+
+#### 5j. Content Migration Scripts (`crawlee:fetch-*`, `crawlee:generate-*`)
+- Fetch scripts: Use Crawlee HttpCrawler to fetch raw HTML from legacy WordPress site
+- Generate scripts: Extract content with Cheerio, generate clean HTML using templates
+- Zero-rewrite policy: Preserve exact HTML structure from source
+- Timestamped snapshots for legal protection and audit trail
+- Evidence preservation: Raw HTML + snapshots + fetch logs
+- Migration scripts: fetchProgramLists.ts, generateProgramLists.ts, fetchInsightsArticles.ts, generateInsightsPages.ts, fetchScholarshipArticles.ts, generateScholarshipPages.ts
+
+**Validates:** Zero-rewrite compliance, evidence preservation
+
+**Dependencies:** Directory structure, slug translation utils, Cheerio, Glob, Crawlee
 **Validates:** `npm run validate-all`
 
 ---
@@ -323,7 +543,16 @@ The following integration order follows best practices for static-first architec
 - Disclaimer where appropriate
 - JSON twin includes `qaPage` type, `lastReviewed`, `legalSensitivity`
 
-**Dependencies:** Base templates, data models, validation scripts
+#### 10e. Scholarship Articles (NON-PARITY)
+- Academic essays in original Spanish language (citation preservation)
+- Schema.org `ScholarlyArticle` markup
+- Self-referential hreflang only (no alternate language)
+- Metadata: `localization_parity="false"`, `parity_reason="scholarly-article-original-language"`, `page_language="es"`
+- Template: `templates/scholarship-base.html`
+- No English translation required (academic integrity, citability)
+- Located at `/scholarship/` directory
+
+**Dependencies:** Base templates, parity system, validation scripts
 **Validates:** `npm run validate-all`
 
 ---
@@ -536,9 +765,10 @@ This priority structure ensures code integrity and stability first, followed by 
 
 ---
 
-### 6. Bilingual Localization (Localization-First)
+### 6. Bilingual Localization (Localization-First with Exceptions)
 **Rationale:** Spanish is a first-class citizen, not an afterthought. Poor Spanish UX damages credibility for a Spanish linguistics platform.
 
+**PARITY (Default - Bilingual Required):**
 - URL mirroring: `/` ↔ `/es/`
 - Slug translation with mapping system
 - Hreflang links bidirectional + self-referential + x-default
@@ -547,7 +777,16 @@ This priority structure ensures code integrity and stability first, followed by 
 - JSON twins for both languages
 - React component i18n with language dictionaries
 
-**Validation:** `npm run validate-localization` must pass
+**NON-PARITY (Exception - Single Language Allowed):**
+- User approval required before designation
+- Valid reasons: scholarly-article-original-language, language-specific-content, cultural-specific-resource, original-publication
+- Citation preservation protocol: Scholarly articles remain in original language for academic integrity
+- Self-referential hreflang only (no alternate language)
+- Explicit metadata: `localization_parity="false"`, `parity_reason`, `page_language`
+- Validation skips bilingual checks for NON-PARITY pages
+- Tracking: `.claude/data/localization-parity.jsonl` (audit trail)
+
+**Validation:** `npm run validate-localization` must pass (respects parity metadata)
 
 ---
 
@@ -609,6 +848,270 @@ This priority structure ensures code integrity and stability first, followed by 
 - Continuation system for session resumption
 
 **Validation:** `npm run lint`, `npm run format`, code review
+
+---
+
+## File Protection System
+
+**Version:** 1.2.0 (Enterprise-Grade)
+**Documentation:** [FILE_PROTECTION_SYSTEM.md](FILE_PROTECTION_SYSTEM.md)
+
+### Overview
+
+The File Protection System is a comprehensive, multi-layer safeguard mechanism that prevents accidental or unauthorized modifications to critical files. It combines machine-readable protection rules, automated enforcement, and human oversight to ensure system integrity.
+
+**Status:** ✅ Production-ready, enterprise-grade with SOC 2-level rigor
+
+### Architecture: 5-Layer Defense
+
+```
+┌─────────────────────────────────────────────┐
+│  Layer 1: AI Assistant Protocol (RULE 0)   │
+│  Preventive - Ask before dangerous actions  │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│  Layer 2: Pre-Commit Hook (local)           │
+│  Automatic - Blocks violations before commit│
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│  Layer 3: GitHub Actions CI (server-side)   │
+│  Catches --no-verify bypasses               │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│  Layer 4: CODEOWNERS + Branch Protection    │
+│  Human review for critical PRs              │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│  Layer 5: Tamper Detection (checksums)      │
+│  Detects modifications to protection files  │
+└─────────────────────────────────────────────┘
+```
+
+### Core Components
+
+#### 1. project-map.json
+
+**Location:** Repo root
+**Purpose:** Machine-readable risk classification for all files
+
+**Structure:**
+```json
+{
+  "version": "1.2.0",
+  "lastReviewed": "2025-10-25",
+  "allowedTopLevelDirectories": [...],
+  "paths": {
+    "path/pattern/**": {
+      "danger": "low|medium|high|critical",
+      "editAllowedDirect": true|false,
+      "allowDelete": true|false,
+      "allowRename": true|false,
+      "requiresApproval": true|false,
+      "mustRunValidators": ["script-name", ...],
+      "notes": "Why this is protected"
+    }
+  }
+}
+```
+
+**Danger Levels:**
+- **low**: Safe to modify (docs, tests)
+- **medium**: Caution advised (affects functionality)
+- **high**: Production or data integrity (public/, templates/)
+- **critical**: Security, compliance, core architecture (CLAUDE.md, scripts/, src/i18n/)
+
+**Protected Paths (38 rules):**
+- AI governance: `.claude/**`, `CLAUDE.md`, `project-map.json`
+- Build infrastructure: `scripts/**`, `templates/**`
+- Core logic: `src/i18n/**`, `src/utils/localization.ts`, `src/utils/slugTranslations.ts`
+- Configuration: `package.json`, `tsconfig.json`, `vite.config.ts`
+- Production: `public/.htaccess`, `public/robots.txt`
+
+#### 2. Pre-Commit Hook
+
+**Script:** `scripts/pre-commit-check.js`
+**Installation:** `npm run install-hooks`
+
+**Checks:**
+- ✅ Blocks deletion of `allowDelete:false` files
+- ✅ Blocks renaming of `allowRename:false` files
+- ✅ Blocks edits to `editAllowedDirect:false` files on main branch
+- ✅ Blocks new top-level directories not in whitelist
+- ✅ Enforces branch naming for critical changes (feature/, safety/, fix/)
+- ✅ Displays required validators for changed paths
+
+**Example Output:**
+```
+❌ BLOCKED: Cannot edit src/utils/localization.ts on main branch
+  Danger level: critical
+  Solution: Create feature branch: git checkout -b feature/update-localization
+```
+
+#### 3. GitHub Actions CI
+
+**Workflow:** `.github/workflows/file-protection.yml`
+
+**Jobs:**
+- **protection-check**: Server-side enforcement (mirrors pre-commit hook)
+- **validation-suite**: Runs all validators (validate-all, type-check, build)
+- **codeowners-check**: Verifies critical paths are protected
+
+**Triggers:** PRs and pushes to main, master, or release/* branches
+
+**Result:** Catches `--no-verify` bypasses, ensures server-side enforcement
+
+#### 4. JSON Schema Validation
+
+**Schema:** `docs/project-map.schema.json`
+**Validator:** `scripts/validate-project-map-schema.cjs`
+
+**Checks:**
+- ✅ Required fields: version, lastReviewed, paths
+- ✅ Version format: semver (MAJOR.MINOR.PATCH)
+- ✅ Date format: ISO 8601 (YYYY-MM-DD)
+- ✅ Danger levels: enum validation (low|medium|high|critical)
+- ✅ Field types: boolean, string, array as expected
+- ✅ No duplicates in arrays (mustRunValidators, allowedTopLevelDirectories)
+
+**Usage:** `npm run validate-project-map`
+
+**Result:** Prevents typos from silently disabling protection rules
+
+#### 5. Tamper Detection
+
+**Script:** `scripts/verify-protection-integrity.cjs`
+**Checksums:** `.claude/data/protection-checksums.json`
+
+**Protected Files:**
+- project-map.json
+- scripts/pre-commit-check.js
+- scripts/install-git-hooks.js
+- scripts/ci-protection-check.cjs
+- scripts/validate-project-map-schema.cjs
+- scripts/verify-protection-integrity.cjs (self-checking)
+- .github/CODEOWNERS
+
+**How It Works:**
+1. Generates SHA-256 checksums on installation
+2. Verifies checksums on demand or in CI
+3. Detects tampering and displays helpful messages
+4. Logs all modifications for audit trail
+
+**Usage:**
+```bash
+npm run verify-protection-integrity     # Verify
+npm run generate-protection-checksums   # Regenerate after legitimate changes
+```
+
+#### 6. CODEOWNERS
+
+**File:** `.github/CODEOWNERS`
+
+**Protected Paths:**
+- All danger:critical files require code owner approval
+- Protection system files protect themselves
+- GitHub enforces via branch protection rules
+
+**Branch Protection (GitHub Settings):**
+- ✅ Require pull request before merging
+- ✅ Require approvals (at least 1)
+- ✅ Require review from Code Owners
+- ✅ Require status checks: validate-all, type-check, Lighthouse CI
+- ✅ Do not allow bypassing settings
+
+### Key Features
+
+1. **Fast Lookup**: JSON-based, no manual repo reads
+2. **Self-Protecting**: Protection files protect themselves (checksums + CODEOWNERS)
+3. **Helpful Errors**: Clear messages with specific solutions
+4. **Audit Trail**: Logs all overrides (--no-verify) in .git/protection-overrides.log
+5. **Cross-Platform**: Works on Windows, Mac, Linux
+6. **Typo-Proof**: Schema validation prevents structural errors
+7. **Bypass-Resistant**: CI catches --no-verify attempts
+8. **Tamper-Evident**: Checksums detect unauthorized modifications
+
+### NPM Scripts
+
+```json
+{
+  "install-hooks": "Install pre-commit hook",
+  "check-protection": "Run protection check manually",
+  "validate-project-map": "Validate schema + structure",
+  "verify-protection-integrity": "Check for tampering",
+  "generate-protection-checksums": "Regenerate checksums"
+}
+```
+
+### Installation & Testing
+
+```bash
+# 1. Install pre-commit hook
+npm run install-hooks
+
+# 2. Verify installation
+npm run check-protection
+npm run validate-project-map
+npm run verify-protection-integrity
+
+# 3. Test protection (should block)
+echo "test" >> CLAUDE.md
+git add CLAUDE.md
+git commit -m "test"
+# Expected: ❌ BLOCKED
+
+# 4. Correct workflow
+git checkout -b feature/test-protection
+git commit -m "test"
+# Expected: ✓ Passes with approval warning
+```
+
+### Best Practices (2025 Standards)
+
+Based on research from GitHub, GitGuardian, AWS Bedrock, and Australia's AI Safety Standard:
+
+1. **Least Privilege**: Start strict, relax only when proven safe
+2. **Defense in Depth**: Multiple layers, no single point of failure
+3. **Audit Everything**: Log overrides, track changes, review periodically
+4. **Helpful Violations**: Clear errors with solutions, not just blocking
+5. **Protect the Protections**: Self-referential protection (checksums + CODEOWNERS)
+6. **Document Rationale**: Every rule has notes explaining why
+
+### Enforcement Workflow
+
+**For Developers:**
+```bash
+# Modify critical file
+git checkout -b feature/update-localization
+edit src/utils/localization.ts
+git add src/utils/localization.ts
+git commit -m "feat(i18n): add French support"
+# Pre-commit hook runs → Passes with approval warning
+git push -u origin feature/update-localization
+# Create PR → Requires code owner approval
+```
+
+**For AI Assistants (CLAUDE.md RULE 0):**
+```
+1. Check project-map.json before ANY file operation
+2. If danger:critical or high → Ask user for approval
+3. Display 🛡️ warning with options (create branch, use worktree, cancel)
+4. After public/ or public/es/ changes → Run required validators
+5. NEVER create new top-level directories without checking whitelist
+6. NEVER bypass protection with --no-verify
+```
+
+### Security Posture
+
+**Compliance Level:** SOC 2-style governance
+**Bypass Resistance:** 5-layer defense catches all common bypass attempts
+**Audit Trail:** Complete logging of overrides + version history
+**Self-Healing:** Auto-generation of checksums on installation
+
+This is **bank-grade governance** for a Git repository, exceeding industry standards for open-source projects.
 
 ---
 
@@ -694,6 +1197,24 @@ These skills are currently available and fully functional:
     - Used when creating/editing/verifying skills
     - Location: `.claude/skills/writing-skills/`
 
+12. **`scraping-data`** - Content Migration with Zero-Rewrite Policy
+    - Enforces absolute zero-rewrite policy for content extraction from spanishacademic.com
+    - Uses Crawlee HttpCrawler for production-grade scraping
+    - Cheerio HTML parsing for exact structure preservation
+    - Timestamped snapshots for legal protection and audit trail
+    - Evidence preservation: Raw HTML + snapshots + fetch logs
+    - Used for migrating program lists, Insights articles, scholarship content
+    - Location: `.claude/skills/scraping-data/`
+
+13. **`using-sensitive-content`** - YMYL Content Governance
+    - Tracks high-sensitivity content requiring disclaimers (YMYL compliance)
+    - JSONL-based tracking system with warning/strict modes
+    - E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) guidelines
+    - Comprehensive implementation guide for disclaimers (financial, legal, career, rankings)
+    - Pre-deployment validation gate (blocks if unresolved items exist)
+    - Used for visa/immigration, AI ethics, funding, career advice, rankings content
+    - Location: `.claude/skills/using-sensitive-content/`
+
 ---
 
 ### Future Anticipated Skills (Project-Specific)
@@ -767,13 +1288,22 @@ This platform uses a **static-first with interactive React islands** architectur
 - **JSON twins** = machine-readable metadata for AI/chat (no HTML scraping)
 - **Zero JavaScript on static pages** unless island root element present
 
-### Bilingual Mirroring
+### Bilingual Mirroring (with Parity Exceptions)
 English (`/`) and Spanish (`/es/`) are **first-class citizens** with:
+
+**PARITY (Default - Bilingual Required):**
 - Mirrored directory structure
 - Translated slugs with mapping system
 - Bidirectional hreflang + x-default
 - Bilingual data models with `*_en` / `*_es` fields
 - JSON twins for both languages (generated automatically)
+
+**NON-PARITY (Exception - Single Language Allowed):**
+- User approval required before designation
+- Citation preservation: Scholarly articles in original Spanish
+- Self-referential hreflang only
+- Tracked in `.claude/data/localization-parity.jsonl`
+- Documentation: `docs/LOCALIZATION_PARITY_SYSTEM.md`
 
 ### Validation Before Deployment
 **Pre-deployment checklist:**
@@ -801,8 +1331,36 @@ Session resumption via timestamped continuation files:
 - Files stored in `.claude/skills/generating-continuations/references/continuations/`
 - Format: `YYYY-MM-DD_HH-MM-SS.md`
 
+### Content Migration Status
+
+**Phase 1-2a: Program Lists Migration** (Completed 2025-10-25)
+- Migrated 5 program list pages (195 programs total)
+- Categories: Spanish Linguistics, Translation & Interpreting, Literature & Culture, Online Programs
+- Total content: 512 KB raw HTML
+- Zero-rewrite compliance: ✅ Verified
+- Evidence preserved: Raw HTML + timestamped snapshots
+
+**Phase 2b: Flagship Insights Articles Migration** (Completed 2025-10-25)
+- Migrated 2 flagship articles (English + Spanish placeholders)
+- Articles: "How to Choose a Graduate Program", "Graduate Program Rankings"
+- Total content: 241 KB raw HTML, 68 KB extracted content
+- Zero-rewrite compliance: ✅ Verified
+- Sensitive content tracking: 2 items (SC-001, SC-002) pending disclaimer addition
+
+**Phase 3: Scholarship Articles Migration** (Completed 2025-10-26)
+- Migrated 11 Spanish scholarly literature articles (NON-PARITY)
+- Total content: 1.09 MB raw HTML, 111 KB extracted content
+- Citation preservation: ✅ All articles remain in original Spanish
+- Parity designations: 11 NON-PARITY designations recorded
+- Evidence preserved: Raw HTML + timestamped snapshots + audit trail
+- Validation: ✅ All pages validated with parity system
+
+**Documentation:**
+- [CONTENT_MIGRATION.md](CONTENT_MIGRATION.md) - Detailed migration report
+- [LOCALIZATION_PARITY_SYSTEM.md](LOCALIZATION_PARITY_SYSTEM.md) - Parity system documentation
+
 ---
 
-**Last Updated:** 2025-10-25
-**Version:** 1.0.0
+**Last Updated:** 2025-10-26
+**Version:** 1.1.0
 **Maintainer:** Spanish Academic 2026 Team

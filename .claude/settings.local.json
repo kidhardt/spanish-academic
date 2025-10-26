@@ -56,7 +56,17 @@
       "Bash(npx tsx:*)",
       "Bash(npm run validate-all:*)",
       "Bash(tee:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git branch -d feature/crawlee-migration)",
+      "Skill(writing-skills)",
+      "Skill(scraping-data)",
+      "Bash(npm run sensitive-content:list:*)",
+      "Bash(npm run parity:list:*)",
+      "Bash(npm run parity:designate:*)",
+      "Bash(npm run crawlee:fetch-scholarship:*)",
+      "Bash(npm run crawlee:generate-scholarship:*)",
+      "Bash(npm run validate-project-map:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []

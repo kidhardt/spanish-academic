@@ -1,0 +1,28 @@
+# Localization Parity Tracking
+# Format: One JSON object per line
+# Schema: {path: string, parity: boolean, reason: string, decidedBy: string, decidedAt: ISO8601, language?: string}
+# Reasons: scholarly-article-original-language, language-specific-content, cultural-specific-resource, original-publication
+# This file is appended to (never deleted from) to maintain audit trail
+{"path":"/scholarship/test-article.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T00:47:21.718Z"}
+{"path":"/scholarship/1492.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:17.791Z"}
+{"path":"/scholarship/becquer.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:18.938Z"}
+{"path":"/scholarship/tirso-de-molina.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:20.057Z"}
+{"path":"/scholarship/generacion-del-98.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:21.187Z"}
+{"path":"/scholarship/ruben-dario.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:22.342Z"}
+{"path":"/scholarship/poesia-espanola-del-renacimiento.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:30.269Z"}
+{"path":"/scholarship/realismo-magico.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:31.435Z"}
+{"path":"/scholarship/modernismo.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:32.577Z"}
+{"path":"/scholarship/poesia-espanola-de-posguerra.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:33.694Z"}
+{"path":"/scholarship/garcilaso-de-la-vega.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:34.805Z"}
+{"path":"/scholarship/lope-de-vega.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:03:35.938Z"}
+{"path":"/scholarship/1492.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:04.483Z"}
+{"path":"/scholarship/lezama-lima-and-su-interpretacion-de-la-americanidad.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:05.617Z"}
+{"path":"/scholarship/limpia-fija-y-da-esplendor-la-real-academia-espanola-su-diccionario-y-la-responsabilidad-compartida.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:06.718Z"}
+{"path":"/scholarship/utopia-ideologia-y-mito-en-godos-insurgentes-y-visionarios.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:07.890Z"}
+{"path":"/scholarship/ruben-dario-en-la-literatura-hispanoamericana.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:09.040Z"}
+{"path":"/scholarship/mariano-picon-salas-perspectivismo-historico-en-de-la-conquista-a-la-independencia.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:20.366Z"}
+{"path":"/scholarship/leopoldo-alas-clarin-una-aproximacion-a-su-pensamiento-filosofico-juridico.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:21.483Z"}
+{"path":"/scholarship/en-torno-al-pensamiento-filosofico-juridico-de-leopoldo-alas-clarin-en-adios-cordera.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:22.583Z"}
+{"path":"/scholarship/en-torno-a-la-tradicion-picaresca-lazarillo-de-tormes-y-periquillo-sarniento.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:23.760Z"}
+{"path":"/scholarship/domingo-faustino-sarmiento-un-sociologo-romantico.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:24.879Z"}
+{"path":"/scholarship/ariel-cien-anos-despues.html","parity":false,"reason":"scholarly-article-original-language","language":"es","decidedBy":"user","decidedAt":"2025-10-26T01:10:26.035Z"}

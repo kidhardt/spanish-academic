@@ -1,0 +1,30 @@
+{
+  "language": "en",
+  "path_en": "/insights/how-to-choose-a-graduate-program.html",
+  "path_es": "/es/insights/como-elegir-un-programa-de-posgrado.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanishacademic.com/es/insights/como-elegir-un-programa-de-posgrado.html",
+    "title": "[ES version]"
+  },
+  "title": "How to Choose a Graduate Program in Spanish - Master's and PhD",
+  "description": "Essential guide to selecting the right Spanish linguistics, literature, or translation graduate program. Learn about funding, faculty fit, and program evaluation.",
+  "h1": "How to Choose a Graduate Program in Spanish - Master's and PhD",
+  "canonical": "https://spanishacademic.com/insights/how-to-choose-a-graduate-program.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/insights/how-to-choose-a-graduate-program.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/insights/como-elegir-un-programa-de-posgrado.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/insights/how-to-choose-a-graduate-program.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-26T01:12:17.874Z"
+}

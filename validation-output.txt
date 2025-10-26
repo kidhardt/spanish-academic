@@ -1,0 +1,227 @@
+
+> spanish-academic@1.0.0 validate-all
+> npm run generate-json && npm run build-categories && npm run generate-sitemap && npm run validate-localization && npm run validate-skills && npm run accessibility-scan && npm run html-size-check && npm run data-governance-scan
+
+
+> spanish-academic@1.0.0 generate-json
+> node scripts/generate_page_json.js
+
+🔍 Scanning for HTML files in /public/...
+
+Found 24 HTML file(s)
+
+⚠️  WARNING [translation-and-interpreting.html]: Meta description too long (171 chars, max 160)
+   Description: "Directory of graduate programs in translation and interpreting. Find MA and PhD programs in Spanish-..."
+⚠️  WARNING [translation-and-interpreting.html]: Missing SEO_INTENT comment block
+✅ Generated: translation-and-interpreting.json
+⚠️  WARNING [es\traduccion-e-interpretacion.html]: Missing SEO_INTENT comment block
+✅ Generated: es\traduccion-e-interpretacion.json
+⚠️  WARNING [test-page.html]: Meta description too long (162 chars, max 160)
+   Description: "A comprehensive test page demonstrating proper metadata structure for Spanish Academic, including SE..."
+✅ Generated: test-page.json
+⚠️  WARNING [es\pagina-de-prueba.html]: Meta description too long (184 chars, max 160)
+   Description: "Una página de prueba completa que demuestra la estructura de metadatos adecuada para Spanish Academi..."
+✅ Generated: es\pagina-de-prueba.json
+⚠️  WARNING [test-base-template.html]: Missing SEO_INTENT comment block
+✅ Generated: test-base-template.json
+⚠️  WARNING [es\test-base-template.html]: Meta description too short (137 chars, min 140)
+   Description: "Compare programas de doctorado en lingüística española: financiamiento, investigación, admisión. Encuentre el programa doctoral adecuado."
+⚠️  WARNING [es\test-base-template.html]: Missing SEO_INTENT comment block
+✅ Generated: es\test-base-template.json
+⚠️  WARNING [spanish-linguistics.html]: Missing SEO_INTENT comment block
+✅ Generated: spanish-linguistics.json
+⚠️  WARNING [es\linguistica-espanola.html]: Meta description too short (139 chars, min 140)
+   Description: "Directorio completo de programas de posgrado en lingüística española. Encuentre programas de doctorado y maestría en lingüística hispánica."
+⚠️  WARNING [es\linguistica-espanola.html]: Missing SEO_INTENT comment block
+✅ Generated: es\linguistica-espanola.json
+⚠️  WARNING [online-spanish-linguistics.html]: Title too long (64 chars, max 60)
+   Title: "Online Spanish Linguistics Programs - MA & PhD Distance Learning"
+⚠️  WARNING [online-spanish-linguistics.html]: Missing SEO_INTENT comment block
+✅ Generated: online-spanish-linguistics.json
+⚠️  WARNING [es\linguistica-espanola-online.html]: Title too long (64 chars, max 60)
+   Title: "Programas Online de Lingüística Española - Educación a Distancia"
+⚠️  WARNING [es\linguistica-espanola-online.html]: Missing SEO_INTENT comment block
+✅ Generated: es\linguistica-espanola-online.json
+⚠️  WARNING [literature-and-culture.html]: Missing SEO_INTENT comment block
+✅ Generated: literature-and-culture.json
+⚠️  WARNING [es\literatura-y-cultura.html]: Meta description too short (138 chars, min 140)
+   Description: "Directorio de programas de posgrado en literatura y cultura española. Encuentre programas de doctorado y maestría en literatura hispánica."
+⚠️  WARNING [es\literatura-y-cultura.html]: Missing SEO_INTENT comment block
+✅ Generated: es\literatura-y-cultura.json
+⚠️  WARNING [index.html]: Title too long (85 chars, max 60)
+   Title: "Spanish Academic - Graduate Programs in Spanish Linguistics, Literature & Translation"
+❌ ERROR [index.html]: Missing meta description
+❌ ERROR [index.html]: Missing <meta name="path_en" content="..."> tag
+   Required: Add bilingual path metadata in <head>
+❌ ERROR [index.html]: Missing <meta name="path_es" content="..."> tag
+   Required: Add bilingual path metadata in <head>
+⚠️  WARNING [index.html]: Missing SEO_INTENT comment block
+❌ ERROR [index.html]: No hreflang links found
+   Required: Bidirectional hreflang links for en, es, and x-default
+✅ Generated: index.json
+⚠️  WARNING [test\sample-page.html]: Title too long (62 chars, max 60)
+   Title: "Graduate Programs in Spanish Linguistics - Comprehensive Guide"
+⚠️  WARNING [test\sample-page.html]: Meta description too long (165 chars, max 160)
+   Description: "Explore top PhD and MA programs in Spanish linguistics. Learn about funding, research areas, and app..."
+✅ Generated: test\sample-page.json
+⚠️  WARNING [es\test\pagina-de-muestra.html]: Title too long (61 chars, max 60)
+   Title: "Programas de Posgrado en Lingüística Española - Guía Completa"
+⚠️  WARNING [es\test\pagina-de-muestra.html]: Meta description too long (169 chars, max 160)
+   Description: "Explora los mejores programas de doctorado y maestría en lingüística española. Aprende sobre financi..."
+✅ Generated: es\test\pagina-de-muestra.json
+⚠️  WARNING [insights\test-article.html]: Meta description too long (186 chars, max 160)
+   Description: "Explore quantitative methods and statistical approaches used in Spanish linguistics research, includ..."
+❌ ERROR [insights\test-article.html]: hreflang="en" has relative URL
+   Got: "/insights/test-article.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\test-article.html]: hreflang="es" has relative URL
+   Got: "/es/insights/test-article.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\test-article.html]: hreflang="x-default" has relative URL
+   Got: "/insights/test-article.html"
+   Required: Absolute URLs (https://...)
+✅ Generated: insights\test-article.json
+📝 Generated placeholder: es\insights\test-article.json (HTML not found)
+⚠️  WARNING [insights\how-to-choose-a-graduate-program.html]: Title too long (62 chars, max 60)
+   Title: "How to Choose a Graduate Program in Spanish - Master's and PhD"
+⚠️  WARNING [insights\how-to-choose-a-graduate-program.html]: Meta description too long (162 chars, max 160)
+   Description: "Essential guide to selecting the right Spanish linguistics, literature, or translation graduate prog..."
+⚠️  WARNING [insights\how-to-choose-a-graduate-program.html]: Missing SEO_INTENT comment block
+✅ Generated: insights\how-to-choose-a-graduate-program.json
+⚠️  WARNING [es\insights\como-elegir-un-programa-de-posgrado.html]: Meta description too short (67 chars, min 140)
+   Description: "[Meta descripción 140-160 caracteres con variante de palabra clave]"
+⚠️  WARNING [es\insights\como-elegir-un-programa-de-posgrado.html]: Missing SEO_INTENT comment block
+✅ Generated: es\insights\como-elegir-un-programa-de-posgrado.json
+⚠️  WARNING [insights\graduate-program-rankings.html]: Title too long (64 chars, max 60)
+   Title: "Graduate Program Rankings for Spanish Literature and Linguistics"
+⚠️  WARNING [insights\graduate-program-rankings.html]: Meta description too long (168 chars, max 160)
+   Description: "Comprehensive analysis of graduate program rankings in Spanish and Hispanic literature, linguistics,..."
+⚠️  WARNING [insights\graduate-program-rankings.html]: Missing SEO_INTENT comment block
+✅ Generated: insights\graduate-program-rankings.json
+⚠️  WARNING [es\insights\rankings-de-programas-de-posgrado.html]: Meta description too short (67 chars, min 140)
+   Description: "[Meta descripción 140-160 caracteres con variante de palabra clave]"
+⚠️  WARNING [es\insights\rankings-de-programas-de-posgrado.html]: Missing SEO_INTENT comment block
+✅ Generated: es\insights\rankings-de-programas-de-posgrado.json
+⚠️  WARNING [insights\funding-strategies.html]: Meta description too long (217 chars, max 160)
+   Description: "Learn effective strategies for securing funding in Spanish linguistics graduate programs, including ..."
+❌ ERROR [insights\funding-strategies.html]: hreflang="en" has relative URL
+   Got: "/insights/funding-strategies.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\funding-strategies.html]: hreflang="es" has relative URL
+   Got: "/es/insights/funding-strategies.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\funding-strategies.html]: hreflang="x-default" has relative URL
+   Got: "/insights/funding-strategies.html"
+   Required: Absolute URLs (https://...)
+✅ Generated: insights\funding-strategies.json
+📝 Generated placeholder: es\insights\funding-strategies.json (HTML not found)
+⚠️  WARNING [es\traduccion-e-interpretacion.html]: Missing SEO_INTENT comment block
+✅ Generated: es\traduccion-e-interpretacion.json
+⚠️  WARNING [translation-and-interpreting.html]: Meta description too long (171 chars, max 160)
+   Description: "Directory of graduate programs in translation and interpreting. Find MA and PhD programs in Spanish-..."
+⚠️  WARNING [translation-and-interpreting.html]: Missing SEO_INTENT comment block
+✅ Generated: translation-and-interpreting.json
+⚠️  WARNING [es\test-base-template.html]: Meta description too short (137 chars, min 140)
+   Description: "Compare programas de doctorado en lingüística española: financiamiento, investigación, admisión. Encuentre el programa doctoral adecuado."
+⚠️  WARNING [es\test-base-template.html]: Missing SEO_INTENT comment block
+✅ Generated: es\test-base-template.json
+⚠️  WARNING [test-base-template.html]: Missing SEO_INTENT comment block
+✅ Generated: test-base-template.json
+⚠️  WARNING [es\pagina-de-prueba.html]: Meta description too long (184 chars, max 160)
+   Description: "Una página de prueba completa que demuestra la estructura de metadatos adecuada para Spanish Academi..."
+✅ Generated: es\pagina-de-prueba.json
+⚠️  WARNING [test-page.html]: Meta description too long (162 chars, max 160)
+   Description: "A comprehensive test page demonstrating proper metadata structure for Spanish Academic, including SE..."
+✅ Generated: test-page.json
+⚠️  WARNING [es\literatura-y-cultura.html]: Meta description too short (138 chars, min 140)
+   Description: "Directorio de programas de posgrado en literatura y cultura española. Encuentre programas de doctorado y maestría en literatura hispánica."
+⚠️  WARNING [es\literatura-y-cultura.html]: Missing SEO_INTENT comment block
+✅ Generated: es\literatura-y-cultura.json
+⚠️  WARNING [literature-and-culture.html]: Missing SEO_INTENT comment block
+✅ Generated: literature-and-culture.json
+⚠️  WARNING [es\linguistica-espanola.html]: Meta description too short (139 chars, min 140)
+   Description: "Directorio completo de programas de posgrado en lingüística española. Encuentre programas de doctorado y maestría en lingüística hispánica."
+⚠️  WARNING [es\linguistica-espanola.html]: Missing SEO_INTENT comment block
+✅ Generated: es\linguistica-espanola.json
+⚠️  WARNING [spanish-linguistics.html]: Missing SEO_INTENT comment block
+✅ Generated: spanish-linguistics.json
+⚠️  WARNING [es\linguistica-espanola-online.html]: Title too long (64 chars, max 60)
+   Title: "Programas Online de Lingüística Española - Educación a Distancia"
+⚠️  WARNING [es\linguistica-espanola-online.html]: Missing SEO_INTENT comment block
+✅ Generated: es\linguistica-espanola-online.json
+⚠️  WARNING [online-spanish-linguistics.html]: Title too long (64 chars, max 60)
+   Title: "Online Spanish Linguistics Programs - MA & PhD Distance Learning"
+⚠️  WARNING [online-spanish-linguistics.html]: Missing SEO_INTENT comment block
+✅ Generated: online-spanish-linguistics.json
+⚠️  WARNING [es\index.html]: Title too long (80 chars, max 60)
+   Title: "Spanish Academic - Programas de Posgrado en Lingüística, Literatura y Traducción"
+❌ ERROR [es\index.html]: Missing meta description
+❌ ERROR [es\index.html]: Missing <meta name="path_en" content="..."> tag
+   Required: Add bilingual path metadata in <head>
+❌ ERROR [es\index.html]: Missing <meta name="path_es" content="..."> tag
+   Required: Add bilingual path metadata in <head>
+⚠️  WARNING [es\index.html]: Missing SEO_INTENT comment block
+❌ ERROR [es\index.html]: No hreflang links found
+   Required: Bidirectional hreflang links for en, es, and x-default
+✅ Generated: es\index.json
+❌ ERROR [insights\categories\research-methods.html]: hreflang="en" has relative URL
+   Got: "/insights/categories/research-methods.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\categories\research-methods.html]: hreflang="es" has relative URL
+   Got: "/es/insights/categorias/research-methods.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\categories\research-methods.html]: hreflang="x-default" has relative URL
+   Got: "/insights/categories/research-methods.html"
+   Required: Absolute URLs (https://...)
+✅ Generated: insights\categories\research-methods.json
+📝 Generated placeholder: es\insights\categorias\research-methods.json (HTML not found)
+❌ ERROR [insights\categories\funding-and-financial-aid.html]: hreflang="en" has relative URL
+   Got: "/insights/categories/funding-and-financial-aid.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\categories\funding-and-financial-aid.html]: hreflang="es" has relative URL
+   Got: "/es/insights/categorias/funding-and-financial-aid.html"
+   Required: Absolute URLs (https://...)
+❌ ERROR [insights\categories\funding-and-financial-aid.html]: hreflang="x-default" has relative URL
+   Got: "/insights/categories/funding-and-financial-aid.html"
+   Required: Absolute URLs (https://...)
+✅ Generated: insights\categories\funding-and-financial-aid.json
+📝 Generated placeholder: es\insights\categorias\funding-and-financial-aid.json (HTML not found)
+⚠️  WARNING [es\test\pagina-de-muestra.html]: Title too long (61 chars, max 60)
+   Title: "Programas de Posgrado en Lingüística Española - Guía Completa"
+⚠️  WARNING [es\test\pagina-de-muestra.html]: Meta description too long (169 chars, max 160)
+   Description: "Explora los mejores programas de doctorado y maestría en lingüística española. Aprende sobre financi..."
+✅ Generated: es\test\pagina-de-muestra.json
+⚠️  WARNING [test\sample-page.html]: Title too long (62 chars, max 60)
+   Title: "Graduate Programs in Spanish Linguistics - Comprehensive Guide"
+⚠️  WARNING [test\sample-page.html]: Meta description too long (165 chars, max 160)
+   Description: "Explore top PhD and MA programs in Spanish linguistics. Learn about funding, research areas, and app..."
+✅ Generated: test\sample-page.json
+⚠️  WARNING [es\insights\rankings-de-programas-de-posgrado.html]: Meta description too short (67 chars, min 140)
+   Description: "[Meta descripción 140-160 caracteres con variante de palabra clave]"
+⚠️  WARNING [es\insights\rankings-de-programas-de-posgrado.html]: Missing SEO_INTENT comment block
+✅ Generated: es\insights\rankings-de-programas-de-posgrado.json
+⚠️  WARNING [insights\graduate-program-rankings.html]: Title too long (64 chars, max 60)
+   Title: "Graduate Program Rankings for Spanish Literature and Linguistics"
+⚠️  WARNING [insights\graduate-program-rankings.html]: Meta description too long (168 chars, max 160)
+   Description: "Comprehensive analysis of graduate program rankings in Spanish and Hispanic literature, linguistics,..."
+⚠️  WARNING [insights\graduate-program-rankings.html]: Missing SEO_INTENT comment block
+✅ Generated: insights\graduate-program-rankings.json
+⚠️  WARNING [es\insights\como-elegir-un-programa-de-posgrado.html]: Meta description too short (67 chars, min 140)
+   Description: "[Meta descripción 140-160 caracteres con variante de palabra clave]"
+⚠️  WARNING [es\insights\como-elegir-un-programa-de-posgrado.html]: Missing SEO_INTENT comment block
+✅ Generated: es\insights\como-elegir-un-programa-de-posgrado.json
+⚠️  WARNING [insights\how-to-choose-a-graduate-program.html]: Title too long (62 chars, max 60)
+   Title: "How to Choose a Graduate Program in Spanish - Master's and PhD"
+⚠️  WARNING [insights\how-to-choose-a-graduate-program.html]: Meta description too long (162 chars, max 160)
+   Description: "Essential guide to selecting the right Spanish linguistics, literature, or translation graduate prog..."
+⚠️  WARNING [insights\how-to-choose-a-graduate-program.html]: Missing SEO_INTENT comment block
+✅ Generated: insights\how-to-choose-a-graduate-program.json
+
+============================================================
+📊 SUMMARY
+============================================================
+✅ Success: 46 JSON file(s) generated
+⚠️  Warnings: 70
+❌ Errors: 20
+
+❌ Generation completed with errors

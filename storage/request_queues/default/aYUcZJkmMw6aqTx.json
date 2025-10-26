@@ -1,9 +1,0 @@
-{
-	"id": "aYUcZJkmMw6aqTx",
-	"json": "{\"id\":\"aYUcZJkmMw6aqTx\",\"url\":\"https://spanishacademic.com/spanish-literature\",\"loadedUrl\":\"https://spanishacademic.com/spanish-literature\",\"uniqueKey\":\"https://spanishacademic.com/spanish-literature\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2025-10-25T22:53:33.145Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://spanishacademic.com/spanish-literature",
-	"url": "https://spanishacademic.com/spanish-literature"
-}

@@ -1,0 +1,30 @@
+{
+  "language": "en",
+  "path_en": "/insights/graduate-program-rankings.html",
+  "path_es": "/es/insights/rankings-de-programas-de-posgrado.html",
+  "alternateLanguage": {
+    "lang": "es",
+    "url": "https://spanishacademic.com/es/insights/rankings-de-programas-de-posgrado.html",
+    "title": "[ES version]"
+  },
+  "title": "Graduate Program Rankings for Spanish Literature and Linguistics",
+  "description": "Comprehensive analysis of graduate program rankings in Spanish and Hispanic literature, linguistics, and translation studies. Understanding methodology and limitations.",
+  "h1": "Graduate Program Rankings for Spanish Literature and Linguistics",
+  "canonical": "https://spanishacademic.com/insights/graduate-program-rankings.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/insights/graduate-program-rankings.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/insights/rankings-de-programas-de-posgrado.html"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/insights/graduate-program-rankings.html"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-26T01:12:17.867Z"
+}

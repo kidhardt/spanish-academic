@@ -1,0 +1,130 @@
+# CODEOWNERS - File Protection System
+#
+# This file defines code ownership for critical paths in the Spanish Academic 2026 project.
+# When files matching these patterns are modified in a PR, the specified owners must approve.
+#
+# Format: <pattern> <@owner1> <@owner2> ...
+# Patterns are matched using gitignore-style glob matching.
+#
+# Documentation: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ================================
+# CRITICAL: AI Governance & Safety
+# ================================
+# These files control AI assistant behavior, session management, and safety constraints.
+# Changes could remove compliance protections or corrupt continuation recovery.
+
+/.claude/ @yourusername
+/CLAUDE.md @yourusername
+/project-map.json @yourusername
+
+# ================================
+# CRITICAL: Protection System Files
+# ================================
+# Self-protecting: These files implement the protection system itself.
+# Weakening these files weakens all other protections.
+
+/project-map.json @yourusername
+/scripts/pre-commit-check.js @yourusername
+/scripts/install-git-hooks.js @yourusername
+/docs/FILE_PROTECTION_SYSTEM.md @yourusername
+/.github/CODEOWNERS @yourusername
+
+# ================================
+# CRITICAL: Build Infrastructure
+# ================================
+# Validation, governance, build scripts that enforce parity, accessibility, compliance.
+# Breaking these removes all automated guardrails.
+
+/scripts/ @yourusername
+/scripts/pre-commit-check.js @yourusername
+/scripts/localization/ @yourusername
+/scripts/crawlee/ @yourusername
+
+# ================================
+# CRITICAL: HTML Templates
+# ================================
+# Base templates define structure for parity, accessibility, compliance banners.
+# Changes affect ALL generated pages.
+
+/templates/ @yourusername
+
+# ================================
+# CRITICAL: Core Application Logic
+# ================================
+# i18n routing, bilingual data models, URL mapping.
+# Breaking these breaks all bilingual navigation and SEO.
+
+/src/i18n/ @yourusername
+/src/utils/localization.ts @yourusername
+/src/utils/slugTranslations.ts @yourusername
+/src/data/structured/ @yourusername
+/src/utils/snapshotManager.ts @yourusername
+
+# ================================
+# CRITICAL: Configuration Files
+# ================================
+# Build config, dependencies, type checking.
+# Changes affect security, licensing, compilation.
+
+/package.json @yourusername
+/package-lock.json @yourusername
+/tsconfig.json @yourusername
+/vite.config.ts @yourusername
+
+# ================================
+# CRITICAL: Production Config
+# ================================
+# Apache server config, SEO directives.
+# Breaking these breaks production deployment.
+
+/public/.htaccess @yourusername
+/public/robots.txt @yourusername
+
+# ================================
+# HIGH: Governance Documentation
+# ================================
+# Documents that define parity system, localization architecture, file protection.
+
+/docs/LOCALIZATION_PARITY_SYSTEM.md @yourusername
+/docs/LOCALIZATION_FIRST.md @yourusername
+/docs/FILE_PROTECTION_SYSTEM.md @yourusername
+
+# ================================
+# HIGH: Snapshot History
+# ================================
+# Evidence/history of content migration.
+# Never delete without explicit approval.
+
+/data/ @yourusername
+
+# ================================
+# MEDIUM: GitHub Workflows
+# ================================
+# CI/CD, issue templates, this file.
+
+/.github/ @yourusername
+
+# ================================
+# Default: All Other Files
+# ================================
+# For files not matching above patterns, any team member with write access can approve.
+# This is implicit, but can be made explicit if desired:
+# * @team-name
+
+# ================================
+# Notes
+# ================================
+#
+# - Replace @yourusername with your actual GitHub username or team name
+# - Use teams (@org/team-name) instead of individuals to avoid bottlenecks
+# - More specific patterns override general ones (later lines override earlier)
+# - CODEOWNERS only enforces if "Require review from Code Owners" is enabled in branch protection
+# - Code owners must have write permission or higher to approve PRs
+#
+# GitHub Settings Required:
+# 1. Repository Settings → Branches → Branch protection rules for main
+# 2. Enable "Require a pull request before merging"
+# 3. Enable "Require review from Code Owners"
+# 4. Enable required status checks: validate-all, type-check, Lighthouse CI
+# 5. Enable "Do not allow bypassing the above settings"

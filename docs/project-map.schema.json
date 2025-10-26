@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://spanishacademic.com/schemas/project-map.schema.json",
+  "title": "File Protection Map",
+  "description": "Risk classification schema for file protection system",
+  "type": "object",
+  "required": ["version", "lastReviewed", "paths"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (MAJOR.MINOR.PATCH)"
+    },
+    "lastReviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date of last review (YYYY-MM-DD)"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date of last update (YYYY-MM-DD)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this file's purpose"
+    },
+    "allowedTopLevelDirectories": {
+      "type": "array",
+      "description": "Whitelist of allowed top-level directory names",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9._-]+$"
+      },
+      "uniqueItems": true
+    },
+    "paths": {
+      "type": "object",
+      "description": "File protection rules keyed by glob pattern",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "required": ["role", "danger", "editAllowedDirect", "allowDelete", "allowRename", "requiresApproval", "notes"],
+          "properties": {
+            "role": {
+              "type": "string",
+              "description": "Descriptive identifier for this path's purpose",
+              "pattern": "^[a-z0-9-]+$"
+            },
+            "danger": {
+              "type": "string",
+              "enum": ["low", "medium", "high", "critical"],
+              "description": "Risk level: low (safe), medium (caution), high (production/data), critical (security/compliance/architecture)"
+            },
+            "editAllowedDirect": {
+              "type": "boolean",
+              "description": "Can this file be edited directly on current branch?"
+            },
+            "allowDelete": {
+              "type": "boolean",
+              "description": "Can this file be deleted?"
+            },
+            "allowRename": {
+              "type": "boolean",
+              "description": "Can this file be renamed or moved?"
+            },
+            "requiresApproval": {
+              "type": "boolean",
+              "description": "Does this change require explicit user approval (code owner in PR)?"
+            },
+            "mustRunValidators": {
+              "type": "array",
+              "description": "List of npm script names that must be run after changing this file",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9:-]+$"
+              },
+              "uniqueItems": true
+            },
+            "notes": {
+              "type": "string",
+              "description": "Human-readable explanation of why this path is protected and what happens if it breaks",
+              "minLength": 10
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "dangerLevels": {
+      "type": "object",
+      "description": "Documentation of danger level meanings",
+      "properties": {
+        "low": {
+          "type": "string"
+        },
+        "medium": {
+          "type": "string"
+        },
+        "high": {
+          "type": "string"
+        },
+        "critical": {
+          "type": "string"
+        }
+      }
+    },
+    "enforcementRules": {
+      "type": "object",
+      "description": "Documentation of how rules are enforced",
+      "properties": {
+        "pre-commit": {
+          "type": "string"
+        },
+        "pre-push": {
+          "type": "string"
+        },
+        "ai-assistant": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

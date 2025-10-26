@@ -35,6 +35,142 @@ Every meaningful page (Program List, Program Detail, Insights Article, Help/Q&A,
 
 ## Inviolable Rules
 
+### RULE 0: FILE PROTECTION - CHECK BEFORE ANY OPERATION
+
+**MANDATORY: Check project-map.json before editing, moving, renaming, or deleting ANY file.**
+
+This is the HIGHEST PRIORITY rule. All AI assistants MUST follow this protocol:
+
+**Before ANY file operation (edit, move, rename, delete):**
+
+1. **Load project-map.json** from repo root
+2. **Match the file path** against the protection rules
+3. **Check danger level** (low, medium, high, critical)
+4. **Verify allowed operations:**
+   - `editAllowedDirect`: Can I edit this file in-place?
+   - `allowDelete`: Can I delete this file?
+   - `allowRename`: Can I rename/move this file?
+   - `requiresApproval`: Does this need explicit user permission?
+
+**Enforcement:**
+
+```javascript
+// Example: Before editing src/utils/localization.ts
+const match = matchFileToRule("src/utils/localization.ts", projectMap);
+// Result: {
+//   danger: "critical",
+//   editAllowedDirect: false,
+//   requiresApproval: true,
+//   notes: "Core URL + language mapping logic..."
+// }
+// ACTION: STOP. Ask user. Do NOT edit directly.
+```
+
+**Required Behavior by Danger Level:**
+
+- **critical**: NEVER edit directly on main branch. ALWAYS create feature branch. ALWAYS ask for approval.
+- **high**: Ask before destructive operations (delete, rename). Edits allowed but run validation immediately.
+- **medium**: Ask before deletion. Edits and renames allowed with caution.
+- **low**: Generally safe, but still check specific rules.
+
+**For critical/high danger files, you MUST:**
+
+1. **Ask the user:**
+   ```
+   🛡️ FILE PROTECTION WARNING
+
+   File: [path]
+   Danger Level: [critical/high]
+   Operation: [edit/delete/rename]
+   Rule: editAllowedDirect: false
+
+   This file is protected. Options:
+   1. Create feature branch for this change
+   2. Use git worktree for isolation
+   3. Cancel operation
+
+   Proceed? [yes/no]
+   ```
+
+2. **If user says yes**: Create feature branch first, then make change
+3. **If user says no**: Cancel operation, explain why it's protected
+
+**Files you MUST NEVER touch without explicit approval:**
+
+- `.claude/**` (AI governance, continuation state)
+- `CLAUDE.md` (this file - the constitution)
+- `project-map.json` (file protection rules)
+- `scripts/**` (validation, governance, build scripts)
+- `templates/**` (base HTML templates)
+- `src/i18n/**` (UI language strings)
+- `src/utils/localization.ts` (core i18n routing)
+- `src/utils/slugTranslations.ts` (URL mapping)
+- `src/data/structured/**` (typed data models)
+- `package.json`, `tsconfig.json`, `vite.config.ts` (build config)
+- `public/.htaccess`, `public/robots.txt` (production config)
+
+**ABSOLUTE BAN: Creating New Top-Level Directories**
+
+**NEVER create a new top-level directory (sibling to `src/`, `public/`, etc.) without explicit approval.**
+
+Assistants frequently create `old/`, `backup/`, `deprecated/`, `v2/`, `utils2/` to "organize" code. This forks truth and defeats governance.
+
+**Before creating ANY new top-level directory:**
+
+1. Check `project-map.json` → `allowedTopLevelDirectories` array
+2. If the directory name is NOT in that list → **STOP**
+3. Ask user:
+   ```
+   🛡️ NEW DIRECTORY BLOCKED
+
+   You requested creation of: [dirname]/
+   This is NOT in allowedTopLevelDirectories.
+
+   Creating new top-level directories forks truth and defeats governance.
+
+   Options:
+   1. Use existing directory structure
+   2. Request explicit approval to add [dirname] to project-map.json
+   3. Cancel operation
+
+   Proceed? [yes/no]
+   ```
+
+4. If user says yes: Add to `allowedTopLevelDirectories` in `project-map.json` first, then create directory
+5. If user says no: Cancel operation
+
+**Why this matters:** Once you have two locations for the same type of content (e.g., `src/utils/` and `utils2/`), you lose single source of truth. Localization breaks. SEO breaks. Validation breaks.
+
+---
+
+**After ANY change to public/ or public/es/:**
+
+Run validation immediately:
+```bash
+npm run generate-json        # Regenerate JSON twins
+npm run validate-localization # Check parity
+npm run data-governance-scan  # Check compliance
+```
+
+**Pre-commit hook:**
+
+The file `scripts/pre-commit-check.js` automatically enforces these rules at commit time. It will BLOCK commits that violate protection rules.
+
+**Override (STRONGLY DISCOURAGED):**
+
+If you must override protection:
+```bash
+git commit --no-verify
+```
+This is logged in `.git/protection-overrides.log` for audit trail.
+
+**See also:**
+- [project-map.json](project-map.json) - Full protection rules
+- [docs/FILE_PROTECTION_SYSTEM.md](docs/FILE_PROTECTION_SYSTEM.md) - System documentation
+- [scripts/pre-commit-check.js](scripts/pre-commit-check.js) - Enforcement script
+
+---
+
 ### RULE 1: NO COMMENTARY ON PROGRAM LIST PAGES
 
 **Program list pages are pure link lists. ZERO inline commentary.**
@@ -76,12 +212,65 @@ Content dealing with **immigration/visa**, **AI ethics/disclosure**, **academic 
 
 **Run `npm run data-governance-scan` to verify compliance before committing.**
 
-### RULE 4: PRESERVE LOCALIZATION PARITY
+### RULE 4: PRESERVE LOCALIZATION PARITY (WITH EXCEPTIONS)
 
-- `/` and `/es/` must mirror in structure
+**Default Behavior: PARITY REQUIRED**
+
+- `/` and `/es/` must mirror in structure by default
 - If you add `/help/new-question.html`, you MUST add placeholder `/es/ayuda/nueva-pregunta.html`
 - `hreflang` links must be bidirectional
 - Run `npm run validate-localization` before committing
+
+**Exception: NON-PARITY Designation**
+
+Certain content types may be designated as NON-PARITY (single language only):
+
+- **ALWAYS ask user** before designating any page as NON-PARITY
+- Valid reasons for NON-PARITY:
+  - `scholarly-article-original-language` - Academic essays/articles in original language (citation preservation)
+  - `language-specific-content` - Content relevant to only one language community
+  - `cultural-specific-resource` - Resources specific to one cultural context
+  - `original-publication` - First-party research published in original language
+
+**NON-PARITY pages MUST include metadata:**
+
+```html
+<meta name="localization_parity" content="false">
+<meta name="parity_reason" content="scholarly-article-original-language">
+<meta name="page_language" content="es">
+```
+
+**Recording Parity Designations:**
+
+```bash
+# Designate NON-PARITY (after user approval)
+npm run parity:designate -- --path "/scholarship/article.html" --parity false --reason "scholarly-article-original-language" --language "es"
+
+# Designate PARITY (explicit, optional)
+npm run parity:designate -- --path "/insights/article.html" --parity true
+
+# List all designations
+npm run parity:list
+npm run parity:list -- --parity false  # NON-PARITY only
+```
+
+**User Approval Protocol:**
+
+When creating a page that might be NON-PARITY, **ALWAYS ask:**
+
+```
+📋 PARITY DESIGNATION REQUIRED
+
+I'm creating: [page-name]
+
+Should this page have:
+1. PARITY (bilingual) - Requires counterpart in both / and /es/
+2. NON-PARITY (single language) - Exists in one language only
+
+Reason for NON-PARITY (if applicable): [scholarly-article-original-language | ...]
+```
+
+**Critical:** Citation preservation - Scholarly work MUST stay in original language to maintain academic integrity and citability.
 
 ### RULE 5: MOBILE-FIRST, WCAG AA MINIMUM
 

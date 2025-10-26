@@ -1,0 +1,420 @@
+{
+  "$schema": "./docs/project-map-schema.json",
+  "version": "1.1.0",
+  "lastReviewed": "2025-10-25",
+  "lastUpdated": "2025-10-25",
+  "description": "File protection system: Risk classification for all paths in Spanish Academic 2026. AI assistants MUST check this file before editing, moving, renaming, or deleting ANY file.",
+
+  "allowedTopLevelDirectories": [
+    ".beads",
+    ".claude",
+    ".git",
+    ".github",
+    "data",
+    "docs",
+    "lighthouse-reports",
+    "node_modules",
+    "public",
+    "scripts",
+    "src",
+    "storage",
+    "templates"
+  ],
+
+  "paths": {
+    ".beads/**": {
+      "role": "issue-tracking",
+      "danger": "medium",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "Tracks work history. Do not delete entries retroactively. Editing is allowed to update status, but deletion corrupts audit trail."
+    },
+
+    ".claude/**": {
+      "role": "ai-governance-and-session",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Controls continuation, governance, sensitive-content handling. MUST NOT be changed without explicit human approval and a dedicated worktree branch. Silent edits here could remove safety constraints or corrupt session recovery."
+    },
+
+    ".claude/settings.local.json": {
+      "role": "ai-local-config",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Local Claude Code configuration. Changes affect assistant behavior. Requires explicit approval."
+    },
+
+    ".claude/skills/**": {
+      "role": "ai-skill-definitions",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Defines automated workflows for governance, validation, content migration. Breaking these breaks guardrails."
+    },
+
+    ".claude/data/**": {
+      "role": "ai-tracking-data",
+      "danger": "high",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "Append-only tracking data (e.g., localization-parity.jsonl). Can append new records, but NEVER delete or corrupt existing data."
+    },
+
+    "data/**": {
+      "role": "snapshot-history",
+      "danger": "high",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Append-only snapshots of crawled/migrated content. Never silently delete or rename historical snapshots. This is legal/compliance evidence."
+    },
+
+    "docs/**": {
+      "role": "project-docs",
+      "danger": "low",
+      "editAllowedDirect": true,
+      "allowDelete": true,
+      "allowRename": true,
+      "requiresApproval": false,
+      "notes": "General documentation is safe to update. EXCEPT: governance docs are separately protected (see specific entries below)."
+    },
+
+    "docs/LOCALIZATION_PARITY_SYSTEM.md": {
+      "role": "governance-doc",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Defines parity system; affects bilingual legal/compliance posture. Changes require approval and feature branch."
+    },
+
+    "docs/LOCALIZATION_FIRST.md": {
+      "role": "governance-doc",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Defines bilingual architecture. Core design document. Changes require approval."
+    },
+
+    "docs/FILE_PROTECTION_SYSTEM.md": {
+      "role": "governance-doc",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Defines this file protection system. Self-referential; changes require explicit approval."
+    },
+
+    "CLAUDE.md": {
+      "role": "ai-behavior-contract",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "High-sensitivity rules for AI assistants. Any change requires explicit human yes/no and MUST occur on a feature branch. This is the constitution."
+    },
+
+    "lighthouse-reports/**": {
+      "role": "qa-audit-output",
+      "danger": "low",
+      "editAllowedDirect": true,
+      "allowDelete": true,
+      "allowRename": true,
+      "requiresApproval": false,
+      "notes": "Non-critical performance/a11y audits. Safe to regenerate or delete."
+    },
+
+    "public/**": {
+      "role": "published-site-en",
+      "danger": "high",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "mustRunValidators": ["generate-json", "validate-localization", "data-governance-scan", "accessibility-scan"],
+      "notes": "Live English pages. Content edits are allowed in-place. Renames/moves/deletes require approval because URLs, hreflang, and SEO can break. Run validation after ANY change."
+    },
+
+    "public/es/**": {
+      "role": "published-site-es",
+      "danger": "high",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "mustRunValidators": ["generate-json", "validate-localization", "data-governance-scan", "accessibility-scan"],
+      "notes": "Live Spanish pages. Must preserve bilingual parity metadata and hreflang mapping. Renames/moves/deletes require approval. Run validation after ANY change."
+    },
+
+    "public/.htaccess": {
+      "role": "apache-config",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Apache server configuration for compression, caching, redirects. Breaking this breaks production. Feature branch required."
+    },
+
+    "public/sitemap.xml": {
+      "role": "generated-sitemap",
+      "danger": "medium",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "Auto-generated by scripts/generate_sitemap.js. Do NOT hand-edit. Regenerate via npm script."
+    },
+
+    "public/robots.txt": {
+      "role": "seo-config",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Search engine directives. Changes affect SEO and crawling. Requires approval."
+    },
+
+    "scripts/**": {
+      "role": "governance-and-build-scripts",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "These scripts enforce parity, accessibility, governance, sitemap, snapshots, Lighthouse, etc. Any change MUST be isolated to a worktree branch and reviewed. Breaking these removes all guardrails."
+    },
+
+    "scripts/crawlee/**": {
+      "role": "content-migration-scripts",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Content migration scripts using Crawlee. Changes affect data integrity and fidelity preservation. Feature branch required."
+    },
+
+    "scripts/localization/**": {
+      "role": "parity-enforcement-scripts",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Enforce bilingual parity and NON-PARITY designations. Breaking these breaks legal/compliance posture."
+    },
+
+    "scripts/pre-commit-check.js": {
+      "role": "git-hook-enforcement",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Enforces project-map.json rules at commit time. Self-protecting: changes require explicit override."
+    },
+
+    "src/data/structured/**": {
+      "role": "typed-data-models",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "TypeScript interfaces that define bilingual structured data. Breaking this breaks the entire application. Feature branch required."
+    },
+
+    "src/i18n/**": {
+      "role": "ui-language-strings",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Controls site-wide English/Spanish UI strings. Edits affect all published copy and hreflang logic. Feature branch required."
+    },
+
+    "src/utils/localization.ts": {
+      "role": "i18n-routing-and-hreflang",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Core URL + language mapping logic. Breaking this breaks all bilingual navigation and SEO. MUST go through review."
+    },
+
+    "src/utils/slugTranslations.ts": {
+      "role": "url-slug-map",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Maps English URLs to Spanish URLs. Breaking this breaks parity links, hreflang, and SEO. MUST go through review."
+    },
+
+    "src/utils/snapshotManager.ts": {
+      "role": "snapshot-utilities",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Manages content snapshots for migration. Changes affect data integrity and evidence preservation."
+    },
+
+    "src/**": {
+      "role": "app-source",
+      "danger": "high",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "React islands, components. Safe to iterate in feature branches. Do NOT delete directories without approval. Content edits allowed, structural changes require review."
+    },
+
+    "storage/**": {
+      "role": "crawler-runtime-cache",
+      "danger": "low",
+      "editAllowedDirect": true,
+      "allowDelete": true,
+      "allowRename": true,
+      "requiresApproval": false,
+      "notes": "Crawlee runtime state. Can be cleared, but ask before wiping entire storage/ directory to avoid losing active crawl state."
+    },
+
+    "templates/**": {
+      "role": "html-base-templates",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Base HTML for parity, accessibility, compliance banners, SEO metadata. Changes affect ALL generated pages. MUST be reviewed. Feature branch required."
+    },
+
+    "package.json": {
+      "role": "dependencies-and-scripts",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Altering deps can break security, licensing, or runtime. Adding scripts is allowed but requires review. Feature branch required."
+    },
+
+    "package-lock.json": {
+      "role": "dependency-lock",
+      "danger": "high",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "Auto-generated by npm. Do NOT hand-edit. Regenerate via npm install."
+    },
+
+    "tsconfig.json": {
+      "role": "typescript-config",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Affects type checking across entire repo. Breaking this breaks compilation. Feature branch required."
+    },
+
+    "vite.config.ts": {
+      "role": "build-config",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Affects bundling, path resolution, performance budgets, React island compilation. Breaking this breaks builds. Feature branch required."
+    },
+
+    ".gitignore": {
+      "role": "git-config-lowrisk",
+      "danger": "low",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "Safe to adjust if new folders appear. Do not delete."
+    },
+
+    "README.md": {
+      "role": "project-overview",
+      "danger": "low",
+      "editAllowedDirect": true,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": false,
+      "notes": "Safe to update description. Do not delete."
+    },
+
+    "project-map.json": {
+      "role": "file-protection-rules",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "THIS FILE. Self-protecting. Changes require explicit human approval and feature branch. AI assistants MUST check this before ANY file operation."
+    },
+
+    ".git/**": {
+      "role": "git-internal",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "Git internals. NEVER touch directly. Use git commands only."
+    },
+
+    ".github/**": {
+      "role": "github-config",
+      "danger": "critical",
+      "editAllowedDirect": false,
+      "allowDelete": false,
+      "allowRename": false,
+      "requiresApproval": true,
+      "notes": "GitHub workflows, CODEOWNERS, issue templates. Changes affect CI/CD and permissions. Feature branch required."
+    }
+  },
+
+  "dangerLevels": {
+    "low": "Safe to edit, move, or delete with minimal risk",
+    "medium": "Edits allowed, but deletion/rename requires caution",
+    "high": "Changes affect production or data integrity; requires approval for destructive actions",
+    "critical": "Changes affect security, compliance, governance, or core architecture; MUST use feature branch and approval"
+  },
+
+  "enforcementRules": {
+    "pre-commit": "scripts/pre-commit-check.js enforces these rules before commit",
+    "pre-push": "GitHub branch protection requires review for danger:critical paths",
+    "ai-assistant": "AI assistants MUST check project-map.json before ANY file operation and ask for approval when requiresApproval:true"
+  }
+}

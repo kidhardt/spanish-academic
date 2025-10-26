@@ -16,19 +16,22 @@ import { join } from 'path';
  * @param url - Source URL of the content
  * @param content - The fetched HTML/text content
  * @param statusCode - HTTP status code from the fetch
+ * @param category - Optional category for organizing snapshots (e.g., 'insights', 'programs')
  * @returns Path to the saved snapshot file
  */
 export function saveSnapshot(
   url: string,
   content: string,
-  statusCode: number
+  statusCode: number,
+  category?: string
 ): string {
   // Generate timestamp in ISO format
   const timestamp = new Date().toISOString();
   const date = timestamp.split('T')[0]; // YYYY-MM-DD
 
-  // Create snapshot directory for this date
-  const snapshotDir = join(process.cwd(), 'data', 'snapshots', `migration-${date}`);
+  // Create snapshot directory for this date (with optional category)
+  const dirName = category ? `migration-${category}-${date}` : `migration-${date}`;
+  const snapshotDir = join(process.cwd(), 'data', 'snapshots', dirName);
   mkdirSync(snapshotDir, { recursive: true });
 
   // Generate filename from URL (sanitize for filesystem)

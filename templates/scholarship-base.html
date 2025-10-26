@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    SEO_INTENT:
+    keyword: [PRIMARY_KEYWORD]
+    audience: academic researchers, scholars
+    content_type: scholarly article (original language)
+    last_reviewed: [YYYY-MM-DD]
+  -->
+
+  <!-- SEO Meta Tags -->
+  <title>[Título del Artículo - 50-60 caracteres]</title>
+  <meta name="description" content="[Meta descripción 140-160 caracteres]">
+
+  <!-- Localization Parity: NON-PARITY (single language - original publication) -->
+  <meta name="localization_parity" content="false">
+  <meta name="parity_reason" content="scholarly-article-original-language">
+  <meta name="page_language" content="es">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://spanishacademic.com/scholarship/[article-slug].html">
+
+  <!-- Hreflang: Self-referential only (no alternate language) -->
+  <link rel="alternate" hreflang="es" href="https://spanishacademic.com/scholarship/[article-slug].html">
+  <link rel="alternate" hreflang="x-default" href="https://spanishacademic.com/scholarship/[article-slug].html">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="[Título del Artículo]">
+  <meta property="og:description" content="[Meta descripción]">
+  <meta property="og:url" content="https://spanishacademic.com/scholarship/[article-slug].html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="[Título del Artículo]">
+  <meta name="twitter:description" content="[Meta descripción]">
+
+  <!-- Schema.org Structured Data: ScholarlyArticle -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "[Título del Artículo]",
+    "author": {
+      "@type": "Person",
+      "name": "[Nombre del Autor]",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "[Universidad o Institución]"
+      }
+    },
+    "datePublished": "[YYYY-MM-DD]",
+    "inLanguage": "es",
+    "about": "[Tema principal del artículo]",
+    "keywords": "[palabra clave 1, palabra clave 2, palabra clave 3]",
+    "abstract": "[Resumen del artículo académico]"
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/scholarship.css">
+</head>
+<body class="scholarship-page">
+
+  <!-- Skip to Content Link (WCAG 2.1 AAA) -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="header-container">
+      <div class="branding">
+        <a href="/" aria-label="Spanish Academic - Inicio">
+          <img src="/assets/images/logo.svg" alt="Spanish Academic" width="150" height="50">
+        </a>
+      </div>
+
+      <!-- Primary Navigation (Spanish) -->
+      <nav role="navigation" aria-label="Navegación principal">
+        <ul class="nav-menu">
+          <li><a href="/spanish-linguistics.html">Lingüística</a></li>
+          <li><a href="/translation-and-interpreting.html">Traducción</a></li>
+          <li><a href="/literature-and-culture.html">Literatura</a></li>
+          <li><a href="/insights/">Artículos</a></li>
+          <li><a href="/help/">Ayuda</a></li>
+          <li><a href="/explorer/">Explorador</a></li>
+          <li><a href="/contact/">Contacto</a></li>
+        </ul>
+
+        <!-- Language Switcher: Only shows English option (no Spanish version of this article) -->
+        <div class="language-switcher">
+          <a href="/" hreflang="en" lang="en" aria-label="Switch to English">
+            <span aria-hidden="true">EN</span>
+            <span class="sr-only">English</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" role="main">
+
+    <!-- Scholarly Article Metadata -->
+    <article class="scholarly-article" itemscope itemtype="https://schema.org/ScholarlyArticle">
+
+      <!-- Article Header -->
+      <header class="article-header">
+        <h1 itemprop="headline">[Título del Artículo Académico]</h1>
+
+        <div class="article-meta">
+          <p class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <strong>Autor:</strong> <span itemprop="name">[Nombre del Autor]</span>
+          </p>
+          <p class="affiliation" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <span itemprop="affiliation" itemscope itemtype="https://schema.org/Organization">
+              <span itemprop="name">[Universidad o Institución]</span>
+            </span>
+          </p>
+          <p class="publication-date">
+            <strong>Fecha de publicación:</strong> <time itemprop="datePublished" datetime="[YYYY-MM-DD]">[DD de Mes de YYYY]</time>
+          </p>
+        </div>
+
+        <!-- Language Notice -->
+        <aside class="language-notice" role="complementary">
+          <p><strong>Idioma original:</strong> Este artículo académico se presenta en español, su idioma de publicación original, para preservar la integridad académica y la citabilidad.</p>
+        </aside>
+      </header>
+
+      <!-- Abstract -->
+      <section class="abstract">
+        <h2>Resumen</h2>
+        <div itemprop="abstract">
+          <p>[Resumen del artículo académico en 150-250 palabras.]</p>
+        </div>
+      </section>
+
+      <!-- Keywords -->
+      <section class="keywords">
+        <p><strong>Palabras clave:</strong> <span itemprop="keywords">[palabra clave 1, palabra clave 2, palabra clave 3]</span></p>
+      </section>
+
+      <!-- Main Article Content -->
+      <div class="article-body" itemprop="articleBody">
+
+        <section>
+          <h2>1. Introducción</h2>
+          <p>[Contenido de la introducción del artículo académico.]</p>
+        </section>
+
+        <section>
+          <h2>2. [Sección del artículo]</h2>
+          <p>[Contenido de la sección.]</p>
+        </section>
+
+        <section>
+          <h2>3. [Otra sección]</h2>
+          <p>[Más contenido académico.]</p>
+        </section>
+
+        <section>
+          <h2>4. Conclusiones</h2>
+          <p>[Conclusiones del artículo.]</p>
+        </section>
+
+      </div>
+
+      <!-- References -->
+      <section class="references">
+        <h2>Referencias</h2>
+        <ol class="reference-list">
+          <li id="ref1">[Referencia bibliográfica 1]</li>
+          <li id="ref2">[Referencia bibliográfica 2]</li>
+          <li id="ref3">[Referencia bibliográfica 3]</li>
+        </ol>
+      </section>
+
+    </article>
+
+    <!-- Related Scholarship -->
+    <aside class="related-resources">
+      <h2>Artículos Relacionados</h2>
+      <ul>
+        <li><a href="/scholarship/[otro-articulo-slug].html">[Título de Artículo Relacionado]</a></li>
+        <li><a href="/scholarship/[otro-articulo-slug].html">[Otro Título Relacionado]</a></li>
+      </ul>
+    </aside>
+
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="footer-container">
+
+      <!-- Footer Navigation (Spanish) -->
+      <nav aria-label="Navegación del pie de página">
+        <div class="footer-section">
+          <h3>Programas de Posgrado</h3>
+          <ul>
+            <li><a href="/spanish-linguistics.html">Lingüística Hispánica</a></li>
+            <li><a href="/translation-and-interpreting.html">Traducción e Interpretación</a></li>
+            <li><a href="/literature-and-culture.html">Literatura y Cultura</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Recursos</h3>
+          <ul>
+            <li><a href="/insights/">Artículos</a></li>
+            <li><a href="/help/">Ayuda y Preguntas</a></li>
+            <li><a href="/explorer/">Explorador de Programas</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Acerca de</h3>
+          <ul>
+            <li><a href="/about.html">Sobre Spanish Academic</a></li>
+            <li><a href="/contact/">Contacto</a></li>
+            <li><a href="/privacy.html">Política de Privacidad</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="footer-legal">
+        <p>&copy; 2025 Spanish Academic. Todos los derechos reservados.</p>
+        <p>Información autorizada sobre programas de posgrado en Lingüística, Literatura y Traducción.</p>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

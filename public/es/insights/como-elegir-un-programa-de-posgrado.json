@@ -1,0 +1,30 @@
+{
+  "language": "es",
+  "path_en": "/insights/how-to-choose-a-graduate-program.html",
+  "path_es": "/es/insights/como-elegir-un-programa-de-posgrado.html",
+  "alternateLanguage": {
+    "lang": "en",
+    "url": "https://spanishacademic.com/insights/how-to-choose-a-graduate-program.html",
+    "title": "[EN version]"
+  },
+  "title": "[Título de la Página - 50-60 caracteres con palabra clave]",
+  "description": "[Meta descripción 140-160 caracteres con variante de palabra clave]",
+  "h1": "[Encabezado de la Página con Palabra Clave Principal]",
+  "canonical": "https://spanishacademic.com/es/insights/como-elegir-un-programa-de-posgrado.html",
+  "hreflangLinks": [
+    {
+      "hreflang": "en",
+      "href": "https://spanishacademic.com/insights/how-to-choose-a-graduate-program.html"
+    },
+    {
+      "hreflang": "es",
+      "href": "https://spanishacademic.com/es/[ruta/a/pagina.html]"
+    },
+    {
+      "hreflang": "x-default",
+      "href": "https://spanishacademic.com/[path/to/page.html]"
+    }
+  ],
+  "seoIntent": null,
+  "generatedAt": "2025-10-26T01:12:17.868Z"
+}

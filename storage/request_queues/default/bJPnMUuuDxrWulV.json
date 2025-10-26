@@ -1,0 +1,9 @@
+{
+	"id": "bJPnMUuuDxrWulV",
+	"json": "{\"id\":\"bJPnMUuuDxrWulV\",\"url\":\"https://spanishacademic.com/literatura/leopoldo-alas-clarin-una-aproximacion-a-su-pensamiento-filosofico-juridico\",\"loadedUrl\":\"https://spanishacademic.com/literatura/leopoldo-alas-clarin-una-aproximacion-a-su-pensamiento-filosofico-juridico\",\"uniqueKey\":\"https://spanishacademic.com/literatura/leopoldo-alas-clarin-una-aproximacion-a-su-pensamiento-filosofico-juridico\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":1,\"errorMessages\":[\"Error: Request blocked - received 403 status code.\\n    at HttpCrawler._throwOnBlockedRequest (m:\\\\VS SpAca\\\\spanish-academic\\\\node_modules\\\\@crawlee\\\\src\\\\internals\\\\basic-crawler.ts:1348:19)\\n    at HttpCrawler._runRequestHandler (m:\\\\VS SpAca\\\\spanish-academic\\\\node_modules\\\\@crawlee\\\\src\\\\internals\\\\http-crawler.ts:543:22)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\\n    at async wrap (m:\\\\VS SpAca\\\\spanish-academic\\\\node_modules\\\\@apify\\\\src\\\\index.ts:77:27)\"],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2025-10-26T01:11:09.302Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 1,
+	"uniqueKey": "https://spanishacademic.com/literatura/leopoldo-alas-clarin-una-aproximacion-a-su-pensamiento-filosofico-juridico",
+	"url": "https://spanishacademic.com/literatura/leopoldo-alas-clarin-una-aproximacion-a-su-pensamiento-filosofico-juridico"
+}
