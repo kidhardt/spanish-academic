@@ -67,7 +67,8 @@
       "Bash(npm run crawlee:generate-scholarship:*)",
       "Bash(npm run validate-project-map:*)",
       "Bash(git log:*)",
-      "Bash(timeout 10 npx astro:*)"
+      "Bash(timeout 10 npx astro:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

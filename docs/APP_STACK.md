@@ -11,7 +11,7 @@ This document provides a comprehensive overview of the technology stack, depende
 ### Core Runtime & Language
 - **Node.js** (>=18.0.0) - JavaScript runtime for build scripts and development server
 - **npm** (>=9.0.0) - Package manager
-- **TypeScript** (5.7.2) - Type-safe language for structured data and React components
+- **TypeScript** (5.9.3) - Type-safe language for structured data and React components
   - Target: ES2020
   - Strict mode enabled
   - Path aliases: `@/*`, `@/components/*`, `@/data/*`, `@/i18n/*`
@@ -26,18 +26,18 @@ This document provides a comprehensive overview of the technology stack, depende
 - **React** (19.2.0) - UI library for interactive islands (Explorer, Chat, Contact)
 - **React DOM** (19.2.0) - React renderer for web
 - **@astrojs/react** (4.4.0) - Astro integration for embedding React components
-- **@tanstack/react-form** (1.0.0) - Type-safe form handling for Contact component
+- **@tanstack/react-form** (1.23.8) - Type-safe form handling for Contact component
 
 ### Build Tools
-- **Vite** (6.0.7) - Ultra-fast development server and production bundler (for React islands)
+- **Vite** (6.4.1) - Ultra-fast development server and production bundler (for React islands)
   - HMR (Hot Module Replacement) for development
   - Tree shaking and code splitting
   - Manual chunk splitting for vendor code
   - Bundle size enforcement (250KB limit)
   - Coexists with Astro (handles React island bundling)
-- **@vitejs/plugin-react** (4.3.4) - Official React plugin for Vite
+- **@vitejs/plugin-react** (4.7.0) - Official React plugin for Vite
 - **Terser** (5.44.0) - JavaScript minifier with console.log removal in production
-- **Rollup Plugin Visualizer** (5.12.0) - Bundle size visualization
+- **Rollup Plugin Visualizer** (5.14.0) - Bundle size visualization
 
 ### Static Site Generation & Automation
 - **Astro Build System** - Primary static site generator
@@ -45,12 +45,12 @@ This document provides a comprehensive overview of the technology stack, depende
   - Handles content collections for structured data
   - Built-in i18n support for bilingual routing
   - Dev server on port 4321 (`npx astro dev`)
-- **Cheerio** (1.0.0) - Server-side HTML parser for build scripts
+- **Cheerio** (1.1.2) - Server-side HTML parser for build scripts
   - Extract metadata from HTML pages
   - Generate JSON twins
   - Validate SEO structure
   - Check accessibility compliance
-- **Glob** (11.0.0) - File pattern matching for build scripts
+- **Glob** (11.0.3) - File pattern matching for build scripts
   - Scan directories for HTML pages
   - Generate sitemaps
   - Build category indexes
@@ -65,24 +65,24 @@ This document provides a comprehensive overview of the technology stack, depende
   - Zero-rewrite policy: Preserves exact HTML structure from source
 
 ### Code Quality & Linting
-- **ESLint** (9.18.0) - JavaScript/TypeScript linter
-- **@typescript-eslint/eslint-plugin** (8.19.1) - TypeScript-specific linting rules
-- **@typescript-eslint/parser** (8.19.1) - TypeScript parser for ESLint
-- **eslint-plugin-react-hooks** (5.1.0) - Enforce React Hooks rules
-- **eslint-plugin-react-refresh** (0.4.16) - Validate React Refresh usage
-- **Prettier** (3.4.2) - Code formatter for consistent style
+- **ESLint** (9.38.0) - JavaScript/TypeScript linter
+- **@typescript-eslint/eslint-plugin** (8.46.2) - TypeScript-specific linting rules
+- **@typescript-eslint/parser** (8.46.2) - TypeScript parser for ESLint
+- **eslint-plugin-react-hooks** (5.2.0) - Enforce React Hooks rules
+- **eslint-plugin-react-refresh** (0.4.24) - Validate React Refresh usage
+- **Prettier** (3.6.2) - Code formatter for consistent style
 
 ### Performance & SEO Auditing
-- **Lighthouse** (12.3.1) - Automated performance, accessibility, SEO audits
+- **Lighthouse** (12.8.2) - Automated performance, accessibility, SEO audits
   - Mobile score enforcement (>90 required)
   - Core Web Vitals monitoring (LCP, FID, CLS)
   - Accessibility compliance validation
   - Pre-deployment gate
 
 ### TypeScript Type Definitions
-- **@types/node** (22.10.5) - Node.js type definitions
-- **@types/react** (18.3.18) - React type definitions
-- **@types/react-dom** (18.3.5) - React DOM type definitions
+- **@types/node** (22.18.12) - Node.js type definitions
+- **@types/react** (19.2.2) - React type definitions (matches React 19)
+- **@types/react-dom** (19.2.2) - React DOM type definitions (matches React 19)
 
 ### Task & Issue Tracking
 - **Beads** - Lightweight issue tracking system
@@ -1361,6 +1361,6 @@ Session resumption via timestamped continuation files:
 
 ---
 
-**Last Updated:** 2025-10-26
-**Version:** 1.1.0
+**Last Updated:** 2025-10-26 (Post-Astro merge version sync)
+**Version:** 1.2.0
 **Maintainer:** Spanish Academic 2026 Team

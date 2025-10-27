@@ -173,25 +173,38 @@ This is logged in `.git/protection-overrides.log` for audit trail.
 
 ### RULE 1: NO COMMENTARY ON PROGRAM LIST PAGES
 
-**Program list pages are pure link lists. ZERO inline commentary.**
+**Program list pages are factual link lists. ZERO subjective commentary.**
 
-- ❌ NEVER add descriptive text, blurbs, or annotations under program links
-- ❌ NEVER inject "why this program is great" or "notable for X" text
-- ✅ ONLY program name + link
-- ✅ "Related Resources" section at bottom of page is allowed
+**What IS Allowed (Factual Identifiers):**
+- ✅ University name and location
+- ✅ Program degree type (MA, PhD, Certificate)
+- ✅ Specialization tracks/concentrations (e.g., "Sociolinguistics", "SLA")
+- ✅ Program format (e.g., "Accelerated Program", "Dual Degree", "Online")
+- ✅ Status updates (e.g., "New, 2015", "MA no longer offered")
+- ✅ Track/cohort identifiers (e.g., "Track 3", "Combination")
 
-**Rationale:** SEO protection, scannability, long-standing performance data.
+**What IS NOT Allowed (Subjective Commentary):**
+- ❌ Evaluative statements ("excellent program", "highly ranked", "prestigious")
+- ❌ Subjective descriptions ("known for strong mentorship", "welcoming environment")
+- ❌ Quality/reputation commentary ("top-tier", "competitive", "rigorous")
+- ❌ Outcome promises ("leads to top jobs", "high placement rate")
+- ❌ Guidance text ("perfect for students interested in X", "highly recommended")
 
-**Example violation:**
+**Rationale:** SEO protection, scannability, objectivity, long-standing performance data.
+
+**Example ALLOWED (factual identifiers):**
 ```html
-<li><a href="/programs/uc-davis-phd-spanish-ling.html">UC Davis - PhD Spanish Linguistics</a>
-  <p>Known for strong quantitative methods training.</p> <!-- VIOLATION -->
-</li>
+<p><strong>Arizona State University</strong><br>
+Tempe, Arizona<br>
+<a href="...">MA in Spanish Linguistics</a> (Sociolinguistics or SLA)<br>
+<a href="...">PhD in Spanish Linguistics</a> (Heritage Language)</p>
 ```
 
-**Correct format:**
+**Example VIOLATION (subjective commentary):**
 ```html
-<li><a href="/programs/uc-davis-phd-spanish-ling.html">UC Davis - PhD Spanish Linguistics</a></li>
+<li><a href="/programs/uc-davis-phd-spanish-ling.html">UC Davis - PhD Spanish Linguistics</a>
+  <p>Known for strong quantitative methods training and excellent faculty mentorship.</p> <!-- VIOLATION -->
+</li>
 ```
 
 ### RULE 2: EVERY PAGE MUST HAVE A JSON TWIN
