@@ -68,7 +68,8 @@
       "Bash(npm run validate-project-map:*)",
       "Bash(git log:*)",
       "Bash(timeout 10 npx astro:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git ls-tree:*)"
     ],
     "deny": [],
     "ask": []
